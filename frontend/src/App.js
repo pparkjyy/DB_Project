@@ -1,3 +1,5 @@
+import './App.css'
+
 import React, { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,13 +12,14 @@ import Stockinfo from './pages/Stockinfo';
 import News from './pages/News';
 import Dis from './pages/Dis';
 
-import './App.css';
 
 const Body = styled.div`
   width: 1300px;
   margin-left: auto;
   margin-right: auto;
 `;
+
+
 
 class App extends Component {
   render() {
