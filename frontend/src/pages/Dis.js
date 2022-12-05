@@ -12,7 +12,6 @@ import {
   CardLink,
 } from "../components/Card";
 import styled from "styled-components";
-import { ProductWrapper, PrintProducts, Title } from "../components/Product";
 import axios from "axios";
 
 const Body = styled.div`
@@ -26,7 +25,7 @@ const Dis = ({ history }) => {
   return (
     <Body style={{}}>
       <CardWrapper>
-        <Title>토론</Title>
+        <h1>토론</h1>
         
       </CardWrapper>
     </Body>
