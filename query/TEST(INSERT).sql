@@ -9,7 +9,7 @@ VALUES
 ('051910', 'LG화학'),
 ('005380', '현대차');
 
-INSERT user(ID, PW, name, age, phone, email, money)
+INSERT user(id, pw, name, age, phone, email, money)
 VALUES
 ('aaaaa', '123aaaaa', '홍길동', '21', '01011111111', 'aaaaa@naver.com', '0'),
 ('bbbbb', '123bbbbb', '최부자', '35', '01022222222', 'bbbbb@naver.com', '0'),
