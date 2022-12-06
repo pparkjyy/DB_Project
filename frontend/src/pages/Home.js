@@ -37,6 +37,13 @@ const Td = styled.td`
 `;
 
 const Home = ({ history }) => {
+  var [risingRate, setRisingRate] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/risingRate")
+      .then(({ data }) => setRisingRate(data));
+  }, []);
+
   var [Data, setData] = useState([]);
   useEffect(() => {
     axios
