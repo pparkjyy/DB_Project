@@ -4,7 +4,7 @@ import { init } from "./config/db.js";
 import test from "./api/test.js";
 
 import login from "./api/User/login.js";
-import register from "./api/User/register.js";
+import register, { id_check } from "./api/User/register.js";
 
 const connection = init();
 const app = express();
@@ -30,6 +30,7 @@ test(app, connection);
 
 login(app, connection);
 register(app, connection);
+id_check(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
