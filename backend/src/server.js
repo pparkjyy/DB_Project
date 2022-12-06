@@ -3,6 +3,8 @@ import cors from "cors";
 import { init } from "./config/db.js";
 import test from "./api/test.js";
 
+import login from "./api/User/login.js";
+
 const connection = init();
 const app = express();
 
@@ -24,6 +26,8 @@ const router = express.Router();
 app.set("port", process.env.PORT || 4000);
 
 test(app, connection);
+
+login(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));

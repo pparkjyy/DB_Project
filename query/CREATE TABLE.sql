@@ -38,12 +38,13 @@ CREATE TABLE STOCK_P(
 
 # 사용자 table
 CREATE TABLE USER(
-	ID varchar(16) NOT NULL PRIMARY KEY,	# id
-    PW varchar(21) NOT NULL,				# 비밀번호
+	id varchar(16) NOT NULL PRIMARY KEY,	# id
+    pw varchar(21) NOT NULL,				# 비밀번호
     name varchar(20) NOT NULL,				# 이름
     age char(50) NOT NULL,					# 나이
     phone varchar(12) NOT NULL UNIQUE,		# 전화번호
     email varchar(20) NOT NULL,				# 이메일
+    ban bool default false,					# 정지 여부
     money int default 0						# 계좌 잔액
 );
 /*
