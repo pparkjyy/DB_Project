@@ -12,6 +12,7 @@ import Stockinfo from './pages/Stockinfo';
 import News from './pages/News';
 import Dis from './pages/Dis';
 import Register from './pages/Register';
+import Notice from './pages/Notice';
 
 
 const Body = styled.div`
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path='/news' element={<News />} />
           <Route path='/dis' element={<Dis />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/notice' element={<Notice />} />
         </Routes>
       </Body>
     );
