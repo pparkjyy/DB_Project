@@ -9,6 +9,8 @@ import {
   CardSelect,
   CardSelectOption,
   CardLink,
+  CardButton,
+  CardButton2
 } from "../components/Card";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -84,7 +86,7 @@ const Nav = ({ history }) => {
   return (
     <Body>
       <CardWrapper
-        style={{ paddingTop: 0, paddingBottom: 0, overflow: "visible" }}
+        style={{ paddingBottom: 15, overflow: "visible" }}
       >
         <CardHeader style={{ paddingTop: 12, paddingBottom: 12 }}>
           <TitleWrapper>
@@ -119,36 +121,47 @@ const Nav = ({ history }) => {
               />
             </CardFieldset>
             {info ? (
-              <TitleWrapper>
+              <TitleWrapper
+                style={{
+                  marginLeft: "130px",
+                }}
+              >
                 {admin ? 
                 <CardBody>관리자님 환영합니다!</CardBody> 
                 : 
                 <CardBody>{info.name} 님 환영합니다!</CardBody>
                 }
 
-                <CardBody className="select"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    logout();
-                    navigate("/");
-                  }}
-                >
-                  <input type="radio" id="logout" name="navButton" />
-                    <label for="logout">로그아웃</label>
-                </CardBody>
-                
+                <CardBody>
+                  <CardButton2
+                    style={{ width: "90px" }}
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      navigate("/");
+                    }}
+                  >
+                    로그아웃
+                  </CardButton2>
+                </CardBody>                
               </TitleWrapper>
             ) : (
-              <TitleWrapper>
-                <CardBody className="select"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    logout();
-                    navigate("/login");
-                  }}
-                >
-                  <input type="radio" id="login" name="navButton" />
-                    <label for="login">로그인 / 회원가입</label>
+              <TitleWrapper
+                style={{
+                  marginLeft: "300px",
+                }}
+              >
+                <CardBody>
+                  <CardButton2
+                    style={{ width: "120px" }}
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      navigate("/login");
+                    }}
+                  >
+                    로그인/회원가입
+                  </CardButton2>
                 </CardBody>
               </TitleWrapper>
             )}
@@ -157,7 +170,8 @@ const Nav = ({ history }) => {
         
           <TitleWrapper
               style={{
-                width: "600px",
+                width: "620px",
+                marginLeft: "140px"
               }}
           >
             <CardBody className="select"
@@ -170,11 +184,6 @@ const Nav = ({ history }) => {
                     <label for="myshop">홈</label>
               </CardBody>
 
-            <TitleWrapper
-              style={{
-                width: "500px",
-              }}
-            >
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -218,6 +227,15 @@ const Nav = ({ history }) => {
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
+                    <div>{navigate("/notice")}</div>
+                }}
+              >
+                <input type="radio" id="notice" name="navButton" />
+                    <label for="notice">공지사항</label>
+              </CardBody>
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
                   info ? (
                     <div>{navigate("mypage")}</div>
                   ) : (
@@ -233,10 +251,7 @@ const Nav = ({ history }) => {
               >
                 <input type="radio" id="pay" name="navButton" />
                     <label for="pay">MY</label>
-              </CardBody>
-                
-            </TitleWrapper>
-            
+              </CardBody>      
 
           </TitleWrapper>
         

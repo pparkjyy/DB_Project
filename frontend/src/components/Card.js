@@ -111,6 +111,22 @@ export const CardButton = styled.button`
     transform: translate(0, -5px);
   }
 `;
+
+export const CardButton2 = styled.button`
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #033a7a;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: 0;
+`;
+
 export const CardButtonNoHover = styled.button`
   display: block;
   width: 100%;
