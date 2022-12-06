@@ -5,6 +5,7 @@ import test from "./api/test.js";
 
 import login from "./api/User/login.js";
 import register, { id_check } from "./api/User/register.js";
+import risingRate from "./api/stock/risingRate.js";
 
 const connection = init();
 const app = express();
@@ -31,6 +32,7 @@ test(app, connection);
 login(app, connection);
 register(app, connection);
 id_check(app, connection);
+risingRate(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
