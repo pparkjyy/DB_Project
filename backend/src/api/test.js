@@ -9,7 +9,7 @@ export default async (app, connection) => {
         // for(var data of datas){
         //   dataList.push(data)
         // }
-        console.log(data);
+        //console.log(data);
         return res.send(data);
       }
     );
