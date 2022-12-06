@@ -14,7 +14,7 @@ export const id_check = (app, connection) => {
   app.post("/idCheck", (req, res, next) => {
     const { id } = req.body;
     connection.query(
-      "SELECT * FROM users WHERE id = ?",
+      "SELECT * FROM user WHERE id = ?",
       [id],
       async (error, data) => {
         console.log('check')
@@ -34,7 +34,7 @@ export default (app, connection) => {
   app.post("/register", (req, res, next) => {
     const { id, pw, name, phone, email, age } = req.body;
     connection.query(
-      "INSERT into users(id, pw, username, phone, email, age) values(?,?,?,?,?,?)",
+      "INSERT into user(id, pw, name, phone, email, age) values(?,?,?,?,?,?)",
       [id, pw, name, phone, email, age],
       (error, data) => {
         if (error) {
