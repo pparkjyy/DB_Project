@@ -103,7 +103,7 @@ const Nav = ({ history }) => {
                 navigate("/");
               }}
             >
-              <div className="title">로고</div>
+              <div className="title">stockmarket</div>
               <div className="select" style={{marginTop: '-35px', height: '31px', width: '115px'}}><input type="radio" id="logo" name="navButton" />
                     <label for="logo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
             </CardHeading>

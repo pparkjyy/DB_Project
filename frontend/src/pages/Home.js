@@ -108,14 +108,10 @@ const Home = ({ history }) => {
   return (
     <Body style={{}}>
       <CardWrapper>
-        {/* <h1>메인 페이지</h1>
-        <div>에서 DB 연결 테스트</div>
-        <div>코드는 backend/src/api/test.js 랑</div>
-        <div>backend/src/server.js 에서 확인 가능</div>
-        <h2>아래는 데이터 테스트임.</h2>
+        
         <table style={{ width: '80%', borderCollapse: 'collapse', margin: 'auto' }}>
           <TitleTr>
-            <Td>ID</Td>
+            <Td>Id</Td>
             <Td>PW</Td>
             <Td>name</Td>
             <Td>age</Td>
@@ -124,8 +120,8 @@ const Home = ({ history }) => {
             <Td>money</Td>
           </TitleTr>
           {printData(Data)}
-        </table> */}
-
+        </table> 
+        
         <Title>오늘의 뉴스</Title>
         <NewsWrapper>
           <div>

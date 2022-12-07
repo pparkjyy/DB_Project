@@ -12,7 +12,10 @@ import {
   CardLink,
 } from "../components/Card";
 import styled from "styled-components";
+import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { Printoption } from "../components/print";
 
 const Body = styled.div`
   display: flex;
@@ -22,7 +25,33 @@ const Body = styled.div`
 `;
 
 const MyPage = ({ history }) => {
-  
+  const info = getInfoFromCookie();
+  const token = getTokenFromCookie();
+  const navigate = useNavigate();
+  var [usermoney, setusermoney] = useState([]);
+  var [useracc, setuseracc] = useState([]);
+  var [userstock, setuserstock] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getuserdata", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setusermoney(data[0]));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getbankacc", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setuseracc(data));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getstockdata", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setuserstock(data));
+  }, []);
   return (
     <Body style={{}}>
       <CardWrapper style={{display: "flex"}}>
@@ -53,14 +82,11 @@ const MyPage = ({ history }) => {
                 flex:"1",
                 textAlign:"center",
               }}>계좌</h3>
-              <select style={{
+              <select value={useracc} style={{
                 flex:'4',
               }}>
-              <option>국민 234-2324-32423 홍길동</option>
-              <option>--------123</option>
-              <option>weqwe</option>
+                
             </select>
-            <button style={{flex:"1", marginLeft: "30px",}}>계좌연동</button>
             </div>
             
             <div
@@ -82,7 +108,7 @@ const MyPage = ({ history }) => {
                 flex:"1",
                 marginLeft: '10px'
               }}>추정자산</h4>
-            <p style={{flex:"1", marginLeft: "20%",}}>10000000 ( 30 % )</p>
+            <p style={{flex:"1", marginLeft: "20%",}}>{usermoney.money}( 30 % )</p>
             </div>
             <div 
             style={{
@@ -91,6 +117,7 @@ const MyPage = ({ history }) => {
               alignItems: "center",
               borderTop: "1px solid #000",
             }}>
+              
             </div>
             <div 
             style={{
