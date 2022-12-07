@@ -11,6 +11,15 @@ export const CardWrapper = styled.div`
   border-radius: 20px;
 `;
 
+export const ChartWrapper = styled.div`
+  overflow: hidden;
+  padding: 0 0 32px;
+  width: 70%;
+  height: 80%;
+  font-family: Quicksand, arial, sans-serif;
+  border-radius: 20px;
+`;
+
 export const CardHeader = styled.header`
   padding-top: 32px;
   padding-bottom: 32px;
