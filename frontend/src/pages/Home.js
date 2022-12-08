@@ -70,7 +70,7 @@ const Number = styled.div`
   float: left;
 `
 const RankName = styled.div`
-  width: 20%;
+  width: 36%;
   padding-left: 10px;
   padding-bottom: 10px;
   text-align: left;
@@ -78,7 +78,7 @@ const RankName = styled.div`
   font-size: 20px;
 `
 const Info = styled.div`
-  width: 24%;
+  width: 18%;
   padding-bottom: 10px;
   padding-top: 4px;
   text-align: right;
@@ -109,27 +109,44 @@ const Home = ({ history }) => {
       .then(({ data }) => setRisingRate(data));
   }, []);
 
-  var [Data, setData] = useState([]);
+  var [fallingRate, setFallingRate] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/test")
-      .then(({ data }) => setData(data));
+      .get("http://localhost:4000/fallingRate")
+      .then(({ data }) => setFallingRate(data));
   }, []);
 
-  function printData(Data){
+  var [volume, setVolume] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/volume")
+      .then(({ data }) => setVolume(data));
+  }, []);
+
+  var [marketCap, setMarketCap] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/marketCap")
+      .then(({ data }) => setMarketCap(data));
+  }, []);
+
+  function printRanking(Data){
     let array = [];
     for(let i = 0; i< Data.length; i++){
-      array.push(
-        <Tr>
-          <Td>{Data[i].ID}</Td>
-          <Td>{Data[i].PW}</Td>
-          <Td>{Data[i].name}</Td>
-          <Td>{Data[i].age}</Td>
-          <Td>{Data[i].phone}</Td>
-          <Td>{Data[i].email}</Td>
-          <Td>{Data[i].money}</Td>
-        </Tr>
-      )
+      let price = Data[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      let difference = Data[i].difference.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      if(Data[i].difference > 0)
+        array.push(
+          <div><Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info style={{color:'red'}}>+{difference}</Info><Info style={{color:'red'}}>+{Data[i].rate.toFixed(2)}%</Info></div>
+        )
+      else if(Data[i].difference < 0)
+        array.push(
+          <div><Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info >{price}</Info><Info style={{color:'blue'}}>{difference}</Info><Info style={{color:'blue'}}>{Data[i].rate.toFixed(2)}%</Info></div>
+        )
+      else
+        array.push(
+          <div><Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info>-</Info><Info>0.00%</Info></div>
+        )
     }
     return array
   }
@@ -137,7 +154,7 @@ const Home = ({ history }) => {
   return (
     <Body style={{}}>
       <CardWrapper>
-        
+{/*         
         <table style={{ width: '80%', borderCollapse: 'collapse', margin: 'auto' }}>
           <TitleTr>
             <Td>Id</Td>
@@ -149,7 +166,7 @@ const Home = ({ history }) => {
             <Td>money</Td>
           </TitleTr>
           {printData(Data)}
-        </table> 
+        </table>  */}
         
         <Title>오늘의 뉴스</Title>
         <NewsWrapper>
@@ -171,56 +188,21 @@ const Home = ({ history }) => {
         </NewsWrapper><hr style={{ borderTop: '0.5px #c8c8c8', width: '87%' }}/>
 
         <Ranking>
-          <RankTitle>상승률 상위</RankTitle><hr style={{ borderTop: '0.5px #c8c8c8' }}/>
-            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+          <RankTitle>상승률 상위</RankTitle>
+          <hr style={{ borderTop: '0.5px #c8c8c8' }}/>
+          {printRanking(risingRate)}
         </Ranking>
         <Ranking>
           <RankTitle>하락률 상위</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
-            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+          {printRanking(fallingRate)}
         </Ranking>
         <Ranking>
-          <RankTitle>거래량</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
-            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+          <RankTitle>거래량 상위</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+          {printRanking(volume)}
         </Ranking>
         <Ranking>
-          <RankTitle>시가총액</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
-            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
-            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
-            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+          <RankTitle>시가총액 상위</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+          {printRanking(marketCap)}
         </Ranking>
       </CardWrapper>
     </Body>
