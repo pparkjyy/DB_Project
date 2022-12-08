@@ -61,6 +61,16 @@ const MyPage = ({ history }) => {
       .then(({ data }) => setuseracc(data));
   }, []);
   console.log(useracc);
+
+  function selectOption(data){
+    let array = [];
+    for(let i = 0; i< data.length; i++){
+      array.push(
+        <option value={data[i].A_num}>{data[i].A_num}</option>
+      )
+    }
+    return array
+  }
   return (
     <Body style={{}}>
       <CardWrapper style={{display: "flex"}}>
@@ -91,13 +101,16 @@ const MyPage = ({ history }) => {
                 flex:"1",
                 textAlign:"center",
               }}>계좌</h3>
-              <select value={useracc} style={{
+              {/* <select value={useracc} style={{
                 flex:'4',
               }}>
                 {useracc.map(useracc=>(
                   <option>{useracc.a_num}</option>
                 ))}
                 
+            </select> */}
+            <select style={{flex:'4'}}>
+              {selectOption(useracc)}
             </select>
             </div>
             
