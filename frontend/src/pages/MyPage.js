@@ -52,14 +52,14 @@ const MyPage = ({ history }) => {
       .get("http://localhost:4000/usermoneydata", {
         headers: { token: token },
       })
-      .then(({ data }) => setusermoney(data));
+      .then(({ data }) => setusermoney(data[0]));
   }, []);
   useEffect(() => {
     axios
       .get("http://localhost:4000/usermoneypercent", {
         headers: { token: token },
       })
-      .then(({ data }) => setusermoneyp(data));
+      .then(({ data }) => setusermoneyp(data[0]));
   }, []);
   useEffect(() => {
     axios
@@ -71,22 +71,18 @@ const MyPage = ({ history }) => {
   
   function printusermoney(data,list){
     let array=[];
-    for(let i =0; i<data.length; i++){
-      
-      if(list[i].총평가손익 > 0)
+      if(list.총평가손익 > 0)
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'red',fontSize: "20px", fontWeight: "800"}}>{data[i].총평가금액}( {list[i].총평가손익} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'red',fontSize: "20px", fontWeight: "800"}}>{data.총평가금액}( {list.총평가손익} %)</CardHeader>
         )
-      else if(list[i].총평가손익 < 0)
+      else if(list.총평가손익 < 0)
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{data[i].총평가금액}( {list[i].총평가손익} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{data.총평가금액}( {list.총평가손익} %)</CardHeader>
         )
       else
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",fontSize: "20px", fontWeight: "800"}}>{data[i].총평가금액}( {list[i].총평가손익} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",fontSize: "20px", fontWeight: "800"}}>{data.총평가금액}( {list.총평가손익} %)</CardHeader>
         )
-        
-    }
     return array
   }
   
@@ -99,14 +95,8 @@ const MyPage = ({ history }) => {
     }
     return array
   }
-  function printmdata(data){
-    
-    <div style={{borderStyle: "solid", borderWidth: "3px", display: 'flex', padding: "4px"}}>              
-    <div style={{marginTop: "40px",marginLeft:"40px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총매입금액}</div>
-    <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].당일실현손익}</div>
-    <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총평가금액}</div>
-    </div>
-  }
+
+  console.log(usermoneyp)
   return (
     <Body style={{}}>
       <CardWrapper style={{display: "flex"}}>
@@ -149,9 +139,9 @@ const MyPage = ({ history }) => {
                     
               <div style={{width: "80%", margin: '20px 100px'}}>
               <div style={{borderStyle: "solid", borderWidth: "3px", display: 'flex', padding: "4px"}}>  
-                <div style={{marginTop: "40px",marginLeft:"40px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총매입금액}</div>
-                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].당일실현손익}</div>
-                <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총평가금액}</div>
+                <div style={{marginTop: "40px",marginLeft:"40px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney.총매입금액}</div>
+                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney.당일실현손익}</div>
+                <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney.총평가금액}</div>
                 </div>
               </div>
             </CardWrapper>
