@@ -37,9 +37,9 @@ const Chart = ({history}) => {
         <ResponsiveContainer>
           <ComposedChart
             width={600}
-            height={400}
+            height={300}
             data={usageStatus}
-            margin={{ top: 40, right: 40, bottom: 30, left: 40 }}
+            margin={{ top: 0, bottom: 0, left: 40 }}
           >
             <CartesianGrid stroke="#f5f5f5" />
             <XAxis dataKey="date" />
