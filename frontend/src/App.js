@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Nav from './pages/Nav';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import AdminLogin from './pages/AdminLogin';
 import Search from './pages/Search';
 import MyPage from './pages/MyPage';
 import Stockinfo from './pages/Stockinfo';
@@ -31,6 +32,7 @@ class App extends Component {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/adminlogin' element={<AdminLogin />} />
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/search' element={<Search />} />
           <Route path='/stockinfo' element={<Stockinfo />} />
