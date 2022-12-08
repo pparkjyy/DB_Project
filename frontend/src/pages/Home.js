@@ -20,27 +20,17 @@ const Body = styled.div`
   justify-content: "center";
   width: 100%;
 `;
-const Ranking = styled.div`
-  width: 40%;
-  height: 500px;
-  padding-top: 100px;
-  padding-left: 64px;
-  float: left;
-`
-const RankTitle = styled.div`
-  align-items: center;
-`
 const Title = styled.div`
   padding-top: 48px;
   padding-bottom: 30px;
-  padding-left: 64px;
-  font-size: 35px;
-  font-weight: bold;
+  padding-left: 90px;
+  font-size: 30px;
+  font-weight: 600;
 `;
 const NewsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 65px;
+  padding-left: 90px;
   align-items: left;
   justify-content: left;
 `;
@@ -57,6 +47,44 @@ const NewsOffice = styled.div`
   padding-left: 50px;
   padding-top: 3px;
 `;
+const Ranking = styled.div`
+  width: 40%;
+  height: 420px;
+  padding-top: 80px;
+  padding-left: 90px;
+  float: left;
+  align-items: center;
+  text-align: center;
+`
+const RankTitle = styled.div`
+  text-align: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 600;
+`
+const Number = styled.div`
+  width: 5%;
+  padding-bottom: 10px;
+  padding-top: 4px;
+  font-size: 20px;
+  float: left;
+`
+const RankName = styled.div`
+  width: 20%;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  text-align: left;
+  float: left;
+  font-size: 20px;
+`
+const Info = styled.div`
+  width: 24%;
+  padding-bottom: 10px;
+  padding-top: 4px;
+  text-align: right;
+  float: left;
+  font-size: 20px;
+`
 const Tr = styled.tr`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -105,6 +133,7 @@ const Home = ({ history }) => {
     }
     return array
   }
+
   return (
     <Body style={{}}>
       <CardWrapper>
@@ -139,59 +168,59 @@ const Home = ({ history }) => {
           <div>
             <NewsTitle>[시황] 코스피, 외인 매도에 2260대 마감</NewsTitle><NewsOffice>데일리안</NewsOffice>
           </div>
-        </NewsWrapper>
+        </NewsWrapper><hr style={{ borderTop: '0.5px #c8c8c8', width: '87%' }}/>
 
         <Ranking>
-          <RankTitle>상승률 상위</RankTitle>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
+          <RankTitle>상승률 상위</RankTitle><hr style={{ borderTop: '0.5px #c8c8c8' }}/>
+            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
         </Ranking>
         <Ranking>
-          <RankTitle>하락률 상위</RankTitle>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
+          <RankTitle>하락률 상위</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
         </Ranking>
         <Ranking>
-          <RankTitle>거래량</RankTitle>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
+          <RankTitle>거래량</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
         </Ranking>
         <Ranking>
-          <RankTitle>시가총액</RankTitle>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
-            <div>1. 이수화학 25,200 5,800 +29.90%</div>
+          <RankTitle>시가총액</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <Number>1.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>2.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>3.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>4.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>5.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>6.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>7.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>8.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
+            <Number>9.</Number><RankName>이수화학</RankName><Info>25,200</Info><Info>5,800</Info><Info>+29.90%</Info>
+            <Number>10.</Number><RankName>이수화학</RankName><Info>125,200</Info><Info>800</Info><Info>+1.90%</Info>
         </Ranking>
       </CardWrapper>
     </Body>
