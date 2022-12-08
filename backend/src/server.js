@@ -9,6 +9,8 @@ import register, { id_check } from "./api/User/register.js";
 import risingRate from "./api/stock/risingRate.js";
 import getbankacc from "./api/User/getbankacc.js";
 import getstockdata from "./api/User/getstockdata.js";
+import allstockdata from "./api/Stock/allstockdata.js";
+import allstockprice from "./api/Stock/allstockprice.js";
 
 const connection = init();
 const app = express();
@@ -39,6 +41,8 @@ risingRate(app, connection);
 getbankacc(app, connection);
 getuserdata(app, connection);
 getstockdata(app, connection);
+allstockdata(app, connection);
+allstockprice(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
