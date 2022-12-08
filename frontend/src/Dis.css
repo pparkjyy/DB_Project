@@ -1,0 +1,44 @@
+.Dis_num{
+    position:relative;
+    top: 0px;
+    left: 80px;
+}
+
+.Title{
+    position: relative;
+    left: 460px;
+}
+
+.ID{
+    position: relative;
+    left: 900px;
+}
+
+.View_num {
+    position: relative;
+    left: 1050px;
+}
+
+.listIdx {
+    position: relative;
+    top:40px;
+    left:-45px;
+}
+
+.listTitle {
+    position: relative;
+    top: 40px;
+    left: 320px;
+}
+
+.listID {
+    position: relative;
+    top: 40px;
+    left: 630px;
+}
+
+.listNum {
+    position: relative;
+    top: 40px;
+    left: 760px;
+}

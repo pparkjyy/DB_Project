@@ -2,8 +2,9 @@ import express, { application } from "express";
 import cors from "cors";
 import { init } from "./config/db.js";
 import test from "./api/test.js";
-
+import dis from "./api/User/dis.js";
 import login from "./api/User/login.js";
+
 import getuserdata from "./api/User/getuserdata.js";
 import register, { id_check } from "./api/User/register.js";
 import risingRate from "./api/stock/risingRate.js";
@@ -39,6 +40,7 @@ login(app, connection);
 register(app, connection);
 id_check(app, connection);
 risingRate(app, connection);
+dis(app, connection);
 getbankacc(app, connection);
 getuserdata(app, connection);
 getstockdata(app, connection);
