@@ -15,7 +15,7 @@ import styled from "styled-components";
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { Printoption,printUstock } from "../components/print";
+import { Print,Printoption,printUstock } from "../components/print";
 
 const Body = styled.div`
   display: flex;
@@ -45,7 +45,6 @@ const MyPage = ({ history }) => {
   const navigate = useNavigate();
   var [usermoney, setusermoney] = useState([]);
   var [useracc, setuseracc] = useState([]);
-  var [userstock, setuserstock] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:4000/getuserdata", {
@@ -61,13 +60,6 @@ const MyPage = ({ history }) => {
       .then(({ data }) => setuseracc(data));
   }, []);
   console.log(useracc);
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/getstockdata", {
-        headers: { token: token },
-      })
-      .then(({ data }) => setuserstock(data));
-  }, []);
   return (
     <Body style={{}}>
       <CardWrapper style={{display: "flex"}}>
@@ -149,14 +141,11 @@ const MyPage = ({ history }) => {
             </div>
             
             </div>
-            <table style={{ width: '80%', borderCollapse: 'collapse', margin: 'auto' }}>
-              <TitleTr>
-                <Td>이름</Td>
-                <Td>가격</Td>
-              </TitleTr>
-              {printUstock(userstock)}
-            </table> 
-
+            <CardWrapper>
+              <Print></Print>  
+            </CardWrapper>
+            
+           
             <div
               style={{
                 marginTop: '30px',
