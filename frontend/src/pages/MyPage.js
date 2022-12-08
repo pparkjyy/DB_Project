@@ -15,7 +15,8 @@ import styled from "styled-components";
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { Print,Printoption,printUstock } from "../components/print";
+import { Print } from "../components/print";
+import { Printu } from "../components/printu";
 
 const Body = styled.div`
   display: flex;
@@ -142,18 +143,15 @@ const MyPage = ({ history }) => {
             
             </div>
             <CardWrapper>
+              <h2>보유주식</h2>
               <Print></Print>  
+            </CardWrapper>
+            <CardWrapper>
+              <h2>관심종목</h2>
+              <Printu/>
             </CardWrapper>
             
            
-            <div
-              style={{
-                marginTop: '30px',
-                width: "600px",
-                height: "250px",
-                border:"2px solid #000",
-              }}
-            ></div>
           </div>
       </div>
       <div style={{

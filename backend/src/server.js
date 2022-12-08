@@ -12,6 +12,7 @@ import getstockdata from "./api/User/getstockdata.js";
 import allstockdata from "./api/Stock/allstockdata.js";
 import allstockprice from "./api/Stock/allstockprice.js";
 import calculatestock from "./api/User/calculatestock.js";
+import favoritestock from "./api/User/favoritestock.js";
 
 const connection = init();
 const app = express();
@@ -45,6 +46,7 @@ getstockdata(app, connection);
 allstockdata(app, connection);
 allstockprice(app, connection);
 calculatestock(app, connection);
+favoritestock(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
