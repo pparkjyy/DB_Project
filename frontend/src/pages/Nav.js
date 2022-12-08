@@ -189,7 +189,7 @@ const Nav = ({ history }) => {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                 
-                    <div>{navigate("/stockinfo")}</div>
+                    <div>{navigate("/stockinfo", { state: { code: '005930' }})}</div>
                 
                 }}
               >

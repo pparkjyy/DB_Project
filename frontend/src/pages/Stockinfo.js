@@ -56,7 +56,9 @@ const Stockinfo = ({history}) => {
   const stockcode = navigateState && navigateState.code;
 
   var [stockInfo, setStockInfo] = useState([]);
-  
+  var [companyInfo, setCompanyInfo] = useState([]);
+  var [shareholderInfo, setShareholderInfo] = useState([]);
+
   useEffect((e) => {
     axios
       .get("http://localhost:4000/getStockInfo", {
@@ -65,14 +67,42 @@ const Stockinfo = ({history}) => {
       .then(({ data }) => setStockInfo(data[0]));
   }, []);
 
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getCompanyInfo", {
+        params: { stockcode: stockcode },
+      })
+      .then(({ data }) => setCompanyInfo(data[0]));
+  }, []);
+
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getShareholderInfo", {
+        params: { stockcode: stockcode },
+      })
+      .then(({ data }) => setShareholderInfo(data));
+  }, []);
+
   function addComma (data){
     if(data)
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
+  function printShareholder (data){
+    let array = [];
+    for(let i=0; i< data.length; i++){
+      array.push(
+      <Tr>
+        <Td>{data[i].stock_owner}</Td>
+        <Td>{addComma(data[i].stock_num)}</Td>
+        <Td>{data[i].stock_p}</Td>
+      </Tr>
+      )
+    }
+    return array;
+  }
   const [usageStatus, setUsageStatus] = useState([]);
-  
-    useEffect(() => {
+      useEffect(() => {
       axios.get('../DATA/'+stockcode+',2021.json')
         .then((res) => {
         const dataTemp = res.data&&res.data.map((data) => {
@@ -87,6 +117,7 @@ const Stockinfo = ({history}) => {
     }, [history]);
 
   console.log(stockInfo);
+  console.log(companyInfo);
   return (
     <Body style={{}}>
       <CardWrapper>
@@ -125,7 +156,7 @@ const Stockinfo = ({history}) => {
         <div>
         <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>기업소개</CardHeader>
         <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
-        한국 및 DX부문 해외 9개 지역총괄과 DS부문 해외 5개 지역총괄, SDC, Harman 등 233개의 종속기업으로 구성된 글로벌 전자기업임.
+        {companyInfo.company_info}
         </CardWrapper>
         </div>
 
@@ -138,29 +169,15 @@ const Stockinfo = ({history}) => {
             <Td>소유주식수(주)</Td>
             <Td>지분율</Td>
           </TitleTr>
-          <Tr>
-            <Td>삼성생명보험 외 15인</Td>
-            <Td>1,241,176,035</Td>
-            <Td>20.79</Td>
-          </Tr>
-          <Tr>
-            <Td>국민연금공단</Td>
-            <Td>458,637,667</Td>
-            <Td>7.68</Td>
-          </Tr>
-          <Tr>
-            <Td>BlackRock Fund Advisors 외 15인</Td>
-            <Td>300,391,061</Td>
-            <Td>5.03</Td>
-          </Tr>
+          {printShareholder(shareholderInfo)}
         </table>
         </CardWrapper>
         </div>
         
         <div>
-        <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실</CardHeader>
+        <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실-- 여기는 아직 미완성</CardHeader>
         <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
-        이 종목 지금 사는게 좋을까요 ? [1]
+        이 종목 지금 사는게 좋을까요 ? [1] -- 여기는 아직 미완성
         </CardWrapper>
         </div>
 
