@@ -10,6 +10,7 @@ import AdminLogin from './pages/AdminLogin';
 import Search from './pages/Search';
 import MyPage from './pages/MyPage';
 import Stockinfo from './pages/Stockinfo';
+import AddStock from './pages/AddStock';
 import News from './pages/News';
 import Dis from './pages/Dis';
 import Register from './pages/Register';
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/search' element={<Search />} />
           <Route path='/stockinfo' element={<Stockinfo />} />
+          <Route path='/addstock' element={<AddStock />} />
           <Route path='/news' element={<News />} />
           <Route path='/dis' element={<Dis />} />
           <Route path='/register' element={<Register />} />
