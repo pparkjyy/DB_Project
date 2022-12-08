@@ -31,15 +31,20 @@ export const Printu = ({ history }) => {
     }, []);
 
     function printfstock(list){
+        console.log(list);
       let array = [];
       for(let i = 0; i< list.length; i++){
+        if(list[i].전일대비비율 > 0)
         array.push(
-          <Tr>
-            <Td>{list[i].stock_name}</Td>
-            <Td>{list[i].n_price}</Td>
-            <Td>{list[i].전일대비비율}</Td>
-            <Td>{list[i].price_count}</Td>
-          </Tr>
+            <Tr><Td>{list[i].stock_name}</Td><Td>{list[i].n_price}</Td><Td style={{color:'red'}}>{list[i].전일대비비율}</Td><Td>{list[i].price_count}</Td></Tr>
+        )
+        else if(list[i].전일대비비율 < 0)
+          array.push(
+            <Tr><Td>{list[i].stock_name}</Td><Td>{list[i].n_price}</Td><Td style={{color:'blue'}}>{list[i].전일대비비율}</Td><Td>{list[i].price_count}</Td></Tr>
+        )
+        else
+          array.push(
+            <Tr><Td>{list[i].stock_name}</Td><Td>{list[i].n_price}</Td><Td>{list[i].전일대비비율}</Td><Td>{list[i].price_count}</Td></Tr>
         )
       }
       return array
