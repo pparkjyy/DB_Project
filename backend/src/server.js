@@ -18,7 +18,7 @@ import calculatestock from "./api/User/calculatestock.js";
 import favoritestock from "./api/User/favoritestock.js";
 import usermoneydata from "./api/User/usermoneydata.js";
 import usermoneypercent from "./api/User/usermoneypercent.js";
-import getbankacc from "./api/User/getbankacc.js";
+
 const connection = init();
 const app = express();
 
