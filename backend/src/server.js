@@ -5,20 +5,16 @@ import test from "./api/test.js";
 import dis from "./api/User/dis.js";
 import login from "./api/User/login.js";
 import adminLogin from "./api/Admin/adminLogin.js";
-import getuserdata from "./api/User/getuserdata.js";
 import register, { id_check } from "./api/User/register.js";
 import risingRate from "./api/stock/risingRate.js";
 import fallingRate from "./api/stock/fallingRate.js";
 import volume from "./api/Stock/volume.js";
 import marketCap from "./api/Stock/marketCap.js";
-import getStockInfo from "./api/Stock/getStockInfo.js";
-import getbankacc from "./api/User/getbankacc.js";
-import getstockdata from "./api/User/getstockdata.js";
-import allstockdata from "./api/Stock/allstockdata.js";
-import allstockprice from "./api/Stock/allstockprice.js";
 import calculatestock from "./api/User/calculatestock.js";
 import favoritestock from "./api/User/favoritestock.js";
-
+import usermoneydata from "./api/User/usermoneydata.js";
+import usermoneypercent from "./api/User/usermoneypercent.js";
+import getbankacc from "./api/User/getbankacc.js";
 const connection = init();
 const app = express();
 
@@ -40,7 +36,6 @@ const router = express.Router();
 app.set("port", process.env.PORT || 4000);
 
 test(app, connection);
-getuserdata(app, connection);
 login(app, connection);
 adminLogin(app, connection);
 register(app, connection);
@@ -50,14 +45,11 @@ fallingRate(app, connection);
 volume(app, connection);
 marketCap(app, connection);
 dis(app, connection);
-getbankacc(app, connection);
-getuserdata(app, connection);
-getstockdata(app, connection);
-getStockInfo(app,connection);
-allstockdata(app, connection);
-allstockprice(app, connection);
 calculatestock(app, connection);
 favoritestock(app, connection);
+usermoneydata(app, connection);
+usermoneypercent(app, connection);
+getbankacc(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
