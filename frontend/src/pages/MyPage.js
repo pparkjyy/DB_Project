@@ -12,7 +12,10 @@ import {
   CardLink,
 } from "../components/Card";
 import styled from "styled-components";
+import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { Print,Printoption,printUstock } from "../components/print";
 
 const Body = styled.div`
   display: flex;
@@ -20,9 +23,43 @@ const Body = styled.div`
   justify-content: "center";
   width: 100%;
 `;
+const Tr = styled.tr`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  &:nth-child(odd){background-color: #e6f1ff;}
+  &:nth-child(even) { background-color: #f0f7ff; }
+  &:hover { background-color: #ffc5c2; cursor: pointer; }
+`;
+const TitleTr = styled.tr`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+`;
+const Td = styled.td`
+  padding: 4px 20px;
+  font-weight: 700;
+`;
 
 const MyPage = ({ history }) => {
-  
+  const info = getInfoFromCookie();
+  const token = getTokenFromCookie();
+  const navigate = useNavigate();
+  var [usermoney, setusermoney] = useState([]);
+  var [useracc, setuseracc] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getuserdata", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setusermoney(data[0]));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getbankacc", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setuseracc(data));
+  }, []);
+  console.log(useracc);
   return (
     <Body style={{}}>
       <CardWrapper style={{display: "flex"}}>
@@ -53,14 +90,14 @@ const MyPage = ({ history }) => {
                 flex:"1",
                 textAlign:"center",
               }}>계좌</h3>
-              <select style={{
+              <select value={useracc} style={{
                 flex:'4',
               }}>
-              <option>국민 234-2324-32423 홍길동</option>
-              <option>--------123</option>
-              <option>weqwe</option>
+                {useracc.map(useracc=>(
+                  <option>{useracc.a_num}</option>
+                ))}
+                
             </select>
-            <button style={{flex:"1", marginLeft: "30px",}}>계좌연동</button>
             </div>
             
             <div
@@ -82,7 +119,7 @@ const MyPage = ({ history }) => {
                 flex:"1",
                 marginLeft: '10px'
               }}>추정자산</h4>
-            <p style={{flex:"1", marginLeft: "20%",}}>10000000 ( 30 % )</p>
+            <p style={{flex:"1", marginLeft: "20%",}}>{usermoney.money}( 30 % )</p>
             </div>
             <div 
             style={{
@@ -91,6 +128,7 @@ const MyPage = ({ history }) => {
               alignItems: "center",
               borderTop: "1px solid #000",
             }}>
+              
             </div>
             <div 
             style={{
@@ -103,15 +141,11 @@ const MyPage = ({ history }) => {
             </div>
             
             </div>
-
-            <div
-              style={{
-                marginTop: '30px',
-                width: "600px",
-                height: "250px",
-                border:"2px solid #000",
-              }}
-            ></div>
+            <CardWrapper>
+              <Print></Print>  
+            </CardWrapper>
+            
+           
             <div
               style={{
                 marginTop: '30px',
