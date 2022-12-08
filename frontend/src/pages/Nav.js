@@ -168,10 +168,97 @@ const Nav = ({ history }) => {
           </TitleWrapper>
         </CardHeader>
         
+        {admin ?
           <TitleWrapper
               style={{
-                width: "620px",
-                marginLeft: "65px",
+                width: "700px",
+                marginLeft: "42px"
+              }}
+          >
+            <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                    <div>{navigate("/")}</div>
+                }}
+              >
+                <input type="radio" id="myshop" name="navButton" />
+                    <label for="myshop">홈</label>
+              </CardBody>
+
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                
+                    <div>{navigate("/stockinfo")}</div>
+                
+                }}
+              >
+                <input type="radio" id="stockinfo" name="navButton" />
+                    <label for="stockinfo">투자정보</label>
+              </CardBody>
+
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                    <div>{navigate("/news")}</div>
+                }}
+              >
+                <input type="radio" id="news" name="navButton" />
+                    <label for="news">뉴스</label>
+              </CardBody>
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  info ? (
+                    <div>{navigate("/dis")}</div>
+                  ) : (
+                    <div>
+                      {Swal.fire(
+                        "로그인이 필요합니다.",
+                        "로그인 창으로 이동합니다."
+                      )}
+                      {navigate("/login")}
+                    </div>
+                  );
+                }}
+              >
+                <input type="radio" id="dis" name="navButton" />
+                    <label for="dis">종목토론</label>
+              </CardBody>
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                    <div>{navigate("/notice")}</div>
+                }}
+              >
+                <input type="radio" id="notice" name="navButton" />
+                    <label for="notice">공지사항</label>
+              </CardBody>
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  info ? (
+                    <div>{navigate("/addstock")}</div>
+                  ) : (
+                    <div>
+                      {Swal.fire(
+                        "관리자 로그인이 필요합니다.",
+                        "관리자 로그인 창으로 이동합니다."
+                      )}
+                      {navigate("/adminlogin")}
+                    </div>
+                  );
+                }}
+              >
+                <input type="radio" id="pay" name="navButton" />
+                    <label for="pay">종목추가</label>
+              </CardBody>      
+          </TitleWrapper>
+          :
+          <TitleWrapper
+              style={{
+                width: "700px",
+                marginLeft: "20px"
               }}
           >
             <CardBody className="select"
@@ -252,9 +339,8 @@ const Nav = ({ history }) => {
                 <input type="radio" id="pay" name="navButton" />
                     <label for="pay">MY</label>
               </CardBody>      
-
           </TitleWrapper>
-        
+        }
       </CardWrapper>
     </Body>
   );
