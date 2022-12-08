@@ -46,12 +46,20 @@ const MyPage = ({ history }) => {
   const navigate = useNavigate();
   var [usermoney, setusermoney] = useState([]);
   var [useracc, setuseracc] = useState([]);
+  var [usermoneyp, setusermoneyp] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/getuserdata", {
+      .get("http://localhost:4000/usermoneydata", {
         headers: { token: token },
       })
-      .then(({ data }) => setusermoney(data[0]));
+      .then(({ data }) => setusermoney(data));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/usermoneypercent", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setusermoneyp(data));
   }, []);
   useEffect(() => {
     axios
@@ -60,8 +68,28 @@ const MyPage = ({ history }) => {
       })
       .then(({ data }) => setuseracc(data));
   }, []);
-  console.log(useracc);
-
+  
+  function printusermoney(data,list){
+    let array=[];
+    for(let i =0; i<data.length; i++){
+      
+      if(list[i].총평가손익 > 0)
+        array.push(
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'red',fontSize: "20px", fontWeight: "800"}}>{data[i].총평가금액}( {list[i].총평가손익} %)</CardHeader>
+        )
+      else if(list[i].총평가손익 < 0)
+        array.push(
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{data[i].총평가금액}( {list[i].총평가손익} %)</CardHeader>
+        )
+      else
+        array.push(
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",fontSize: "20px", fontWeight: "800"}}>{data[i].총평가금액}( {list[i].총평가손익} %)</CardHeader>
+        )
+        
+    }
+    return array
+  }
+  
   function selectOption(data){
     let array = [];
     for(let i = 0; i< data.length; i++){
@@ -70,6 +98,14 @@ const MyPage = ({ history }) => {
       )
     }
     return array
+  }
+  function printmdata(data){
+    
+    <div style={{borderStyle: "solid", borderWidth: "3px", display: 'flex', padding: "4px"}}>              
+    <div style={{marginTop: "40px",marginLeft:"40px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총매입금액}</div>
+    <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].당일실현손익}</div>
+    <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총평가금액}</div>
+    </div>
   }
   return (
     <Body style={{}}>
@@ -101,66 +137,35 @@ const MyPage = ({ history }) => {
                 flex:"1",
                 textAlign:"center",
               }}>계좌</h3>
-              {/* <select value={useracc} style={{
-                flex:'4',
-              }}>
-                {useracc.map(useracc=>(
-                  <option>{useracc.a_num}</option>
-                ))}
-                
-            </select> */}
             <select style={{flex:'4'}}>
               {selectOption(useracc)}
             </select>
             </div>
-            
-            <div
-              style={{
-                marginTop: '20px',
-                width: "600px",
-                height: "250px",
-                border:"2px solid #000",
-              }}
-            >
-              <div 
-            style={{
-              display: "flex",
-              width: "700px",
-              height: "40px",
-              alignItems: "center",
-            }}>
-              <h4 style={{
-                flex:"1",
-                marginLeft: '10px'
-              }}>추정자산</h4>
-            <p style={{flex:"1", marginLeft: "20%",}}>{usermoney.money}( 30 % )</p>
-            </div>
-            <div 
-            style={{
-              width: "600px",
-              height: "50px",
-              alignItems: "center",
-              borderTop: "1px solid #000",
-            }}>
-              
-            </div>
-            <div 
-            style={{
-              display: "flex",
-              width: "700px",
-              height: "10px",
-              alignItems: "center",
-            }}>
-              
-            </div>
-            
-            </div>
             <CardWrapper>
-              <h2>보유주식</h2>
+              <div style={{display: "flex"}}>
+              <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "25px", fontWeight: "800"}}>자산현황</CardHeader>
+              {printusermoney(usermoney,usermoneyp)}
+              </div>
+                    
+              <div style={{width: "80%", margin: '20px 100px'}}>
+              <div style={{borderStyle: "solid", borderWidth: "3px", display: 'flex', padding: "4px"}}>  
+                <div style={{marginTop: "40px",marginLeft:"40px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총매입금액}</div>
+                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].당일실현손익}</div>
+                <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney[0].총평가금액}</div>
+                </div>
+              </div>
+            </CardWrapper>
+            
+            <CardWrapper>
+            <h2 style={{
+                padding: "2%",
+              }}>보유주식</h2>
               <Print></Print>  
             </CardWrapper>
             <CardWrapper>
-              <h2>관심종목</h2>
+            <h2 style={{
+                padding: "2%",
+              }}>관심종목</h2>
               <Printu/>
             </CardWrapper>
             
