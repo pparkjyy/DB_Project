@@ -19,27 +19,27 @@ const Td = styled.td`
 `;
 
 
-export const Print = ({ list }) => {
+export const Printu = ({ history }) => {
     const token = getTokenFromCookie();
-    var [userstock, setuserstock] = useState([]);
+    var [favoritestock, setfavoritestock] = useState([]);
     useEffect(() => {
       axios
-        .get("http://localhost:4000/calculatestock", {
+        .get("http://localhost:4000/favoritestock", {
           headers: { token: token },
         })
-        .then(({ data }) => setuserstock(data));
+        .then(({ data }) => setfavoritestock(data));
     }, []);
-    function printUstock(list){
+
+    function printfstock(list){
+        console.log(list);
       let array = [];
       for(let i = 0; i< list.length; i++){
         array.push(
           <Tr>
-            <Td>{list[i].종목명}</Td>
-            <Td>{list[i].현재가격}</Td>
-            <Td>{list[i].구매가격}</Td>
-            <Td>{list[i].평가손익}</Td>
-            <Td>{list[i].전일대비}</Td>
+            <Td>{list[i].stock_name}</Td>
+            <Td>{list[i].n_price}</Td>
             <Td>{list[i].전일대비비율}</Td>
+            <Td>{list[i].price_count}</Td>
           </Tr>
         )
       }
@@ -50,14 +50,12 @@ export const Print = ({ list }) => {
           <TitleTr>
             <Td>종목명</Td>
             <Td>현재가격</Td>
-            <Td>구매가격</Td>
-            <Td>평가손익</Td>
-            <Td>전일대비</Td>
-            <Td>전일대비비율</Td>
+            <Td>등락률</Td>
+            <Td>거래량</Td>
           </TitleTr>
-          {printUstock(userstock)}
+          {printfstock(favoritestock)}
         </table> 
     );
 }
 
-export default Print;
+export default Printu;
