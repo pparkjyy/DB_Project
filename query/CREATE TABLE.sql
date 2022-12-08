@@ -26,13 +26,15 @@ CREATE TABLE STOCK_O(
 
 # 종목 시세 정보 table
 CREATE TABLE STOCK_P(
-	code varchar(10) NOT NULL PRIMARY KEY,	# 종목 코드
-    date DATE NOT NULL,						# 날짜
+	date varchar(50) NOT NULL,						# 날짜
     n_price int NOT NULL,					# 시가
-    l_price int NOT NULL,					# 저가
     h_price int NOT NULL,					# 고가
+    l_price int NOT NULL,					# 저가    
     e_price int NOT NULL,					# 종가
     price_count int NOT NULL,				# 거래량
+    Changerate double default 0,				# 변동량
+    code varchar(10) NOT NULL,	# 종목 코드
+	PRIMARY KEY (code, date),
     FOREIGN KEY (code) REFERENCES STOCK(code)
 );
 
