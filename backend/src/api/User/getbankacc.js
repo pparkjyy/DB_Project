@@ -4,7 +4,7 @@ export default async (app, connection) => {
   app.use("/getbankacc", async (req, res, next) => {
     const { id } = req.query;
     await connection.query(
-      "SELECT A_NUM FROM USER_A WHERE id = ?;",
+      "SELECT * FROM USER_A WHERE id = ?;",
       [id],
       (error, data) => {
         if (error) console.log(error);

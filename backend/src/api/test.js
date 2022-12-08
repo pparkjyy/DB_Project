@@ -1,7 +1,7 @@
 export default async (app, connection) => {
   app.get("/test", async (req, res, next) => {
     await connection.query(
-      "SELECT ID, PW, name, age, phone, email, money FROM USER WHERE id = 'aaaaa';",
+      "SELECT ID, PW, name, age, phone, email, money FROM USER ;",
       [],
       (error, data) => {
         // var dataList = [];

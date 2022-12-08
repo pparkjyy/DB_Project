@@ -15,13 +15,28 @@ import styled from "styled-components";
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { Printoption } from "../components/print";
+import { Printoption,printUstock } from "../components/print";
 
 const Body = styled.div`
   display: flex;
   align-items: "center";
   justify-content: "center";
   width: 100%;
+`;
+const Tr = styled.tr`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  &:nth-child(odd){background-color: #e6f1ff;}
+  &:nth-child(even) { background-color: #f0f7ff; }
+  &:hover { background-color: #ffc5c2; cursor: pointer; }
+`;
+const TitleTr = styled.tr`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+`;
+const Td = styled.td`
+  padding: 4px 20px;
+  font-weight: 700;
 `;
 
 const MyPage = ({ history }) => {
@@ -45,6 +60,7 @@ const MyPage = ({ history }) => {
       })
       .then(({ data }) => setuseracc(data));
   }, []);
+  console.log(useracc);
   useEffect(() => {
     axios
       .get("http://localhost:4000/getstockdata", {
@@ -85,6 +101,9 @@ const MyPage = ({ history }) => {
               <select value={useracc} style={{
                 flex:'4',
               }}>
+                {useracc.map(useracc=>(
+                  <option>{useracc.a_num}</option>
+                ))}
                 
             </select>
             </div>
@@ -130,15 +149,14 @@ const MyPage = ({ history }) => {
             </div>
             
             </div>
+            <table style={{ width: '80%', borderCollapse: 'collapse', margin: 'auto' }}>
+              <TitleTr>
+                <Td>이름</Td>
+                <Td>가격</Td>
+              </TitleTr>
+              {printUstock(userstock)}
+            </table> 
 
-            <div
-              style={{
-                marginTop: '30px',
-                width: "600px",
-                height: "250px",
-                border:"2px solid #000",
-              }}
-            ></div>
             <div
               style={{
                 marginTop: '30px',
