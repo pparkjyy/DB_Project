@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import {
   CardWrapper,
   CardHeader,
@@ -63,26 +64,23 @@ const RankTitle = styled.div`
   font-weight: 600;
 `
 const Number = styled.div`
-  width: 5%;
+  width: 4%;
   padding-bottom: 10px;
   padding-top: 4px;
   font-size: 20px;
-  float: left;
 `
 const RankName = styled.div`
   width: 36%;
   padding-left: 10px;
   padding-bottom: 10px;
   text-align: left;
-  float: left;
   font-size: 20px;
 `
 const Info = styled.div`
-  width: 18%;
+  width: 16%;
   padding-bottom: 10px;
   padding-top: 4px;
   text-align: right;
-  float: left;
   font-size: 20px;
 `
 const Tr = styled.tr`
@@ -102,6 +100,7 @@ const Td = styled.td`
 `;
 
 const Home = ({ history }) => {
+  const navigate = useNavigate();
   var [risingRate, setRisingRate] = useState([]);
   useEffect(() => {
     axios
@@ -137,15 +136,30 @@ const Home = ({ history }) => {
       let difference = Data[i].difference.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       if(Data[i].difference > 0)
         array.push(
-          <div><Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info style={{color:'red'}}>+{difference}</Info><Info style={{color:'red'}}>+{Data[i].rate.toFixed(2)}%</Info></div>
+          <div style={{display: "flex", cursor: "pointer"}}
+            onClick={()=>{
+              navigate("/stockinfo", { state: { code: Data[i].code } });
+            }}>
+            <Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info style={{color:'red'}}>+{difference}</Info><Info style={{color:'red'}}>+{Data[i].rate.toFixed(2)}%</Info>
+          </div>
         )
       else if(Data[i].difference < 0)
         array.push(
-          <div><Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info >{price}</Info><Info style={{color:'blue'}}>{difference}</Info><Info style={{color:'blue'}}>{Data[i].rate.toFixed(2)}%</Info></div>
+          <div style={{display: "flex", cursor: "pointer"}}
+          onClick={()=>{
+            navigate("/stockinfo", { state: { code: Data[i].code } });
+          }}>
+            <Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info >{price}</Info><Info style={{color:'blue'}}>{difference}</Info><Info style={{color:'blue'}}>{Data[i].rate.toFixed(2)}%</Info>
+          </div>
         )
       else
         array.push(
-          <div><Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info>-</Info><Info>0.00%</Info></div>
+          <div style={{display: "flex", cursor: "pointer"}}
+          onClick={()=>{
+            navigate("/stockinfo", { state: { code: Data[i].code } });
+          }}>
+            <Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info>-</Info><Info>0.00%</Info>
+          </div>
         )
     }
     return array
@@ -188,8 +202,7 @@ const Home = ({ history }) => {
         </NewsWrapper><hr style={{ borderTop: '0.5px #c8c8c8', width: '87%' }}/>
 
         <Ranking>
-          <RankTitle>상승률 상위</RankTitle>
-          <hr style={{ borderTop: '0.5px #c8c8c8' }}/>
+          <RankTitle>상승률 상위</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
           {printRanking(risingRate)}
         </Ranking>
         <Ranking>
