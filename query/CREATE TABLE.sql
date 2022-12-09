@@ -102,7 +102,7 @@ CREATE TABLE STOCK_UZ(
 CREATE TABLE STOCK_UC(
 	ID varchar(16) NOT NULL,	# 사용자 ID
 	code varchar(10) NOT NULL,	# 종목 코드
-    time TIME NOT NULL,			# 조회 시간
+    time datetime NOT NULL,			# 조회 시간
     PRIMARY KEY(ID, time),
     FOREIGN KEY (ID) REFERENCES USER(ID),
     FOREIGN KEY (code) REFERENCES STOCK(code)

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { getTokenFromCookie } from "../components/Auth";
+
 import {
   CardWrapper,
   CardHeader,
@@ -14,6 +16,7 @@ import {
 } from "../components/Card";
 import styled from "styled-components";
 import axios from "axios";
+import { updateRecentStock } from "../components/clickStock";
 
 const Body = styled.div`
   display: flex;
@@ -101,6 +104,8 @@ const Td = styled.td`
 
 const Home = ({ history }) => {
   const navigate = useNavigate();
+  const token = getTokenFromCookie();
+
   var [risingRate, setRisingRate] = useState([]);
   useEffect(() => {
     axios
@@ -138,6 +143,7 @@ const Home = ({ history }) => {
         array.push(
           <div style={{display: "flex", cursor: "pointer"}}
             onClick={()=>{
+              if(token) updateRecentStock(Data[i].code);
               navigate("/stockinfo", { state: { code: Data[i].code } });
             }}>
             <Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info style={{color:'red'}}>+{difference}</Info><Info style={{color:'red'}}>+{Data[i].rate.toFixed(2)}%</Info>
@@ -147,6 +153,7 @@ const Home = ({ history }) => {
         array.push(
           <div style={{display: "flex", cursor: "pointer"}}
           onClick={()=>{
+            if(token) updateRecentStock(Data[i].code);
             navigate("/stockinfo", { state: { code: Data[i].code } });
           }}>
             <Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info >{price}</Info><Info style={{color:'blue'}}>{difference}</Info><Info style={{color:'blue'}}>{Data[i].rate.toFixed(2)}%</Info>
@@ -156,6 +163,7 @@ const Home = ({ history }) => {
         array.push(
           <div style={{display: "flex", cursor: "pointer"}}
           onClick={()=>{
+            if(token) updateRecentStock(Data[i].code);
             navigate("/stockinfo", { state: { code: Data[i].code } });
           }}>
             <Number>{i+1}.</Number><RankName>{Data[i].name}</RankName><Info>{price}</Info><Info>-</Info><Info>0.00%</Info>

@@ -21,6 +21,7 @@ import usermoneypercent from "./api/User/usermoneypercent.js";
 import getuserboard from "./api/User/getuserboard.js";
 import getusercomment from "./api/User/getusercomment.js";
 import getuserdata from "./api/User/getuserdata.js";
+import updateRecentStock from "./api/User/updateRecentStock.js";
 import {
   passwordUpdate,
   privateUpdate,
@@ -70,6 +71,7 @@ getusercomment(app, connection);
 getuserdata(app, connection);
 privateUpdate(app, connection);
 passwordUpdate(app, connection);
+updateRecentStock(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
