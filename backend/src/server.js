@@ -35,6 +35,7 @@ import updateaboardview from "./api/Admin/updateaboardview.js";
 import getRecentStock from "./api/Stock/getRecentStock.js";
 import getFavorite from "./api/User/getFavorite.js";
 import setFavorite from "./api/User/setFavorite.js";
+import getStocknum from "./api/User/getStocknum.js";
 
 const connection = init();
 const app = express();
@@ -90,6 +91,7 @@ updateaboardview(app, connection);
 getRecentStock(app, connection);
 getFavorite(app, connection);
 setFavorite(app, connection);
+getStocknum(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
