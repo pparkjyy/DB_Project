@@ -33,6 +33,8 @@ import modifyaboard from "./api/Admin/modifyaboard.js";
 import getaboardbypostnum from "./api/Admin/getaboardbypostnum.js";
 import updateaboardview from "./api/Admin/updateaboardview.js";
 import getRecentStock from "./api/Stock/getRecentStock.js";
+import getFavorite from "./api/User/getFavorite.js";
+import setFavorite from "./api/User/setFavorite.js";
 
 const connection = init();
 const app = express();
@@ -86,6 +88,8 @@ getaboardbypostnum(app, connection);
 updateRecentStock(app, connection);
 updateaboardview(app, connection);
 getRecentStock(app, connection);
+getFavorite(app, connection);
+setFavorite(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));

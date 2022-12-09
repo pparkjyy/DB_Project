@@ -27,6 +27,9 @@ import {
 	Tooltip,
 	Legend,
 } from 'recharts';
+import {BsStar, BsStarFill} from "react-icons/bs"
+import { getTokenFromCookie } from "../components/Auth";
+import Swal from "sweetalert2";
 
 const Tr = styled.tr`
   border-top: 1px solid black;
@@ -52,14 +55,35 @@ const Body = styled.div`
   height:200vh;
 `;
 
+const setFav = async (id, code, isFavorite, fav) => {
+  const res = await axios.post("http://localhost:4000/setFavorite", {
+    id: id,
+    code: code,
+    isFavorite: isFavorite,
+  });
+  const { result, msg } = res.data;
+  if (result === true) {
+    Swal.fire(msg, " ", "success").then((result) => {
+      if (result.isConfirmed) window.location.reload();
+    });
+  }
+  console.log(res);
+  if (isFavorite === true) return false;
+  else return true;
+};
+
 const Stockinfo = ({history}) => {
   const navigateState = useLocation().state;
+  const token = getTokenFromCookie();
   const stockcode = navigateState && navigateState.code;
   var [stockInfo, setStockInfo] = useState([]);
   var [companyInfo, setCompanyInfo] = useState([]);
   var [shareholderInfo, setShareholderInfo] = useState([]);
   var [order, setOrder] = useState(true);
   var [sell, setSell] = useState(false);
+  var [userInfo, setUserInfo] = useState([]);
+  var [isFavorite, setIsFavorite] = useState();
+
   useEffect((e) => {
     axios
       .get("http://localhost:4000/getStockInfo", {
@@ -83,6 +107,24 @@ const Stockinfo = ({history}) => {
       })
       .then(({ data }) => setShareholderInfo(data));
   }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getuserdata", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setUserInfo(data[0]));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getFavorite", {
+        headers: { token: token },
+        params: { stockcode: stockcode },
+      })
+      .then(({ data }) => setIsFavorite(data));
+  }, []);
+
 
   function addComma (data){
     if(data)
@@ -117,15 +159,35 @@ const Stockinfo = ({history}) => {
       });
     }, [history]);
 
-  console.log(stockInfo);
-  console.log(companyInfo);
+  
   return (
     <Body style={{}}>
       <CardWrapper>
         <div style={{display: "flex"}}>
-        <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "32px", fontWeight: "800"}}>{stockInfo.stock_name}</CardHeader>
-        <CardHeader style={{padding: "72px 0px 0px 12px"}}>{stockInfo.code}</CardHeader>
-        <CardHeader style={{padding: "64px 0px 0px 720px", fontSize: "24px", fontWeight: "600", cursor: "pointer"}} onClick={()=>{setOrder(!order)}}>주문하기 > </CardHeader>
+        {(isFavorite==true?(
+        <BsStarFill style={{padding: "60px 0px 0px 100px", fontSize: "32px", fontWeight: "800", color: "green"}}
+        onClick={async(e)=>{
+          isFavorite = setFav(
+            userInfo.id,
+            stockcode,
+            isFavorite
+          )
+        }}/>
+        ):
+        (
+          <BsStar style={{padding: "60px 0px 0px 100px", fontSize: "32px", fontWeight: "800"}}
+          onClick={async(e)=>{
+            isFavorite = setFav(
+              userInfo.id,
+              stockcode,
+              isFavorite
+            )
+          }}
+          />
+          ))}
+        <CardHeader style={{padding: "52px 0px 0px 8px", fontSize: "32px", fontWeight: "800"}}>{stockInfo.stock_name}</CardHeader>
+        <CardHeader style={{padding: "72px 692px 0px 12px"}}>{stockInfo.code}</CardHeader>
+        <CardHeader style={{padding: "64px 0px 0px 0px", fontSize: "24px", fontWeight: "600", cursor: "pointer"}} onClick={()=>{setOrder(!order)}}>주문하기 > </CardHeader>
         </div>
         {order?(
         <ChartWrapper style={{width: "100%", height: "600px"}}>
