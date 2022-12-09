@@ -12,6 +12,7 @@ import {
   CardSelectOption,
   CardLink,
   ChartWrapper,
+  CardButton
 } from "../components/Card";
 import styled, { ThemeConsumer } from "styled-components";
 import axios from "axios";
@@ -48,17 +49,17 @@ const Body = styled.div`
   align-items: "center";
   justify-content: "center";
   width: 100%;
-  height:150vh;
+  height:200vh;
 `;
 
 const Stockinfo = ({history}) => {
   const navigateState = useLocation().state;
   const stockcode = navigateState && navigateState.code;
-
   var [stockInfo, setStockInfo] = useState([]);
   var [companyInfo, setCompanyInfo] = useState([]);
   var [shareholderInfo, setShareholderInfo] = useState([]);
-
+  var [order, setOrder] = useState(true);
+  var [sell, setSell] = useState(false);
   useEffect((e) => {
     axios
       .get("http://localhost:4000/getStockInfo", {
@@ -124,7 +125,10 @@ const Stockinfo = ({history}) => {
         <div style={{display: "flex"}}>
         <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "32px", fontWeight: "800"}}>{stockInfo.stock_name}</CardHeader>
         <CardHeader style={{padding: "72px 0px 0px 12px"}}>{stockInfo.code}</CardHeader>
+        <CardHeader style={{padding: "64px 0px 0px 720px", fontSize: "24px", fontWeight: "600", cursor: "pointer"}} onClick={()=>{setOrder(!order)}}>주문하기 > </CardHeader>
         </div>
+        {order?(
+        <ChartWrapper style={{width: "100%", height: "600px"}}>
         <div style={{width: "80%", margin: '20px 100px'}}>
           <div style={{borderStyle: "solid", borderWidth: "2px", display: 'flex', padding: "4px"}}>
             <div><div style={{fontSize:"48px"}}>{addComma(stockInfo.n_price)}</div><div style={{fontSize:"24px"}}>전일대비 {addComma(stockInfo.n_price-stockInfo.e_price)} {((stockInfo.n_price-stockInfo.e_price)/stockInfo.e_price*100).toFixed(2)}%</div></div>
@@ -133,7 +137,7 @@ const Stockinfo = ({history}) => {
             <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>거래량 {addComma(stockInfo.price_count)}</div><div style={{padding :"12px"}}>거래대금 {addComma(stockInfo.price_count*stockInfo.n_price/1000000)} 백만</div></div>
           </div>
         </div> 
-        <ChartWrapper style={{width: "88%", height: "30%", padding: "20px"}}>
+        <ChartWrapper style={{width: "88%", height: "400px", padding: "20px"}}>
           <ResponsiveContainer>
           <ComposedChart
             width={600}
@@ -152,7 +156,49 @@ const Stockinfo = ({history}) => {
           </ComposedChart>
         </ResponsiveContainer>
         </ChartWrapper>
-       
+        </ChartWrapper>
+        ):
+        (
+          <ChartWrapper style={{width: "100%", height: "600px", display: "flex"}}>
+            <ChartWrapper style={{width: "82%", height: "600px"}}>
+              <div style={{width: "80%", margin: '20px 100px'}}>
+                <div style={{borderStyle: "solid", borderWidth: "2px", display: 'flex', padding: "4px"}}>
+                  <div><div style={{fontSize:"48px"}}>{addComma(stockInfo.n_price)}</div><div style={{fontSize:"24px"}}>전일대비 {addComma(stockInfo.n_price-stockInfo.e_price)} {((stockInfo.n_price-stockInfo.e_price)/stockInfo.e_price*100).toFixed(2)}%</div></div>
+                  <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>전일 {addComma(stockInfo.e_price)}</div><div style={{padding :"12px"}}>시가 {addComma(stockInfo.n_price)}</div></div>
+                  <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>고가 {addComma(stockInfo.h_price)}</div><div style={{padding :"12px"}}>저가 {addComma(stockInfo.l_price)}</div></div>
+                  <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>거래량 {addComma(stockInfo.price_count)}</div><div style={{padding :"12px"}}>거래대금 {addComma(stockInfo.price_count*stockInfo.n_price/1000000)} 백만</div></div>
+                </div>
+              </div> 
+            <ChartWrapper style={{width: "88%", height: "400px", padding: "20px"}}>
+              <ResponsiveContainer>
+                <ComposedChart
+                  width={600}
+                  height={300}
+                  data={usageStatus}
+                  margin={{ top: 0, bottom: 0, left: 40 }}
+                >
+                  <CartesianGrid stroke="#f5f5f5" />
+                  <XAxis dataKey="date" />
+                  <YAxis yAxisId="left" />
+                  <YAxis yAxisId="right" orientation="right" />
+                  <Tooltip />
+                  <Legend />
+                  <Bar yAxisId="right" dataKey="거래량" barSize={30} fill="#7ac4c0" />
+                  <Line yAxisId="left" type="monotone" dataKey="가격(원)" stroke="#ff7300" />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </ChartWrapper>
+          </ChartWrapper>
+          <CardWrapper style={{margin: "8px 60px 0px 0px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '20%', fontSize:"18px"}}>
+            보유수량 : 0주 
+            <CardHeader style={{padding: "0px 0px 0px 0px", fontSize: "24px", fontWeight: "600", display: "flex"}}>
+              <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} onClick={()=>{setSell(!sell);}}>매도</CardButton>
+              <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} >매수</CardButton>
+            </CardHeader>
+          </CardWrapper>
+        </ChartWrapper>
+        )}
+                
         <div>
         <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>기업소개</CardHeader>
         <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
