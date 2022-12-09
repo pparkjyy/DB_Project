@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
+import { useNavigate } from "react-router";
+
 const Tr = styled.tr`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -21,6 +23,8 @@ const Td = styled.td`
 
 export const Print = ({ list }) => {
     const token = getTokenFromCookie();
+    const navigate = useNavigate();
+
     var [userstock, setuserstock] = useState([]);
     useEffect(() => {
       axios
@@ -33,7 +37,9 @@ export const Print = ({ list }) => {
       let array = [];
       for(let i = 0; i< list.length; i++){
         array.push(
-          <Tr>
+          <Tr onClick={()=>{
+            navigate("/stockinfo", { state: { code: list[i].code } });
+          }}>
             <Td>{list[i].종목명}</Td>
             <Td>{list[i].현재가격}</Td>
             <Td>{list[i].구매가격}</Td>
