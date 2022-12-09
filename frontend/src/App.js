@@ -16,6 +16,7 @@ import Dis from './pages/Dis';
 import Register from './pages/Register';
 import Notice from './pages/Notice';
 import Userdata from './pages/Userdata';
+import ViewDis from './pages/ViewDis';
 
 
 const Body = styled.div`
@@ -44,6 +45,7 @@ class App extends Component {
           <Route path='/register' element={<Register />} />
           <Route path='/notice' element={<Notice />} />
           <Route path='/userdata' element={<Userdata />} />
+          <Route path='/viewdis' element={<ViewDis />} />
         </Routes>
       </Body>
     );
