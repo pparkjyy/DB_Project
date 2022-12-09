@@ -12,7 +12,6 @@ import MyPage from './pages/MyPage';
 import Stockinfo from './pages/Stockinfo';
 import AddStock from './pages/AddStock';
 import News from './pages/News';
-import Dis from './pages/Dis';
 import Register from './pages/Register';
 import Notice from './pages/Notice';
 import Userdata from './pages/Userdata';
@@ -20,6 +19,7 @@ import ViewNotice from './pages/ViewNotice';
 import WriteNotice from './pages/WriteNotice';
 import ModifyNotice from './pages/ModifyNotice';
 import ViewDis from './pages/ViewDis';
+import Discuss from './pages/Dis';
 
 
 
@@ -45,14 +45,14 @@ class App extends Component {
           <Route path='/stockinfo' element={<Stockinfo />} />
           <Route path='/addstock' element={<AddStock />} />
           <Route path='/news' element={<News />} />
-          <Route path='/dis' element={<Dis />} />
           <Route path='/register' element={<Register />} />
           <Route path='/notice' element={<Notice />} />
           <Route path='/userdata' element={<Userdata />} />
           <Route path='/viewnotice/:data' element={<ViewNotice />} />
           <Route path='/writenotice' element={<WriteNotice />} />
           <Route path='/modifynotice' element={<ModifyNotice />} />
-          <Route path='/viewdis' element={<ViewDis />} />
+          <Route path='/viewdis/:data' element={<ViewDis />} />
+          <Route path='/discuss/:data' element={<Discuss />} />
         </Routes>
       </Body>
     );

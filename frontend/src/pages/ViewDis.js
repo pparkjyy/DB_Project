@@ -1,101 +1,93 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Link } from 'react-router-dom';
-import {
-  CardWrapper,
-  CardHeader,
-  CardHeading,
-  CardBody,
-  CardFieldset,
-  CardInput,
-  CardTitle,
-  CardSelect,
-  CardSelectOption,
-  CardLink,
-  CardButton
-} from "../components/Card";
+import { CardWrapper } from "../components/Card";
+import "../App.css";
 import styled from "styled-components";
-import '../Dis.css'
 import axios from "axios";
-import { json } from "react-router";
-
-const Body = styled.div`
+import { getInfoFromCookie,getTokenFromCookie } from "../components/Auth";
+export const Body = styled.div`
   display: flex;
-  align-items: "center";
-  justify-content: "center";
   width: 100%;
 `;
-const Tr = styled.tr`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  &:nth-child(odd){background-color: #e6f1ff;}
-  &:nth-child(even) { background-color: #f0f7ff; }
-  &:hover { background-color: #ffc5c2; cursor: pointer; }
-`;
-const TitleTr = styled.tr`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-`;
-const Td = styled.td`
-  padding: 4px 20px;
+
+export const CardButton = styled.button`
+  float: right;
+  display: block;
+  width: 140px;
+  height: 60px;
+  margin-right: 60px;
+  padding: 12px 0;
+  font-family: inherit;
+  font-size: 20px;
   font-weight: 700;
+  color: white;
+  background-color: #037a3b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+  outline: 0;
+  &:hover {
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
+    transform: translate(0, -5px);
+  }
 `;
-const Title = styled.div`
-  padding-top: 48px;
-  padding-bottom: 30px;
-  padding-left: 90px;
-  font-size: 30px;
-  font-weight: 600;
-`;
+
+
 const ViewDis = ({ history }) => {
   let navigate = useNavigate();
+  const navigateState = useLocation().state;
+  const t_id = navigateState && navigateState.t_id;
+  const [disData, setdisData] = useState([]);
+  
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/viewdisbytid", {
+        params: { t_id: t_id },
+      })
+      .then(({ data }) => setdisData(data));
+  }, []);
+  const info = getInfoFromCookie();
+  const token = getTokenFromCookie();
+
+  let admin = false;
+  if (info) if (info.token) admin = info.token.type == "admin";
+
+  const [checkuser, setcheckuser] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/checkuser", {
+        headers: { token: token },
+        params: { t_id: t_id },
+      })
+      .then(({ data }) => setcheckuser(data));
+  }, []);
 
   return (
     <Body>
       <CardWrapper>
+        {disData[0] ? (
           <div className="View">
             <div className="top_title">
-              <div id="title_txt">삼성전자 좋아</div>
+              <div id="title_txt">{disData[0].title}</div>
               <div className="date_div">
-                2022-12-10 03:20:43
+                {disData[0].time.slice(0, 19).replace("T", " ")}
               </div>
             </div>
             <div>
-              <div className="content">삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ삼전 오른다 ㄷㄷ</div>
+              <div className="content">{disData[0].text}</div>
             </div>
           </div>
-          <div className="View">
-            <div className="top_title" style={{display: "flex"}}>
-              <CardButton style={{width: "50%", margin: "4px 60px"}} onClick={() => navigate(-1)}>목록</CardButton>
-              <CardButton style={{width: "50%", margin: "4px 60px"}}>수정하기</CardButton>
-            </div>
-            <div>
-              <div className="content" style={{margin: "0px 0px 40px 0px"}}>댓글 3</div>
-              <div style={{display: "flex", margin: "0px 0px 40px 0px"}}>
-              <CardInput placeholder="댓글을 입력해주세요"type="text"></CardInput>
-              <CardButton style={{width: "10%", margin: "4px 60px"}}>작성</CardButton>
-              </div>
-              <div style={{margin: "28px 0px"}}>
-              <div style={{margin: "8px 0px"}}>ekzm****</div>
-              <div style={{margin: "8px 0px"}}>상장도 안한걸</div>
-              <div style={{margin: "8px 0px"}}>2022-12-10 03:20:43</div>
-              </div>
-              <div style={{margin: "28px 0px"}}>
-              <div style={{margin: "8px 0px"}}>ekzm****</div>
-              <div style={{margin: "8px 0px"}}>상장도 안한걸</div>
-              <div style={{margin: "8px 0px"}}>2022-12-10 03:20:43</div>
-              </div>
-              <div style={{margin: "28px 0px"}}>
-              <div style={{margin: "8px 0px"}}>ekzm****</div>
-              <div style={{margin: "8px 0px"}}>상장도 안한걸</div>
-              <div style={{margin: "8px 0px"}}>2022-12-10 03:20:43</div>
-              </div>
-            </div>
-          </div>
-        <div style={{display: "flex"}}>
-        <br></br>
-        
-        </div>
+        ) : null}
+        {checkuser ? (
+          <CardButton>
+            수정하기
+          </CardButton>
+        ) : null}
+
+        <CardButton onClick={() => navigate(-1)}>목록</CardButton>
       </CardWrapper>
     </Body>
   );

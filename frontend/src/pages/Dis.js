@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   CardWrapper,
   CardHeader,
@@ -11,87 +11,103 @@ import {
   CardSelect,
   CardSelectOption,
   CardLink,
-  CardButton
 } from "../components/Card";
+import "../App.css";
 import styled from "styled-components";
-import '../Dis.css'
 import axios from "axios";
-import { json } from "react-router";
-import { useNavigate } from "react-router";
-const Body = styled.div`
+import { getInfoFromCookie } from "../components/Auth";
+import { updateView } from "../components/clickview";
+
+export const Body = styled.div`
   display: flex;
-  align-items: "center";
-  justify-content: "center";
+  align-items: 'center';
+  justify-content: 'center';
   width: 100%;
 `;
-const Tr = styled.tr`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  &:nth-child(odd){background-color: #e6f1ff;}
-  &:nth-child(even) { background-color: #f0f7ff; }
-  &:hover { background-color: #ffc5c2; cursor: pointer; }
-`;
-const TitleTr = styled.tr`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-`;
-const Td = styled.td`
-  padding: 4px 20px;
-  font-weight: 700;
-`;
-const Title = styled.div`
+
+export const Title = styled.div`
   padding-top: 48px;
-  padding-bottom: 30px;
-  padding-left: 90px;
-  font-size: 30px;
-  font-weight: 600;
+  padding-bottom : 64px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
 `;
+
+export const CardButton = styled.button`
+  display: block;
+  width: 140px;
+  height: 60px;
+  margin-left: 60px;
+  padding: 12px 0;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  background-color: #037a3b;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+  outline: 0;
+  &:hover {
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
+    transform: translate(0, -5px);
+  }
+`;
+
+function printList(data,navigate) {
+  let array = [];
+  if(data){
+    for (let i = 0; i < data.length; i++) {
+      array.push(
+        <div className="list_grid list_data" 
+          style={{cursor: 'pointer', marginTop:'4px'}}
+          onClick={()=>{navigate("/viewdis/"+data[i].t_id,{state:{t_id : data[i].t_id}})}}>
+          <div className="acenter"> {data[i].ID} </div>
+          <div className="acenter"> {data[i].title} </div>
+          <div className="acenter"> {data[i].num}</div>
+          <div className="acenter"> {data[i].time.slice(0, 10).replace("T", " ")} </div>
+          
+        </div>
+      )
+    }
+  }
+  return array;
+}
+
+const info = getInfoFromCookie();
+
 const Dis = ({ history }) => {
-  const navigate = useNavigate();
-  const [disData, setDisData] = useState();  
+  let navigate = useNavigate();
+  const navigateState = useLocation().state;
+  const code = navigateState && navigateState.code;
+  const [disData, setDisData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/dis")
+      .get("http://localhost:4000/dis", {
+        params: { code: code },
+      })
       .then(({ data }) => setDisData(data));
   }, []);
-
-  console.log(disData);
-
-  function printData(data){
-    let array = [];
-    if(data){
-      for(let i=0; i< data.length; i++){
-        array.push(
-          <Tr onClick={() => {
-            navigate("/viewdis");
-          }}>
-            <Td>{data[i].title}</Td>
-            <Td>{data[i].ID}</Td>
-            <Td>{data[i].time.slice(0, 19).replace("T", " ")}</Td>
-            <Td>{data[i].num}</Td>
-          </Tr>
-        )
-      }
-    }
-    return array;
-  }
+  
   return (
-    <Body style={{}}>
-      <CardWrapper> 
-        <div style={{display: "flex", width: "100%", margin: "0px 0px 0px 12px"}}>
-          <Title>토론게시판</Title>
-          <CardButton style={{width: "120px", height: "40px", margin: "40px 0px 0px 820px"}}>글 작성</CardButton>
+    <Body>
+      <CardWrapper>
+        <Title>종목토론게시판</Title>
+
+        <div className="List">
+          <div className="list_grid list_tit">
+            <div className="acenter"> 번호 </div>
+            <div className="acenter"> 제목 </div>
+            <div className="acenter"> 조회수 </div>
+            <div className="acenter"> 작성시간 </div>
+          </div>
+          {printList(disData,navigate)}
+
         </div>
-        <table style={{ width: '84%', borderCollapse: 'collapse', margin: 'auto', textAlign: "center" }}>
-          <TitleTr>
-            <Td>제목</Td>
-            <Td>ID</Td>
-            <Td>작성시간</Td>
-            <Td>조회수</Td>
-          </TitleTr>
-          {printData(disData)}
-        </table>
+        
       </CardWrapper>
     </Body>
   );

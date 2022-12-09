@@ -189,7 +189,7 @@ const Nav = ({ history }) => {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   info ? (
-                    <div>{navigate("/dis")}</div>
+                    <div>{navigate("/")}</div>
                   ) : (
                     <div>
                       {Swal.fire(

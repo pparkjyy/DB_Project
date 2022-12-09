@@ -36,6 +36,8 @@ import getRecentStock from "./api/Stock/getRecentStock.js";
 import getFavorite from "./api/User/getFavorite.js";
 import setFavorite from "./api/User/setFavorite.js";
 import getStocknum from "./api/User/getStocknum.js";
+import viewdisbytid from "./api/User/viewdisbytid.js";
+import checkuser from "./api/User/checkuser.js";
 
 const connection = init();
 const app = express();
@@ -92,6 +94,8 @@ getRecentStock(app, connection);
 getFavorite(app, connection);
 setFavorite(app, connection);
 getStocknum(app, connection);
+viewdisbytid(app, connection);
+checkuser(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
