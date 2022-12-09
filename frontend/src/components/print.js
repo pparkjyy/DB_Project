@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import { useNavigate } from "react-router";
+import { updateRecentStock } from "./clickStock";
 
 const Tr = styled.tr`
   border-top: 1px solid black;
@@ -38,6 +39,7 @@ export const Print = ({ list }) => {
       for(let i = 0; i< list.length; i++){
         array.push(
           <Tr onClick={()=>{
+            updateRecentStock(list[i].code);
             navigate("/stockinfo", { state: { code: list[i].code } });
           }}>
             <Td>{list[i].종목명}</Td>
