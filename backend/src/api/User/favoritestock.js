@@ -4,7 +4,7 @@ export default async (app, connection) => {
   app.use("/favoritestock", async (req, res, next) => {
     const { id } = req.query;
     await connection.query(
-      "select stock_name, n_price, (n_price-e_price)/e_price*100 전일대비비율, price_count from stock_uz natural join stock natural join stock_p natural join company where id = ? and date='2022-12-08' group by code",
+      "select code, stock_name, n_price, (n_price-e_price)/e_price*100 전일대비비율, price_count from stock_uz natural join stock natural join stock_p natural join company where id = ? and date='2022-12-08' group by code",
       [id],
       (error, data) => {
         if (error) console.log(error);
