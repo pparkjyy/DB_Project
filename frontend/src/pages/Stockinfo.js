@@ -293,7 +293,7 @@ const Stockinfo = ({history}) => {
         </CardWrapper>
         </div>
         
-        <div onClick={()=>{navigate("/stockinfo/"+stockInfo.code,
+        <div onClick={()=>{navigate("/discuss/"+stockInfo.code,
           {state:{code : stockInfo.code}})}}>
         <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실-- 여기는 아직 미완성</CardHeader>
         <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
