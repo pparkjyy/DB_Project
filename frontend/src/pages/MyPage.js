@@ -220,13 +220,15 @@ const MyPage = ({ history }) => {
               </div>  
               <Printu/>
             </CardWrapper2>
-            
-           
           </div>
       </div>
+
+      <div style={{ borderLeft: "0.5px solid #c8c8c8", marginTop: "35px", marginBottom: "50px" }} />
+
       <div style={{
         flex:'1',
         marginRight: "30px",
+        marginTop: "15px"
       }}>
 
         <div
@@ -248,7 +250,8 @@ const MyPage = ({ history }) => {
           <button
             style={{
               marginLeft : "30%",
-              marginTop : "40%",
+              marginTop : "30%",
+              marginBottom: "16px"
             }}
             onClick={()=>{
               navigate("/userdata");
