@@ -131,6 +131,7 @@ const Stockinfo = ({history}) => {
     axios
       .get("http://localhost:4000/getStocknum", {
         headers: { token: token },
+        params: { stockcode: stockcode },
       })
       .then(({ data }) => setStocknum(data));
   }, []);
@@ -262,7 +263,7 @@ const Stockinfo = ({history}) => {
             </ChartWrapper>
           </ChartWrapper>
           <CardWrapper style={{margin: "8px 60px 0px 0px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '20%', fontSize:"18px"}}>
-            보유수량 : {stocknum}주 
+            보유수량 : {stocknum?stocknum.stock_num:0}주 
             <CardHeader style={{padding: "0px 0px 0px 0px", fontSize: "24px", fontWeight: "600", display: "flex"}}>
               <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} onClick={()=>{setSell(!sell);}}>매도</CardButton>
               <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} >매수</CardButton>

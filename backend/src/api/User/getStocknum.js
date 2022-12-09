@@ -11,8 +11,8 @@ export default async (app, connection) => {
         if (error) console.log(error);
         console.log(data, stockcode);
         for (var i = 0; i < data.length; i++)
-          if (data[i].code == stockcode) return res.send(data[i].stock_num);
-        return res.send(false);
+          if (data[i].code == stockcode) return res.send(data[i]);
+        return res.send(null);
       }
     );
   });
