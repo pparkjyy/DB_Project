@@ -116,13 +116,11 @@ CREATE TABLE ADMIN(
 
 # 공지사항 table
 CREATE TABLE A_BOARD(
-	ID varchar(16) NOT NULL PRIMARY KEY,	# 관리자 ID
+	postnum int not null primary key auto_increment,
     title varchar(100) NOT NULL,			# 제목
     text varchar(500) NOT NULL,				# 내용
-    name varchar(10) NOT NULL,				# 작성자
-    time TIME NOT NULL,						# 작성시간
-    num INT default 0,						# 조회수
-    FOREIGN KEY (ID) REFERENCES ADMIN(ID)
+    date date NOT NULL,						# 작성날짜
+    num INT default 0						# 조회수
 );
 
 # 종목 토론 게시판 table
