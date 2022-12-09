@@ -16,8 +16,9 @@ import Dis from './pages/Dis';
 import Register from './pages/Register';
 import Notice from './pages/Notice';
 import Userdata from './pages/Userdata';
-
-
+import ViewNotice from './pages/ViewNotice';
+import WriteNotice from './pages/WriteNotice';
+import ModifyNotice from './pages/ModifyNotice';
 const Body = styled.div`
   width: 1300px;
   margin-left: auto;
@@ -44,6 +45,9 @@ class App extends Component {
           <Route path='/register' element={<Register />} />
           <Route path='/notice' element={<Notice />} />
           <Route path='/userdata' element={<Userdata />} />
+          <Route path='/viewnotice/:data' element={<ViewNotice />} />
+          <Route path='/writenotice' element={<WriteNotice />} />
+          <Route path='/modifynotice' element={<ModifyNotice />} />
         </Routes>
       </Body>
     );

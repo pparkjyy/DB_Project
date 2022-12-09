@@ -25,6 +25,11 @@ import {
   passwordUpdate,
   privateUpdate,
 } from "./api/User/userUpdate.js";
+import getaboard from "./api/Admin/getaboard.js";
+import getaboardpostnum from "./api/Admin/getaboardpostnum.js";
+import uploadaboard from "./api/Admin/uploadaboard.js";
+import modifyaboard from "./api/Admin/modifyaboard.js";
+import getaboardbypostnum from "./api/Admin/getaboardbypostnum.js";
 
 const connection = init();
 const app = express();
@@ -70,6 +75,11 @@ getusercomment(app, connection);
 getuserdata(app, connection);
 privateUpdate(app, connection);
 passwordUpdate(app, connection);
+getaboard(app, connection);
+getaboardpostnum(app, connection);
+uploadaboard(app, connection);
+modifyaboard(app, connection);
+getaboardbypostnum(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
