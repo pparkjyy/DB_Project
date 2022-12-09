@@ -19,6 +19,9 @@ import Userdata from './pages/Userdata';
 import ViewNotice from './pages/ViewNotice';
 import WriteNotice from './pages/WriteNotice';
 import ModifyNotice from './pages/ModifyNotice';
+import ViewDis from './pages/ViewDis';
+
+
 const Body = styled.div`
   width: 1300px;
   margin-left: auto;
@@ -48,6 +51,7 @@ class App extends Component {
           <Route path='/viewnotice/:data' element={<ViewNotice />} />
           <Route path='/writenotice' element={<WriteNotice />} />
           <Route path='/modifynotice' element={<ModifyNotice />} />
+          <Route path='/viewdis' element={<ViewDis />} />
         </Routes>
       </Body>
     );

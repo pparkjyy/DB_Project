@@ -172,7 +172,7 @@ const Nav = ({ history }) => {
           <TitleWrapper
               style={{
                 width: "700px",
-                marginLeft: "42px"
+                marginLeft: "-18px"
               }}
           >
             <CardBody className="select"
@@ -183,18 +183,6 @@ const Nav = ({ history }) => {
               >
                 <input type="radio" id="myshop" name="navButton" />
                     <label for="myshop">홈</label>
-              </CardBody>
-
-              <CardBody className="select"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                
-                    <div>{navigate("/stockinfo", { state: { code: '005930' }})}</div>
-                
-                }}
-              >
-                <input type="radio" id="stockinfo" name="navButton" />
-                    <label for="stockinfo">투자정보</label>
               </CardBody>
 
               <CardBody className="select"
@@ -258,7 +246,7 @@ const Nav = ({ history }) => {
           <TitleWrapper
               style={{
                 width: "700px",
-                marginLeft: "20px"
+                marginLeft: "-38px"
               }}
           >
             <CardBody className="select"
@@ -269,18 +257,6 @@ const Nav = ({ history }) => {
               >
                 <input type="radio" id="myshop" name="navButton" />
                     <label for="myshop">홈</label>
-              </CardBody>
-
-              <CardBody className="select"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                
-                    <div>{navigate("/stockinfo", { state: { code: '005930' }})}</div>
-                
-                }}
-              >
-                <input type="radio" id="stockinfo" name="navButton" />
-                    <label for="stockinfo">투자정보</label>
               </CardBody>
 
               <CardBody className="select"

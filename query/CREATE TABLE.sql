@@ -102,7 +102,7 @@ CREATE TABLE STOCK_UZ(
 CREATE TABLE STOCK_UC(
 	ID varchar(16) NOT NULL,	# 사용자 ID
 	code varchar(10) NOT NULL,	# 종목 코드
-    time TIME NOT NULL,			# 조회 시간
+    time datetime NOT NULL,			# 조회 시간
     PRIMARY KEY(ID, time),
     FOREIGN KEY (ID) REFERENCES USER(ID),
     FOREIGN KEY (code) REFERENCES STOCK(code)
@@ -130,7 +130,7 @@ CREATE TABLE U_BOARD(
     code varchar(10) NOT NULL,						# 종목 코드
     title varchar(100) NOT NULL,					# 글 제목
     text varchar(500) NOT NULL,						# 글 내용
-    time TIME NOT NULL,								# 작성시간
+    time datetime NOT NULL,								# 작성시간
     num int default 0,								# 조회수
     FOREIGN KEY (ID) REFERENCES USER(ID),
     FOREIGN KEY (code) REFERENCES STOCK(code)
@@ -141,7 +141,7 @@ CREATE TABLE D_BOARD(
 	ID varchar(16) NOT NULL PRIMARY KEY,		# 댓글 작성자 ID
     t_id int NOT NULL,							# 글 ID
     text varchar(500) NOT NULL,					# 댓글 내용
-    time TIME NOT NULL,							# 댓글 작성 시간
+    time datetime NOT NULL,							# 댓글 작성 시간
     FOREIGN KEY (ID) REFERENCES USER(ID),
     FOREIGN KEY (t_id) REFERENCES U_BOARD(t_id)
 );
