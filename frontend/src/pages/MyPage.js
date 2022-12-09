@@ -24,6 +24,13 @@ const Body = styled.div`
   justify-content: "center";
   width: 100%;
 `;
+const CardWrapper2 = styled.div`
+  overflow: hidden;
+  padding: 0 0 32px;
+  margin: 24px auto 0;
+  width: 100%;
+  font-family: Quicksand, arial, sans-serif;
+`;
 const Tr = styled.tr`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -93,7 +100,11 @@ const MyPage = ({ history }) => {
       .then(({ data }) => setuseracc(data));
   }, []);
 
-  
+  function addComma (data){
+    if(data)
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   function printboard(list){
     let array=[];
     for(let i = 0; i < list.length; i++){
@@ -117,15 +128,15 @@ const MyPage = ({ history }) => {
     let array=[];
       if(list.총평가손익 > 0)
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'red',fontSize: "20px", fontWeight: "800"}}>{data.총평가금액}( {list.총평가손익} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",color:'red',fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {(list.총평가손익).toFixed(2)} %)</CardHeader>
         )
       else if(list.총평가손익 < 0)
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{data.총평가금액}( {list.총평가손익} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {(list.총평가손익).toFixed(2)} %)</CardHeader>
         )
       else
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"40%",fontSize: "20px", fontWeight: "800"}}>{data.총평가금액}( {list.총평가손익} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {(list.총평가손익).toFixed(2)} %)</CardHeader>
         )
     return array
   }
@@ -163,44 +174,47 @@ const MyPage = ({ history }) => {
               display: "flex",
               width: "500px",
               height: "40px",
+              paddingTop: "35px",
               justifyContent: "center",
               alignItems: "center",
             }}>
-              <h3 style={{
+              <h2 style={{
                 flex:"1",
                 textAlign:"center",
-              }}>계좌</h3>
-            <select style={{flex:'4'}}>
+              }}>계좌</h2>
+            <select style={{flex:'4', height: "30px", paddingLeft: "5px", fontSize: "16px"}}>
               {selectOption(useracc)}
             </select>
             </div>
-            <CardWrapper>
+            
+            <CardWrapper2>
               <div style={{display: "flex"}}>
               <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "25px", fontWeight: "800"}}>자산현황</CardHeader>
               {printusermoney(usermoney,usermoneyp)}
               </div>
-                    
-              <div style={{width: "80%", margin: '20px 100px'}}>
-              <div style={{borderStyle: "solid", borderWidth: "3px", display: 'flex', padding: "4px"}}>  
-                <div style={{marginTop: "40px",marginLeft:"40px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney.총매입금액}</div>
-                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney.당일실현손익}</div>
-                <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{usermoney.총평가금액}</div>
+
+              <div style={{width: "82%", margin: '20px 100px'}}>
+              <div style={{borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', boxShadow: '0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08)', display: 'flex', padding: "4px"}}>  
+                <div style={{marginTop: "40px",marginLeft:"45px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{addComma(usermoney.총매입금액)}</div>
+                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{(usermoney.당일실현손익).toFixed(2)}%</div>
+                <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{addComma(usermoney.총평가금액)}</div>
                 </div>
               </div>
-            </CardWrapper>
+            </CardWrapper2>
             
-            <CardWrapper>
-            <h2 style={{
-                padding: "2%",
-              }}>보유주식</h2>
+            <CardWrapper2>
+              <div style={{display: "flex"}}>
+                <CardHeader style={{padding: "10px 0px 0px 100px", fontSize: "25px", fontWeight: "800"}}>보유주식</CardHeader>
+              </div>
               <Print></Print>  
-            </CardWrapper>
-            <CardWrapper>
-            <h2 style={{
-                padding: "2%",
-              }}>관심종목</h2>
+            </CardWrapper2>
+
+            <CardWrapper2>
+              <div style={{display: "flex"}}>
+                <CardHeader style={{padding: "10px 0px 0px 100px", fontSize: "25px", fontWeight: "800"}}>관심종목</CardHeader>
+              </div>  
               <Printu/>
-            </CardWrapper>
+            </CardWrapper2>
             
            
           </div>
