@@ -92,6 +92,26 @@ const MyPage = ({ history }) => {
       })
       .then(({ data }) => setuseracc(data));
   }, []);
+
+  
+  function printboard(list){
+    let array=[];
+    for(let i = 0; i < list.length; i++){
+      array.push(
+        <p>{list[i].title}</p>
+      )
+    }
+    return array
+  }
+  function printcomment(list){
+    let array=[];
+    for(let i = 0; i < list.length; i++){
+      array.push(
+        <p>{list[i].text}</p>
+      )
+    }
+    return array
+  }
   
   function printusermoney(data,list){
     let array=[];
@@ -235,8 +255,7 @@ const MyPage = ({ history }) => {
                 marginLeft: "15px",
               }}
             >
-              <p>대충 틀만잡은거</p>
-              <p>ㅂㄷㅈㄱㅂㅈㄷㄱ</p>
+            {printboard(userboard)}
             </div>
         </div>
         <div
@@ -258,8 +277,7 @@ const MyPage = ({ history }) => {
                 marginLeft: "15px",
               }}
             >
-              <p>틀틀틀니</p>
-              <p>ㅁㄴㅇㄻㄴㅇㄹ</p>
+              {printcomment(usercomment)}
             </div>
         </div>
 
