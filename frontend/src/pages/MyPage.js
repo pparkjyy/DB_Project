@@ -105,6 +105,11 @@ const MyPage = ({ history }) => {
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
+  function fixdata (data){
+    if(data)
+    return data.toFixed(2);
+  }
+
   function printboard(list){
     let array=[];
     for(let i = 0; i < list.length; i++){
@@ -128,15 +133,15 @@ const MyPage = ({ history }) => {
     let array=[];
       if(list.총평가손익 > 0)
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",color:'red',fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {(list.총평가손익).toFixed(2)} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",color:'red',fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {fixdata(list.총평가손익)} %)</CardHeader>
         )
       else if(list.총평가손익 < 0)
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {(list.총평가손익).toFixed(2)} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",color:'blue',fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {fixdata(list.총평가손익)} %)</CardHeader>
         )
       else
         array.push(
-          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {(list.총평가손익).toFixed(2)} %)</CardHeader>
+          <CardHeader style={{padding: "62px 0px 0px 12px",marginLeft:"47%",fontSize: "20px", fontWeight: "800"}}>{addComma(data.총평가금액)}( {fixdata(list.총평가손익)} %)</CardHeader>
         )
     return array
   }
@@ -196,7 +201,7 @@ const MyPage = ({ history }) => {
               <div style={{width: "82%", margin: '20px 100px'}}>
               <div style={{borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', boxShadow: '0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08)', display: 'flex', padding: "4px"}}>  
                 <div style={{marginTop: "40px",marginLeft:"45px"}}>총매입금액 :</div><div style={{marginLeft: "10px",marginTop :"42px"}}>{addComma(usermoney.총매입금액)}</div>
-                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{(usermoney.당일실현손익).toFixed(2)}%</div>
+                <div style={{marginLeft: "80px",marginTop:"40px"}}>당일실현손익 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{fixdata(usermoney.당일실현손익)}%</div>
                 <div style={{marginLeft: "80px",marginTop:"40px",marginBottom:"40px"}}>총평가금액 : </div><div style={{marginLeft: "10px",marginTop :"42px"}}>{addComma(usermoney.총평가금액)}</div>
                 </div>
               </div>
