@@ -14,7 +14,7 @@ import {
 import styled from "styled-components";
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useRoutes } from "react-router";
 import { Print } from "../components/print";
 import { Printu } from "../components/printu";
 
@@ -47,6 +47,30 @@ const MyPage = ({ history }) => {
   var [usermoney, setusermoney] = useState([]);
   var [useracc, setuseracc] = useState([]);
   var [usermoneyp, setusermoneyp] = useState([]);
+  var [userdata, setuserdata] = useState([]);
+  var [userboard, setuserboard] = useState([]);
+  var [usercomment, setusercomment] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getuserdata", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setuserdata(data[0]));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getuserboard", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setuserboard(data));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getusercomment", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setusercomment(data));
+  }, []);
   useEffect(() => {
     axios
       .get("http://localhost:4000/usermoneydata", {
@@ -96,7 +120,6 @@ const MyPage = ({ history }) => {
     return array
   }
 
-  console.log(usermoneyp)
   return (
     <Body style={{}}>
       <CardWrapper style={{display: "flex"}}>
@@ -164,13 +187,12 @@ const MyPage = ({ history }) => {
       </div>
       <div style={{
         flex:'1',
-        borderLeft : "1px solid #000",
         marginRight: "30px",
       }}>
 
         <div
         style={{
-          border:"2px solid #11A729",
+          border:"2px solid #000",
           marginLeft: '20px',
           display: 'flex',
           marginTop: '20px',
@@ -180,15 +202,17 @@ const MyPage = ({ history }) => {
                 marginLeft: "15px",
               }}
             >
-              <h3>주식왕박주식</h3>
-              <p>abc@gmail.com</p>
-              <p>132121221</p>
-              <p>01012321131</p>
+              <h3>{userdata.name}</h3>
+              <p>{userdata.email}</p>
+              <p>{userdata.phone}</p>
             </div>
           <button
             style={{
-              marginLeft : "40%",
-              marginTop : "50%",
+              marginLeft : "30%",
+              marginTop : "40%",
+            }}
+            onClick={()=>{
+              navigate("/userdata");
             }}
           >수정</button>
         </div>
@@ -202,7 +226,7 @@ const MyPage = ({ history }) => {
         </div>
         <div
         style={{
-          border:"2px solid #11A729",
+          border:"2px solid #000",
           marginLeft: '20px',
           height: "150px",
         }}>
@@ -225,7 +249,7 @@ const MyPage = ({ history }) => {
         </div>
         <div
         style={{
-          border:"2px solid #11A729",
+          border:"2px solid #000",
           marginLeft: '20px',
           height: "150px",
         }}>
