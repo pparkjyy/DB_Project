@@ -73,6 +73,7 @@ const setFav = async (id, code, isFavorite, fav) => {
 };
 
 const Stockinfo = ({history}) => {
+  const navigate = useNavigate();
   const navigateState = useLocation().state;
   const token = getTokenFromCookie();
   const stockcode = navigateState && navigateState.code;
@@ -83,6 +84,7 @@ const Stockinfo = ({history}) => {
   var [sell, setSell] = useState(false);
   var [userInfo, setUserInfo] = useState([]);
   var [isFavorite, setIsFavorite] = useState();
+  var [stocknum, setStocknum] = useState();
 
   useEffect((e) => {
     axios
@@ -125,6 +127,14 @@ const Stockinfo = ({history}) => {
       .then(({ data }) => setIsFavorite(data));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getStocknum", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setStocknum(data));
+  }, []);
+
 
   function addComma (data){
     if(data)
@@ -159,7 +169,7 @@ const Stockinfo = ({history}) => {
       });
     }, [history]);
 
-  
+  // console.log(stocknum)
   return (
     <Body style={{}}>
       <CardWrapper>
@@ -252,7 +262,7 @@ const Stockinfo = ({history}) => {
             </ChartWrapper>
           </ChartWrapper>
           <CardWrapper style={{margin: "8px 60px 0px 0px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '20%', fontSize:"18px"}}>
-            보유수량 : 0주 
+            보유수량 : {stocknum}주 
             <CardHeader style={{padding: "0px 0px 0px 0px", fontSize: "24px", fontWeight: "600", display: "flex"}}>
               <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} onClick={()=>{setSell(!sell);}}>매도</CardButton>
               <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} >매수</CardButton>
@@ -282,7 +292,8 @@ const Stockinfo = ({history}) => {
         </CardWrapper>
         </div>
         
-        <div>
+        <div onClick={()=>{navigate("/stockinfo/"+stockInfo.code,
+          {state:{code : stockInfo.code}})}}>
         <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실-- 여기는 아직 미완성</CardHeader>
         <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
         이 종목 지금 사는게 좋을까요 ? [1] -- 여기는 아직 미완성
