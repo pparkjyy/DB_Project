@@ -16,6 +16,7 @@ import "../App.css";
 import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie } from "../components/Auth";
+import { updateView } from "../components/clickview";
 
 export const Body = styled.div`
   display: flex;
@@ -61,7 +62,11 @@ function printList(list, navigate) {
     array.push(
       <div className="list_grid list_data" 
         style={{cursor: 'pointer', marginTop:'4px'}}
-        onClick={()=>{navigate("/viewnotice/"+list[i].postnum, {state:{postnum:list[i].postnum}})}}>
+        onClick={()=>{
+
+          updateView(list[i].num,list[i].postnum);
+          navigate("/viewnotice/"+list[i].postnum,
+          {state:{postnum:list[i].postnum}})}}>
         <div className="acenter"> {list[i].postnum} </div>
         <div className="text-link"> {list[i].title} </div>
         <div className="acenter"> {list[i].num} </div>

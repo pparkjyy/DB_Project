@@ -22,6 +22,7 @@ import ModifyNotice from './pages/ModifyNotice';
 import ViewDis from './pages/ViewDis';
 
 
+
 const Body = styled.div`
   width: 1300px;
   margin-left: auto;
