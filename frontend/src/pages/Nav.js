@@ -172,7 +172,7 @@ const Nav = ({ history }) => {
           <TitleWrapper
               style={{
                 width: "700px",
-                marginLeft: "42px"
+                marginLeft: "-18px"
               }}
           >
             <CardBody className="select"
@@ -246,7 +246,7 @@ const Nav = ({ history }) => {
           <TitleWrapper
               style={{
                 width: "700px",
-                marginLeft: "20px"
+                marginLeft: "-38px"
               }}
           >
             <CardBody className="select"
