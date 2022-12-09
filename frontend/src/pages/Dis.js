@@ -11,6 +11,7 @@ import {
   CardSelect,
   CardSelectOption,
   CardLink,
+  CardButton
 } from "../components/Card";
 import styled from "styled-components";
 import '../Dis.css'
@@ -38,7 +39,13 @@ const Td = styled.td`
   padding: 4px 20px;
   font-weight: 700;
 `;
-
+const Title = styled.div`
+  padding-top: 48px;
+  padding-bottom: 30px;
+  padding-left: 90px;
+  font-size: 30px;
+  font-weight: 600;
+`;
 const Dis = ({ history }) => {
   const navigate = useNavigate();
   const [disData, setDisData] = useState();  
@@ -72,7 +79,10 @@ const Dis = ({ history }) => {
   return (
     <Body style={{}}>
       <CardWrapper> 
-        <h1 style ={{marginLeft: "100px"}}> 토론게시판</h1>
+        <div style={{display: "flex", width: "100%", margin: "0px 0px 0px 12px"}}>
+          <Title>토론게시판</Title>
+          <CardButton style={{width: "120px", height: "40px", margin: "40px 0px 0px 820px"}}>글 작성</CardButton>
+        </div>
         <table style={{ width: '84%', borderCollapse: 'collapse', margin: 'auto', textAlign: "center" }}>
           <TitleTr>
             <Td>제목</Td>

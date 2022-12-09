@@ -32,6 +32,7 @@ import uploadaboard from "./api/Admin/uploadaboard.js";
 import modifyaboard from "./api/Admin/modifyaboard.js";
 import getaboardbypostnum from "./api/Admin/getaboardbypostnum.js";
 import updateaboardview from "./api/Admin/updateaboardview.js";
+import getRecentStock from "./api/Stock/getRecentStock.js";
 
 const connection = init();
 const app = express();
@@ -84,6 +85,7 @@ modifyaboard(app, connection);
 getaboardbypostnum(app, connection);
 updateRecentStock(app, connection);
 updateaboardview(app, connection);
+getRecentStock(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));

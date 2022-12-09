@@ -119,7 +119,7 @@ CREATE TABLE A_BOARD(
 	postnum int not null primary key auto_increment,
     title varchar(100) NOT NULL,			# 제목
     text varchar(500) NOT NULL,				# 내용
-    date date NOT NULL,						# 작성날짜
+    date datetime NOT NULL,						# 작성날짜
     num INT default 0						# 조회수
 );
 
