@@ -5,7 +5,6 @@ import "../App.css";
 import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie } from "../components/Auth";
-
 export const Body = styled.div`
   display: flex;
   width: 100%;
@@ -35,12 +34,13 @@ export const CardButton = styled.button`
   }
 `;
 
+
 const ViewNotice = ({ history }) => {
   let navigate = useNavigate();
   const navigateState = useLocation().state;
   const postnum = navigateState && navigateState.postnum;
   const [noticeData, setNoticeData] = useState([]);
-  console.log(noticeData);
+  
 
   useEffect(() => {
     axios
@@ -49,7 +49,6 @@ const ViewNotice = ({ history }) => {
       })
       .then(({ data }) => setNoticeData(data));
   }, []);
-
   const info = getInfoFromCookie();
 
   let admin = false;
