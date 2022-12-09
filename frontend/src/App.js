@@ -15,6 +15,7 @@ import News from './pages/News';
 import Dis from './pages/Dis';
 import Register from './pages/Register';
 import Notice from './pages/Notice';
+import Userdata from './pages/Userdata';
 
 
 const Body = styled.div`
@@ -42,6 +43,7 @@ class App extends Component {
           <Route path='/dis' element={<Dis />} />
           <Route path='/register' element={<Register />} />
           <Route path='/notice' element={<Notice />} />
+          <Route path='/userdata' element={<Userdata />} />
         </Routes>
       </Body>
     );

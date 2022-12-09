@@ -18,6 +18,13 @@ import calculatestock from "./api/User/calculatestock.js";
 import favoritestock from "./api/User/favoritestock.js";
 import usermoneydata from "./api/User/usermoneydata.js";
 import usermoneypercent from "./api/User/usermoneypercent.js";
+import getuserboard from "./api/User/getuserboard.js";
+import getusercomment from "./api/User/getusercomment.js";
+import getuserdata from "./api/User/getuserdata.js";
+import {
+  passwordUpdate,
+  privateUpdate,
+} from "./api/User/userUpdate.js";
 
 const connection = init();
 const app = express();
@@ -58,6 +65,11 @@ favoritestock(app, connection);
 usermoneydata(app, connection);
 usermoneypercent(app, connection);
 getbankacc(app, connection);
+getuserboard(app, connection);
+getusercomment(app, connection);
+getuserdata(app, connection);
+privateUpdate(app, connection);
+passwordUpdate(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
