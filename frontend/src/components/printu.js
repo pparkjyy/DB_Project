@@ -7,18 +7,19 @@ import { updateRecentStock } from "./clickStock";
 
 const Tr = styled.tr`
   border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  &:nth-child(odd){background-color: #e6f1ff;}
-  &:nth-child(even) { background-color: #f0f7ff; }
-  &:hover { background-color: #ffc5c2; cursor: pointer; }
+  &:hover { background-color: #8FBC8F; cursor: pointer; }
 `;
 const TitleTr = styled.tr`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid grey;
+  background-color: #F0FFF0;
 `;
 const Td = styled.td`
   padding: 4px 20px;
   font-weight: 700;
+`;
+const Td2 = styled.td`
+  padding: 4px 20px;
+  font-weight: 500;
 `;
 
 
@@ -35,6 +36,11 @@ export const Printu = ({ history }) => {
         .then(({ data }) => setfavoritestock(data));
     }, []);
 
+    function addComma (data){
+      if(data)
+      return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
     function printfstock(list){
       let array = [];
       for(let i = 0; i< list.length; i++){
@@ -43,17 +49,19 @@ export const Printu = ({ history }) => {
             updateRecentStock(list[i].code);
             navigate("/stockinfo", { state: { code: list[i].code } });
           }}>
-            <Td>{list[i].stock_name}</Td>
-            <Td>{list[i].n_price}</Td>
-            <Td>{list[i].전일대비비율}</Td>
-            <Td>{list[i].price_count}</Td>
+            <Td2>{list[i].stock_name}</Td2>
+            <Td2>{addComma(list[i].n_price)}</Td2>
+            <Td2>{(list[i].전일대비비율).toFixed(2)}%</Td2>
+            <Td2>{addComma(list[i].price_count)}</Td2>
           </Tr>
         )
       }
       return array
     }
     return(
-      <table style={{ width: '80%', borderCollapse: 'collapse', margin: 'auto' }}>
+      <div style={{width: "82%", margin: '20px 100px'}}>
+        <div style={{borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', boxShadow: '0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08)', display: 'flex', padding: "4px"}}>  
+          <table style={{ width: '95%', borderCollapse: 'collapse', margin: 'auto', textAlign: "center" }}>
           <TitleTr>
             <Td>종목명</Td>
             <Td>현재가격</Td>
@@ -62,6 +70,7 @@ export const Printu = ({ history }) => {
           </TitleTr>
           {printfstock(favoritestock)}
         </table> 
+        </div></div>
     );
 }
 
