@@ -23,76 +23,61 @@ const Body = styled.div`
   justify-content: "center";
   width: 100%;
 `;
+const Tr = styled.tr`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  &:nth-child(odd){background-color: #e6f1ff;}
+  &:nth-child(even) { background-color: #f0f7ff; }
+  &:hover { background-color: #ffc5c2; cursor: pointer; }
+`;
+const TitleTr = styled.tr`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+`;
+const Td = styled.td`
+  padding: 4px 20px;
+  font-weight: 700;
+`;
 
 const Dis = ({ history }) => {
   
-  const [inputData, setInputData] = useState([{
-    t_id: '',
-    title: '',
-    ID: '',
-    num: ''
-  }]);
-  
-  const [lastIdx, setLastIdx] = useState(0)
+  const [disData, setDisData] = useState();  
 
-  useEffect(async() => {
-    try {
-      const res = await axios.get('http://localhost:4000/dis')
-      const _inputData = await res.data.map((rowData) => (
-        setLastIdx(lastIdx + 1),
-        {
-          t_id:rowData.t_id,
-          title: rowData.title,
-          ID: rowData.ID,
-          num: rowData.num
-        })
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/dis")
+      .then(({ data }) => setDisData(data));
+  }, []);
+
+  console.log(disData);
+
+  function printData(data){
+    let array = [];
+    for(let i=0; i< data.length; i++){
+      array.push(
+        <Tr>
+          <Td>{data[i].t_id}</Td>
+          <Td>{data[i].title}</Td>
+          <Td>{data[i].ID}</Td>
+          <Td>{data[i].num}</Td>
+        </Tr>
       )
-      setInputData(inputData.concat(_inputData))
-      console.log(_inputData)
     }
-    catch(e){ console.error(e.message)}
-  },[])
-
+    return array;
+  }
   return (
     <Body style={{}}>
       <CardWrapper> 
-        <h1 style ={{marginLeft: "100px"}}> 토론게시판
-          <button style ={{marginLeft: "30px" }}> 나도 참여하기 </button>
-            <br />
-            <br />
-        </h1>
-          <td>
-            <th className="Dis_num">글 번호</th>
-            <th className="Title">제목</th>
-            <th className="ID">ID</th>
-            <th className="View_num">조회수</th>
-          </td>
-          <td>
-            {lastIdx !== 0 ?
-                inputData.map(rowData => (
-                  rowData.t_id !== '' &&
-                  <tr>
-                    <td className="listIdx">
-                      <Link to={`/dis/${rowData.idx}`}>{rowData.t_id}</Link>
-                    </td> 
-                    <td className='listTitle'>
-                      <Link to={`/dis/${rowData.idx}`}>{rowData.title}</Link>
-                    </td>
-                    <td className="listID">
-                      {rowData.ID}
-                    </td>
-                    <td className="listNum">
-                      {rowData.num}
-                    </td>
-                    <br /><br /><br />
-                  </tr>
-                )) :
-                <tr>
-                  <td>작성된 글이 없습니다.</td>
-                </tr>
-              }
-          </td>
-
+        <h1 style ={{marginLeft: "100px"}}> 토론게시판</h1>
+        <table style={{ width: '95%', borderCollapse: 'collapse', margin: 'auto', textAlign: "center" }}>
+          <TitleTr>
+            <Td>글 번호</Td>
+            <Td>제목</Td>
+            <Td>ID</Td>
+            <Td>조회수</Td>
+          </TitleTr>
+          {printData(disData)}
+        </table>
       </CardWrapper>
     </Body>
   );
