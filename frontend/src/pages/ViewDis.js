@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import { Link } from 'react-router-dom';
 import {
   CardWrapper,
@@ -41,7 +40,13 @@ const Td = styled.td`
   padding: 4px 20px;
   font-weight: 700;
 `;
-
+const Title = styled.div`
+  padding-top: 48px;
+  padding-bottom: 30px;
+  padding-left: 90px;
+  font-size: 30px;
+  font-weight: 600;
+`;
 const ViewDis = ({ history }) => {
   let navigate = useNavigate();
 

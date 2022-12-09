@@ -165,6 +165,16 @@ const Home = ({ history }) => {
       .then(({ data }) => setMarketCap(data));
   }, []);
 
+  var [recentStock, setRecentStock] = useState([]);
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getRecentStock", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setRecentStock(data));
+  }, []);
+
+  console.log(recentStock);
   function printRanking(Data){
     let array = [];
     for(let i = 0; i< Data.length; i++){
@@ -204,23 +214,47 @@ const Home = ({ history }) => {
     return array
   }
 
+  function printRecentStock(data){
+    let array = [];
+    for(let i = 0 ; i< data.length; i++){
+      if(data[i].rate>0)
+        array.push(
+          <div style={{display: "flex", cursor: "pointer"}}
+          onClick={()=>{
+            updateRecentStock(data[i].code);
+            navigate("/stockinfo", { state: { code: data[i].code } })
+          }}>
+            <SearchName>{data[i].name}</SearchName><SearchInfo>{data[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</SearchInfo><SearchInfo style={{color:'red'}}>+{data[i].rate.toFixed(2)}%</SearchInfo>
+          </div>
+        )
+      else if(data[i].rate<0)
+      array.push(
+        <div style={{display: "flex", cursor: "pointer"}}
+        onClick={()=>{
+          updateRecentStock(data[i].code);
+          navigate("/stockinfo", { state: { code: data[i].code } })
+        }}>
+          <SearchName>{data[i].name}</SearchName><SearchInfo>{data[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</SearchInfo><SearchInfo style={{color:'blue'}}>{data[i].rate.toFixed(2)}%</SearchInfo>
+        </div>
+      )
+      else
+      array.push(
+        <div style={{display: "flex", cursor: "pointer"}}
+        onClick={()=>{
+          updateRecentStock(data[i].code);
+          navigate("/stockinfo", { state: { code: data[i].code } })
+        }}>
+          <SearchName>{data[i].name}</SearchName><SearchInfo>{data[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</SearchInfo><SearchInfo>0.00%</SearchInfo>
+        </div>
+      )
+    }
+    return array
+  }
+  
   return (
     <Body style={{}}>
       <CardWrapper>
-{/*         
-        <table style={{ width: '80%', borderCollapse: 'collapse', margin: 'auto' }}>
-          <TitleTr>
-            <Td>Id</Td>
-            <Td>PW</Td>
-            <Td>name</Td>
-            <Td>age</Td>
-            <Td>phone</Td>
-            <Td>email</Td>
-            <Td>money</Td>
-          </TitleTr>
-          {printData(Data)}
-        </table>  */}
-        
+
         <div style={{ float: "left", width: "65%" }}>
           <Title>오늘의 뉴스</Title>
           <NewsWrapper>
@@ -246,21 +280,7 @@ const Home = ({ history }) => {
           <Searched>최근 검색</Searched><hr style={{ borderTop: '0.7px #c8c8c8', width: "60%" }}/>
           {info ? (
             <div style={{ float: "left", width: "61%", height: "150px", marginLeft: "90px", background: "#F0FFF0" }}>
-              <div style={{display: "flex", cursor: "pointer"}}>
-                <SearchName>삼성SDI</SearchName><SearchInfo>709,000</SearchInfo><SearchInfo>+2.26%</SearchInfo>
-              </div>
-              <div style={{display: "flex", cursor: "pointer"}}>
-                <SearchName>삼성SDI</SearchName><SearchInfo>709,000</SearchInfo><SearchInfo>+2.26%</SearchInfo>
-              </div>
-              <div style={{display: "flex", cursor: "pointer"}}>
-                <SearchName>삼성SDI</SearchName><SearchInfo>709,000</SearchInfo><SearchInfo>+2.26%</SearchInfo>
-              </div>
-              <div style={{display: "flex", cursor: "pointer"}}>
-                <SearchName>삼성SDI</SearchName><SearchInfo>709,000</SearchInfo><SearchInfo>+2.26%</SearchInfo>
-              </div>
-              <div style={{display: "flex", cursor: "pointer"}}>
-                <SearchName>POSCO홀딩스</SearchName><SearchInfo>709,000</SearchInfo><SearchInfo>+2.26%</SearchInfo>
-              </div>
+              {printRecentStock(recentStock)}
             </div>
             ) : (
             <div style={{ width: "60%", height: "150px", marginLeft: "90px", background: "#F0FFF0" }}>
