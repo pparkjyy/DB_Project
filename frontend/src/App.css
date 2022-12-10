@@ -46,7 +46,7 @@
 .Comment{
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 40%;
+  margin-top: 40px;
 }
 .comment_tit {
   margin-left: 100px;
@@ -61,11 +61,11 @@
 }
 .comment_grid{
   display: grid;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 68% 10% 9%;
 }
 .list_grid {
   display: grid;
-  grid-template-columns: 15% 60% 10% 15%;
+  grid-template-columns: 50% 17% 16% 17%;
 }
 
 .list_grid_qna {
@@ -86,8 +86,19 @@
 .acenter {
   text-align: center;
 }
+.comment_acenter {
+  text-align: center;
+  color: grey;
+  font-size: 13px;
+  margin-top: 2px;
+}
 .aleft {
   text-align: left;
+  padding-left: 50px;
+}
+.comment_aleft {
+  text-align: left;
+  padding-left: 280px;
 }
 .aright {
   text-align: right;

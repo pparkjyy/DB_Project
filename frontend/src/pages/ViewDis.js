@@ -65,10 +65,10 @@ function printcomment(data) {
     for (let i = 0; i < data.length; i++) {
       array.push(
         <div className="comment_grid comment_data" 
-          style={{cursor: 'pointer', marginTop:'4px'}}>
+          style={{cursor: 'pointer', marginTop:'4px', marginLeft: "-14px"}}>
+          <div className="comment_aleft"> {data[i].text} </div>
           <div className="acenter"> {data[i].ID} </div>
-          <div className="acenter"> {data[i].text} </div>
-          <div className="acenter"> {data[i].time.slice(10, 19).replace("T", " ")} </div>
+          <div className="comment_acenter"> {data[i].time.slice(2, 16).replace("T", " ")} </div>
           
         </div>
       )
@@ -136,6 +136,7 @@ const ViewDis = ({ history }) => {
             <div className="top_title">
               <div id="title_txt">{disData[0].title}</div>
               <div className="date_div">
+                {disData[0].ID} |{" "}
                 {disData[0].time.slice(0, 19).replace("T", " ")}
               </div>
             </div>
@@ -143,53 +144,46 @@ const ViewDis = ({ history }) => {
               <div className="content">{disData[0].text}</div>
             </div>
             
-            <div className="Comment">
-              <h2>댓글</h2>
-              <div className="comment_grid comment_tit">
-                <div className="acenter"> 아이디 </div>
-                <div className="acenter"> 내용 </div>
-                <div className="acenter"> 작성시간 </div>
-              </div>
-              {printcomment(comment)}
-
-            </div>
-            <SubTitle style={{marginTop: "30%",marginLeft: "-10%"}}>
-              댓글쓰기
+            <SubTitle style={{ borderTop: "solid 1px #ababab", borderBottom: "solid 1px #ababab", marginTop: "30%" }}>
+              댓글
               <div style={{ marginTop: "-28px" }}>
                 <textarea
                   placeholder="댓글 내용을 입력해주세요."
                   style={{
                     height: "50px",
-                    width: "52%",
-                    marginLeft: "200px",
+                    width: "65%",
+                    marginLeft: "60px",
                     paddingLeft: "10px",
                   }}
                   onChange={(e) => setncomment(e.target.value)}
                 />
               </div>
-        </SubTitle>
-        <div style={{ textAlign: "right",marginTop:"-90px" }}>
-          <button
-            type="submit"
-            style={{
-              margin: "16px",
-              height: "50px",
-              width: "120px",
-              backgroundColor: "#037a3b",
-              color: "#fff",
-              border: 0,
-              borderRadius: "5px",
-              boxShadow: 0,
-            }}
-            onClick={async (e) => {
-              if (await Uploadcomment(userid.id, t_id,ncomment)) {
-                window.location.replace("/viewdis/"+t_id,{state:{t_id : t_id}})
-              }
-            }}
-          >
-            등록
-          </button>
-        </div>
+            </SubTitle>
+            <div style={{ textAlign: "right", marginTop:"-90px" }}>
+              <button
+                type="submit"
+                style={{
+                  margin: "12px 160px 0px 0px",
+                  height: "50px",
+                  width: "70px",
+                  backgroundColor: "green",
+                  color: "white",
+                  border: 0,
+                  borderRadius: "5px",
+                  boxShadow: 0,
+                }}
+                onClick={async (e) => {
+                  if (await Uploadcomment(userid.id, t_id,ncomment)) {
+                    window.location.replace("/viewdis/"+t_id,{state:{t_id : t_id}})
+                  }
+                }}
+              >
+              등록
+              </button>
+            </div>
+            <div className="Comment">
+              {printcomment(comment)}
+            </div>
           </div>
         ) : null}
         {checkuser ? (
@@ -199,9 +193,9 @@ const ViewDis = ({ history }) => {
               state: { t_id : t_id },
             })
           }
-        >
+          >
           수정하기
-        </CardButton>
+          </CardButton>
         ) : null}
 
         <CardButton onClick={() => navigate(-1)}>목록</CardButton>
