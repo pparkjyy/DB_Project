@@ -5,6 +5,7 @@ import "../App.css";
 import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie } from "../components/Auth";
+import Swal from "sweetalert2";
 export const Body = styled.div`
   display: flex;
   width: 100%;
@@ -33,6 +34,27 @@ export const CardButton = styled.button`
     transform: translate(0, -5px);
   }
 `;
+
+const DeleteNot = async (postnum) => {
+  const res = await axios.post("http://localhost:4000/deleteaboard", {
+    postnum: postnum,
+  });
+  if (res.data === true) {
+    Swal.fire(
+      "게시글을 삭제하였습니다.",
+      "게시글 페이지로 이동합니다.",
+      "success"
+    );
+    return true;
+  } else {
+    Swal.fire(
+      "게시글 삭제에 실패하였습니다.",
+      "error"
+    );
+    return false;
+  }
+};
+
 
 
 const ViewNotice = ({ history }) => {
@@ -81,6 +103,10 @@ const ViewNotice = ({ history }) => {
           >
             수정하기
           </CardButton>
+        ) : null}
+        {admin ? (
+          <CardButton onClick={async (e) => {
+            if (await DeleteNot(postnum)) {{navigate(-1)}}}}>삭제하기</CardButton>
         ) : null}
 
         <CardButton onClick={() => navigate(-1)}>목록</CardButton>

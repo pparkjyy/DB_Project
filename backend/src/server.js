@@ -49,6 +49,10 @@ import searchstock from "./api/Stock/searchstock.js";
 import stockOrder from "./api/Stock/stockOrder.js";
 import { code_check } from "./api/Stock/addstock.js";
 import addstock from "./api/Stock/addstock.js";
+import deleteaboard from "./api/Admin/deleteaboard.js";
+import deletedis from "./api/User/deletedis.js";
+import deletecom from "./api/User/deletecom.js";
+
 const connection = init();
 const app = express();
 
@@ -118,6 +122,9 @@ searchstock(app, connection);
 stockOrder(app, connection);
 code_check(app, connection);
 addstock(app, connection);
+deleteaboard(app, connection);
+deletedis(app, connection);
+deletecom(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));

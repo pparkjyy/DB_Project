@@ -77,6 +77,36 @@ function printcomment(data) {
   return array;
 }
 
+const Deletedis = async (t_id) => {
+  const res = await axios.post("http://localhost:4000/deletecom", {
+    t_id: t_id,
+  });
+  if (res.data === true) {
+        const ress = await axios.post("http://localhost:4000/deletedis", {
+        t_id: t_id,
+      });
+      if (ress.data === true) {
+        Swal.fire(
+          "게시글 삭제에 성공하였습니다.",
+          "success"
+        );
+        return true;
+      } else {
+        Swal.fire(
+          "게시글 삭제에 실패하였습니다.",
+          "error"
+        );
+        return false;
+      }
+  } else {
+    Swal.fire(
+      "게시 글 삭제에 실패하였습니다.",
+      "error"
+    );
+    return false;
+  }
+};
+
 
 
 const ViewDis = ({ history }) => {
@@ -196,6 +226,13 @@ const ViewDis = ({ history }) => {
           >
           수정하기
           </CardButton>
+        ) : null}
+        {checkuser ? (
+          <CardButton onClick={async (e) => {
+            if (await Deletedis(t_id)) {
+              {navigate("/discuss/"+disData[0].code,{state:{code : disData[0].code}})}
+            }
+          }}>삭제하기</CardButton>
         ) : null}
 
         <CardButton onClick={() => navigate(-1)}>목록</CardButton>
