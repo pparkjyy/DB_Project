@@ -171,8 +171,8 @@ const Nav = ({ history }) => {
         {admin ?
           <TitleWrapper
               style={{
-                width: "700px",
-                marginLeft: "-62px"
+                width: "500px",
+                marginLeft: "-22px"
               }}
           >
             <CardBody className="select"
@@ -185,7 +185,6 @@ const Nav = ({ history }) => {
                     <label for="myshop">홈</label>
               </CardBody>
 
-              
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -218,8 +217,8 @@ const Nav = ({ history }) => {
           :
           <TitleWrapper
               style={{
-                width: "700px",
-                marginLeft: "-82px"
+                width: "400px",
+                marginLeft: "6px"
               }}
           >
             <CardBody className="select"
@@ -231,7 +230,6 @@ const Nav = ({ history }) => {
                 <input type="radio" id="myshop" name="navButton" />
                     <label for="myshop">홈</label>
               </CardBody>
-
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
