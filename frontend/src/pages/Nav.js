@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, withRouter } from "react-router";
 import "../menu.css";
 import { getInfoFromCookie, logout } from "../components/Auth";
-import { FaHashtag } from "react-icons/fa"
+import { FiSearch } from "react-icons/fi"
 import { searchPost } from "../components/searchPost";
 import Swal from "sweetalert2";
 
@@ -103,13 +103,14 @@ const Nav = ({ history }) => {
                 navigate("/");
               }}
             >
-              <div className="title">stockmarket</div>
+              <div className="title" style={{marginLeft: "50px"}}>stockmarket</div>
               <div className="select" style={{marginTop: '-35px', height: '31px', width: '115px'}}><input type="radio" id="logo" name="navButton" />
                     <label for="logo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
             </CardHeading>
             <CardFieldset
               style={{
                 paddingLeft: "20px",
+                paddingTop: "10px",
                 width: "400px",
               }}
             >
@@ -120,6 +121,13 @@ const Nav = ({ history }) => {
                 onKeyPress={onKeyPress}
               />
             </CardFieldset>
+            <CardButton2
+              style={{ width: "50px", height: "35px", marginTop: "8px" }}
+              type="button"
+              onClick={(e) => setSearchWord(e.target.value)}
+            >
+              <FiSearch/>
+            </CardButton2>
             {info ? (
               <TitleWrapper
                 style={{
