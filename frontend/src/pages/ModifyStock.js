@@ -15,7 +15,6 @@ import {
 } from "../components/Card";
 import styled from "styled-components";
 import "../menu.css";
-import { CheckCode } from "../components/Auth";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -45,17 +44,8 @@ export const InputText = styled.input`
   padding-left: 10px;
 `;
 
-const code_check = async (code) => {
-  const result = await CheckCode(code);
-  console.log(result);
-  return result;
-};
-
-const addstock = async (code, stock_name, stock_count, company_name, company_info, num, stock_owner, stock_num, stock_owner1, stock_num1, stock_owner2, stock_num2, stock_owner3, stock_num3, stock_owner4, stock_num4) => {
-  if (code === "") {
-    Swal.fire("종목추가에 실패했습니다.", "종목코드를 입력해주세요.", "error");
-    return false;
-  } else if (stock_name === "") {
+const modifystock = async (code, stock_name, stock_count, company_name, company_info) => {
+  if (stock_name === "") {
     Swal.fire("종목추가에 실패했습니다.", "종목명을 입력해주세요.", "error");
     return false;
   } else if (stock_count === "") {
@@ -64,60 +54,22 @@ const addstock = async (code, stock_name, stock_count, company_name, company_inf
   } else if (company_name === "") {
     Swal.fire("종목추가에 실패했습니다.", "기업명을 입력해주세요.", "error");
     return false;
-  } else if (stock_owner === "") {
-    Swal.fire("종목추가에 실패했습니다.", "주요주주를 입력해주세요.", "error");
-    return false;
-  } else if (stock_num === "") {
-    Swal.fire("종목추가에 실패했습니다.", "보유주식 수를 입력해주세요.", "error");
-    return false;
-  } else if (company_info === "") {
+  }else if (company_info === "") {
     Swal.fire("종목추가에 실패했습니다.", "기업 개요를 입력해주세요.", "error");
     return false;
-  } else if((stock_owner === "")||(stock_owner1 === "" && num>0)||(stock_owner2 === "" && num>1)||(stock_owner3 === "" && num>2)||(stock_owner4 === "" && num>3)){
-    Swal.fire("종목추가에 실패했습니다.", "주주명을 입력해주세요.", "error");
-    return false;
-  }else if((stock_num === "")||(stock_num1 === "" && num>0)||(stock_num2 === "" && num>1)||(stock_num3 === "" && num>2)||(stock_num4 === "" && num>3)){
-    Swal.fire("종목추가에 실패했습니다.", "보유주식수를 입력해주세요.", "error");
-    return false;
   }
-  else if((num==0 && Number(stock_num)>Number(stock_count))||
-  (num==1 && Number(stock_num)+Number(stock_num1)>Number(stock_count))||
-  (num==2 && Number(stock_num)+Number(stock_num1)+Number(stock_num2)>Number(stock_count))||
-  (num==3 && Number(stock_num)+Number(stock_num1)+Number(stock_num2)+Number(stock_num3)>Number(stock_count))||
-  (num==4 && Number(stock_num)+Number(stock_num1)+Number(stock_num2)+Number(stock_num3)+Number(stock_num4)>Number(stock_count))){
-    Swal.fire("종목추가에 실패했습니다.", "주요주주의 주식수의 합이 상장 주식수 보다 많습니다.", "error");
-    return false;
-  }else if(!await code_check(code)){
-    Swal.fire("종목추가에 실패했습니다.", "중복된 종목코드 입니다.", "error");
-    return false;
-  }
-  const res = await axios.post("http://localhost:4000/addstock", {
+  const res = await axios.post("http://localhost:4000/modifystock", {
     code: code,
     stock_name: stock_name,
     stock_count: stock_count,
     company_name: company_name,
-    stock_owner: stock_owner,
-    stock_num: stock_num,
     company_info: company_info,
-    num : num,
-    stock_owner : stock_owner, 
-    stock_num : stock_num, 
-    stock_owner1 : stock_owner1, 
-    stock_num1 : stock_num1,
-    stock_owner2 : stock_owner2,
-    stock_num2 : stock_num2,
-    stock_owner3 : stock_owner3,
-    stock_num3 : stock_num3,
-    stock_owner3 : stock_owner3,
-    stock_num3 : stock_num3,
-    stock_owner4 : stock_owner4,
-    stock_num4 : stock_num4,
   });
   const { result, msg } = res.data;
   if (result === true) {
-    Swal.fire("종목추가에 성공하였습니다.", msg, "success");
+    Swal.fire("종목수정에 성공하였습니다.", msg, "success");
   } else {
-    Swal.fire("종목추가에 실패했습니다.", msg, "error");
+    Swal.fire("종목수정에 실패했습니다.", msg, "error");
   }
   return result;
 };
@@ -125,90 +77,38 @@ const addstock = async (code, stock_name, stock_count, company_name, company_inf
 const ModifyStock = ({ history }) => {
   const navigateState = useLocation().state;
   const stockcode = navigateState && navigateState.code;
-  const [code, setCode] = useState("");
   const [stock_name, setStockName] = useState("");
   const [stock_count, setStockCount] = useState("");
   const [company_name, setCompanyName] = useState("");
-  const [stock_owner, setStockOwner] = useState("");
-  const [stock_num, setStockNum] = useState("");
-  const [stock_owner1, setStockOwner1] = useState("");
-  const [stock_num1, setStockNum1] = useState("");
-  const [stock_owner2, setStockOwner2] = useState("");
-  const [stock_num2, setStockNum2] = useState("");
-  const [stock_owner3, setStockOwner3] = useState("");
-  const [stock_num3, setStockNum3] = useState("");
-  const [stock_owner4, setStockOwner4] = useState("");
-  const [stock_num4, setStockNum4] = useState("");
   const [company_info, setCompany_Info] = useState("");
-  var [shareholderInfo, setShareholderInfo] = useState([]);
-  var [companyInfo, setCompanyInfo] = useState([]);
-  let navigate = useNavigate();
-  const [plus, setPlus] = useState(0);
 
+  var [companyInfo, setCompanyInfo] = useState([]);
+  var [stockInfo, setStockInfo] = useState([]);
+  let navigate = useNavigate();
+
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getStockInfo", {
+        params: { stockcode: stockcode },
+      })
+      .then(({ data }) => {
+        setStockInfo(data[0]);
+        setStockName(data[0].stock_name);
+      });
+  }, []);
   useEffect((e) => {
     axios
       .get("http://localhost:4000/getCompanyInfo", {
         params: { stockcode: stockcode },
       })
-      .then(({ data }) => setCompanyInfo(data[0]));
+      .then(({ data }) => {
+        setCompanyInfo(data[0]);
+        setStockCount(data[0].stock_count);
+        setCompanyName(data[0].company_name);
+        setCompany_Info(data[0].company_info);
+      });
   }, []);
-  useEffect((e) => {
-    axios
-      .get("http://localhost:4000/getShareholderInfo", {
-        params: { stockcode: stockcode },
-      })
-      .then(({ data }) => setShareholderInfo(data));
-  }, []);
-
-  function printPlus(num){
-    let array = [];
-    for(let i=0;i<num;i++){
-      array.push(
-        <div style={{ marginLeft: "250px" ,marginBottom: "20px"}}>
-              <InputText
-                placeholder="주주명을 입력해주세요."
-                style={{ height: "25px", width: "20%" }}
-                onChange={(e) => {
-                  if(i==0)setStockOwner1(e.target.value)
-                  else if(i==1)setStockOwner2(e.target.value)
-                  else if(i==2)setStockOwner3(e.target.value)
-                  else if(i==3)setStockOwner4(e.target.value)
-                }}
-              />
-              <InputText
-                placeholder="보유주식수를 입력해주세요."
-                style={{ height: "25px", width: "20%", marginLeft: '10px'}}
-                type="number"
-                onChange={(e) => {
-                  if(i==0)setStockNum1(e.target.value)
-                  else if(i==1)setStockNum2(e.target.value)
-                  else if(i==2)setStockNum3(e.target.value)
-                  else if(i==3)setStockNum4(e.target.value)
-                }}
-              />
-              <button 
-                type="button"
-                style={{
-                  marginLeft: '10px',
-                  height: "30px",
-                  width: "38px",
-                  backgroundColor: "red",
-                  border: 0,
-                  borderRadius: "3px",
-                  boxShadow: 0,
-                  color: 'white',
-                  fontSize: '17px',
-                  fontWeight: 'bold'
-                }}
-                onClick={()=>{setPlus(Number(plus)-1)}}
-              >
-                -
-              </button>
-            </div>
-      )
-    }
-    return array;
-  }
+  
 
   return (
     <Body style={{}}>
@@ -227,7 +127,7 @@ const ModifyStock = ({ history }) => {
               placeholder="종목 이름을 입력해주세요."
               style={{ height: "25px", width: "47%" }}
               onChange={(e) => setStockName(e.target.value)}
-              defaultValue = {companyInfo.company_name}
+              defaultValue = {stockInfo.stock_name}
             />
           </div>
         </SubTitle>
@@ -240,6 +140,7 @@ const ModifyStock = ({ history }) => {
               type="number"
               style={{ height: "25px", width: "47%" }}
               onChange={(e) => setStockCount(e.target.value)}
+              defaultValue = {companyInfo.stock_count}
             />
           </div>
         </SubTitle>
@@ -251,47 +152,12 @@ const ModifyStock = ({ history }) => {
               placeholder="기업 이름을 입력해주세요."
               style={{ height: "25px", width: "47%" }}
               onChange={(e) => setCompanyName(e.target.value)}
+              defaultValue = {companyInfo.company_name}
             />
           </div>
         </SubTitle>
 
-        <SubTitle>
-          주요주주 및 주식수
-          <div style={{ marginTop: "-28px" }}>
-            <InputText
-              placeholder="주주명을 입력해주세요."
-              style={{ height: "25px", width: "20%" }}
-              onChange={(e) => setStockOwner(e.target.value)}
-            />
-            <InputText
-              placeholder="보유주식수를 입력해주세요."
-              style={{ height: "25px", width: "20%", marginLeft: '10px'}}
-              type="number"
-              onChange={(e) => setStockNum(e.target.value)}
-            />
-            {plus<4?(
-            <button 
-              type="button"
-              style={{
-                marginLeft: '10px',
-                height: "30px",
-                width: "38px",
-                backgroundColor: "green",
-                border: 0,
-                borderRadius: "3px",
-                boxShadow: 0,
-                color: 'white',
-                fontSize: '17px',
-                fontWeight: 'bold'
-              }}
-              onClick={(e)=>{setPlus(Number(plus)+1)}}
-            >
-              +
-            </button>
-            ):null}
-          </div>
-        </SubTitle>
-        {printPlus(plus)}
+        
           <div>
             <SubTitle>
             기업소개
@@ -306,6 +172,7 @@ const ModifyStock = ({ history }) => {
                   paddingTop: "10px",
                 }}
                 onChange={(e) => setCompany_Info(e.target.value)}
+                defaultValue = {companyInfo.company_info}
               />
             </div>
           </SubTitle>
@@ -342,8 +209,8 @@ const ModifyStock = ({ history }) => {
                 boxShadow: 0,
               }}
               onClick={async (e) => {
-                if (await addstock(code, stock_name, stock_count, company_name, company_info, plus, stock_owner, stock_num, stock_owner1, stock_num1, stock_owner2, stock_num2, stock_owner3, stock_num3, stock_owner4, stock_num4)) {
-                  navigate("/");
+                if (await modifystock(stockcode, stock_name, stock_count, company_name, company_info)) {
+                  navigate(-1);
                 }
               }}
             >
