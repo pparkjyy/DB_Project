@@ -115,6 +115,7 @@ const AddStock = ({ history }) => {
   // const [stock_num, setStockNum] = useState("");
   // const [company_info, setCompanyInfo] = useState("");
   // let navigate = useNavigate();
+  var [plus, setPlus] = useState(true);
 
   return (
     <Body style={{}}>
@@ -212,72 +213,165 @@ const AddStock = ({ history }) => {
                 fontSize: '17px',
                 fontWeight: 'bold'
               }}
-              // onClick={async (e) => {
-              //   
-              // }}
+              onClick={()=>{setPlus(!plus)}}
             >
               +
             </button>
           </div>
         </SubTitle>
-
-        <SubTitle>
-          기업소개
-          <div style={{ marginTop: "-28px" }}>
-            <textarea
-              placeholder="기업 개요를 입력해주세요."
+        {plus ? (
+          <div>
+            <SubTitle>
+            기업소개
+            <div style={{ marginTop: "-28px" }}>
+              <textarea
+                placeholder="기업 개요를 입력해주세요."
+                style={{
+                  height: "100px",
+                  width: "47%",
+                  marginLeft: "200px",
+                  paddingLeft: "10px",
+                  paddingTop: "10px",
+                }}
+                // onChange={(e) => setCompanyInfo(e.target.value)}
+              />
+            </div>
+          </SubTitle>
+          
+          <hr />
+          <div style={{ textAlign: "center", marginLeft: "105px", marginTop: "20px" }}>
+            <button
+              type="reset"
               style={{
-                height: "100px",
-                width: "47%",
-                marginLeft: "200px",
-                paddingLeft: "10px",
-                paddingTop: "10px",
+                margin: "16px",
+                height: "50px",
+                width: "235px",
+                backgroundColor: "white",
+                border: "1px solid green",
+                borderRadius: "5px",
+                boxShadow: 0,
               }}
-              // onChange={(e) => setCompanyInfo(e.target.value)}
-            />
+              // onClick={async (e)=>{
+              //   navigate(-1)
+              // }}
+            >
+              취소
+            </button>
+            <button
+              type="submit"
+              style={{
+                margin: "16px",
+                height: "50px",
+                width: "235px",
+                backgroundColor: "green",
+                color: "white",
+                border: 0,
+                borderRadius: "5px",
+                boxShadow: 0,
+              }}
+              // onClick={async (e) => {
+              //   if (await addstock(code, stock_name, stock_count, company_name, company_info)) {
+              //     navigate("/");
+              //   }
+              // }}
+            >
+              등록
+            </button>
           </div>
-        </SubTitle>
-        
-        <hr />
-        <div style={{ textAlign: "center", marginLeft: "105px", marginTop: "20px" }}>
-          <button
-            type="reset"
-            style={{
-              margin: "16px",
-              height: "50px",
-              width: "235px",
-              backgroundColor: "white",
-              border: "1px solid green",
-              borderRadius: "5px",
-              boxShadow: 0,
-            }}
-            // onClick={async (e)=>{
-            //   navigate(-1)
-            // }}
-          >
-            취소
-          </button>
-          <button
-            type="submit"
-            style={{
-              margin: "16px",
-              height: "50px",
-              width: "235px",
-              backgroundColor: "green",
-              color: "white",
-              border: 0,
-              borderRadius: "5px",
-              boxShadow: 0,
-            }}
-            // onClick={async (e) => {
-            //   if (await addstock(code, stock_name, stock_count, company_name, company_info)) {
-            //     navigate("/");
-            //   }
-            // }}
-          >
-            등록
-          </button>
         </div>
+        )
+        : 
+        (
+          <div>
+            <div style={{ marginLeft: "250px" }}>
+              <InputText
+                placeholder="주주명을 입력해주세요."
+                style={{ height: "25px", width: "20%" }}
+                // onChange={(e) => setTitle(e.target.value)}
+              />
+              <InputText
+                placeholder="보유주식수를 입력해주세요."
+                style={{ height: "25px", width: "20%", marginLeft: '10px'}}
+                // onChange={(e) => setTitle(e.target.value)}
+              />
+              <button 
+                type="button"
+                style={{
+                  marginLeft: '10px',
+                  height: "30px",
+                  width: "38px",
+                  backgroundColor: "red",
+                  border: 0,
+                  borderRadius: "3px",
+                  boxShadow: 0,
+                  color: 'white',
+                  fontSize: '17px',
+                  fontWeight: 'bold'
+                }}
+                onClick={()=>{setPlus(!plus)}}
+              >
+                -
+              </button>
+            </div>
+            <SubTitle>
+            기업소개
+            <div style={{ marginTop: "-28px" }}>
+              <textarea
+                placeholder="기업 개요를 입력해주세요."
+                style={{
+                  height: "100px",
+                  width: "47%",
+                  marginLeft: "200px",
+                  paddingLeft: "10px",
+                  paddingTop: "10px",
+                }}
+                // onChange={(e) => setCompanyInfo(e.target.value)}
+              />
+            </div>
+            </SubTitle>
+            
+            <hr />
+            <div style={{ textAlign: "center", marginLeft: "105px", marginTop: "20px" }}>
+              <button
+                type="reset"
+                style={{
+                  margin: "16px",
+                  height: "50px",
+                  width: "235px",
+                  backgroundColor: "white",
+                  border: "1px solid green",
+                  borderRadius: "5px",
+                  boxShadow: 0,
+                }}
+                // onClick={async (e)=>{
+                //   navigate(-1)
+                // }}
+              >
+                취소
+              </button>
+              <button
+                type="submit"
+                style={{
+                  margin: "16px",
+                  height: "50px",
+                  width: "235px",
+                  backgroundColor: "green",
+                  color: "white",
+                  border: 0,
+                  borderRadius: "5px",
+                  boxShadow: 0,
+                }}
+                // onClick={async (e) => {
+                //   if (await addstock(code, stock_name, stock_count, company_name, company_info)) {
+                //     navigate("/");
+                //   }
+                // }}
+              >
+                등록
+              </button>
+            </div>
+          </div>
+        )}
         
       </CardWrapper>
     </Body>
