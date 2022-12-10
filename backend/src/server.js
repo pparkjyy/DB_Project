@@ -52,7 +52,10 @@ import addstock from "./api/Stock/addstock.js";
 import deleteaboard from "./api/Admin/deleteaboard.js";
 import deletedis from "./api/User/deletedis.js";
 import deletecom from "./api/User/deletecom.js";
+import getnews from "./api/Admin/getnews.js";
 import modifystock from "./api/Stock/modifystock.js";
+
+
 const connection = init();
 const app = express();
 
@@ -125,7 +128,9 @@ addstock(app, connection);
 deleteaboard(app, connection);
 deletedis(app, connection);
 deletecom(app, connection);
+getnews(app, connection);
 modifystock(app, connection);
+
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
 });
