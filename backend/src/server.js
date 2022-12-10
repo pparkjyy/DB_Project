@@ -45,6 +45,7 @@ import uploadcomment from "./api/User/uploadcomment.js";
 import uploaddis from "./api/User/uploaddis.js";
 import updatedisview from "./api/User/updatedisview.js";
 import getDisInfo from "./api/Stock/getDisInfo.js";
+import searchstock from "./api/Stock/searchstock.js";
 
 const connection = init();
 const app = express();
@@ -111,6 +112,7 @@ uploadcomment(app, connection);
 uploaddis(app, connection);
 updatedisview(app, connection);
 getDisInfo(app, connection);
+searchstock(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
