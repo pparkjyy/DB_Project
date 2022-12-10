@@ -77,20 +77,20 @@ export const CheckID = async (id) => {
   }
 };
 
-// export const CheckCode = async (code) => {
-//   console.log("CheckCode: ", code);
-//   const res = await axios.post("http://localhost:4000/codeCheck", {
-//     code: code,
-//   });
-//   console.log("res:", res);
-//   if (res.data.msg === "EIXST") {
-//     console.log("해당 종목 이미 존재");
-//     return false;
-//   } else if (res.data.msg === "OK") {
-//     console.log("추가 가능");
-//     return true;
-//   }
-// };
+export const CheckCode = async (code) => {
+  console.log("CheckCode: ", code);
+  const res = await axios.post("http://localhost:4000/codeCheck", {
+    code: code,
+  });
+  console.log("res:", res);
+  if (res.data.msg === "EIXST") {
+    console.log("해당 종목 이미 존재");
+    return false;
+  } else if (res.data.msg === "OK") {
+    console.log("추가 가능");
+    return true;
+  }
+};
 
 export const CheckAdminID = async (id) => {
   console.log("CheckID: ", id);
