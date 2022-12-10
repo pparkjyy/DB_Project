@@ -137,6 +137,13 @@ const Home = ({ history }) => {
   const navigate = useNavigate();
   const token = getTokenFromCookie();
 
+  var [news, setnews] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getnews")
+      .then(({ data }) => setnews(data));
+  }, []);
+  console.log(news);
   var [risingRate, setRisingRate] = useState([]);
   useEffect(() => {
     axios
@@ -250,7 +257,18 @@ const Home = ({ history }) => {
     }
     return array
   }
-  
+  function PrintNews(list){
+    let array = [];
+    for(let i = 0; i < list.length; i++){
+      array.push(
+        <div style={{display: "flex", cursor: "pointer"}}onClick={()=>{window.location.replace(list[i].URL)}}>
+          <NewsTitle>{list[i].Title}</NewsTitle><NewsOffice>{list[i].writer}</NewsOffice>
+        </div> 
+      )
+    }
+    return array
+  }
+
   return (
     <Body style={{}}>
       <CardWrapper>
@@ -258,21 +276,7 @@ const Home = ({ history }) => {
         <div style={{ float: "left", width: "65%" }}>
           <Title>오늘의 뉴스</Title>
           <NewsWrapper>
-            <div>
-              <NewsTitle>[마감시황]코스피, 6거래일 만에 상승…2389선 마감</NewsTitle><NewsOffice>뉴시스</NewsOffice>
-            </div>
-            <div>
-              <NewsTitle>[코스피(마감)] 17.96포인트(0.76%) 오른 2389.04 마감</NewsTitle><NewsOffice>서울경제</NewsOffice>
-            </div>
-            <div>
-              <NewsTitle>[특징주] 증권가 호평에 9% 급등했던 쏘카, 하루 만에 반락</NewsTitle><NewsOffice>조선비즈</NewsOffice>
-            </div>
-            <div>
-              <NewsTitle>[시황] 코스피, 외인 매도에 2260대 마감</NewsTitle><NewsOffice>데일리안</NewsOffice>
-            </div>
-            <div>
-              <NewsTitle>[시황] 코스피, 외인 매도에 2260대 마감</NewsTitle><NewsOffice>데일리안</NewsOffice>
-            </div>
+            {PrintNews(news)}
           </NewsWrapper>
         </div>
 
