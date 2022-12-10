@@ -177,7 +177,8 @@ const Stockinfo = ({history}) => {
 
   function addComma (data){
     if(data)
-    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    else return '0';
   }
 
   function printShareholder (data){

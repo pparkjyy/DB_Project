@@ -35,7 +35,8 @@ const Td2 = styled.td`
 `;
 function addComma (data){
   if(data)
-  return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  else return 0
 }
 
 function PrintStock(data,navigate) {  
