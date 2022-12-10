@@ -20,7 +20,6 @@ import { getInfoFromCookie, logout } from "../components/Auth";
 import { FaHashtag } from "react-icons/fa"
 import { searchStock } from "../components/searchStock";
 import { FiSearch } from "react-icons/fi"
-import { searchPost } from "../components/searchPost";
 import Swal from "sweetalert2";
 
 const Body = styled.div`
