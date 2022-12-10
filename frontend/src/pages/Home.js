@@ -24,7 +24,7 @@ const Body = styled.div`
   align-items: "center";
   justify-content: "center";
   width: 100%;
-  height: 200vh
+  height: 300vh;
 `;
 const Title = styled.div`
   padding-top: 48px;
