@@ -42,7 +42,6 @@ const UploadDis = async (id, code, title, text) => {
     code: code,  
     title: title,
     text: text,
-    
   });
   if (res.data === true) {
     Swal.fire(

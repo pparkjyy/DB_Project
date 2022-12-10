@@ -17,6 +17,8 @@ import { Link } from "react-router-dom";
 import { useNavigate, withRouter } from "react-router";
 import "../menu.css";
 import { getInfoFromCookie, logout } from "../components/Auth";
+import { FaHashtag } from "react-icons/fa"
+import { searchStock } from "../components/searchStock";
 import { FiSearch } from "react-icons/fi"
 import { searchPost } from "../components/searchPost";
 import Swal from "sweetalert2";
@@ -70,7 +72,7 @@ const Nav = ({ history }) => {
   const [searchWord, setSearchWord] = useState("");
   const onKeyPress = async (e) => {
     if (e.key === "Enter") {
-      const result = await searchPost(searchWord);
+      const result = await searchStock(searchWord);
       console.log(result);
       navigate("/search", { state: { search: searchWord, result: result } })
     }

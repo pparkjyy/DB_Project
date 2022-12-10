@@ -45,6 +45,7 @@ import uploadcomment from "./api/User/uploadcomment.js";
 import uploaddis from "./api/User/uploaddis.js";
 import updatedisview from "./api/User/updatedisview.js";
 import getDisInfo from "./api/Stock/getDisInfo.js";
+import searchstock from "./api/Stock/searchstock.js";
 import stockOrder from "./api/Stock/stockOrder.js";
 
 const connection = init();
@@ -112,6 +113,7 @@ uploadcomment(app, connection);
 uploaddis(app, connection);
 updatedisview(app, connection);
 getDisInfo(app, connection);
+searchstock(app, connection);
 stockOrder(app, connection);
 
 app.listen(app.get("port"), () => {
