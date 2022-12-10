@@ -38,6 +38,8 @@ import setFavorite from "./api/User/setFavorite.js";
 import getStocknum from "./api/User/getStocknum.js";
 import viewdisbytid from "./api/User/viewdisbytid.js";
 import checkuser from "./api/User/checkuser.js";
+import modifydis from "./api/User/modifydis.js";
+import getdisbytid from "./api/User/getdisbytid.js";
 
 const connection = init();
 const app = express();
@@ -96,6 +98,8 @@ setFavorite(app, connection);
 getStocknum(app, connection);
 viewdisbytid(app, connection);
 checkuser(app, connection);
+modifydis(app, connection);
+getdisbytid(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
