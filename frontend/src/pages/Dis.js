@@ -16,7 +16,7 @@ import "../App.css";
 import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie } from "../components/Auth";
-import { updateView } from "../components/clickview";
+import { updatedisView } from "../components/clickview";
 
 export const Body = styled.div`
   display: flex;
@@ -63,7 +63,9 @@ function printList(data,navigate) {
       array.push(
         <div className="list_grid list_data" 
           style={{cursor: 'pointer', marginTop:'4px'}}
-          onClick={()=>{navigate("/viewdis/"+data[i].t_id,{state:{t_id : data[i].t_id}})}}>
+          onClick={()=>{
+            updatedisView(data[i].num,data[i].t_id);
+            navigate("/viewdis/"+data[i].t_id,{state:{t_id : data[i].t_id}})}}>
           <div className="acenter"> {data[i].ID} </div>
           <div className="acenter"> {data[i].title} </div>
           <div className="acenter"> {data[i].num}</div>
@@ -83,7 +85,7 @@ const Dis = ({ history }) => {
   const navigateState = useLocation().state;
   const code = navigateState && navigateState.code;
   const [disData, setDisData] = useState([]);
-
+  const [stockdata, setstockdata] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:4000/dis", {
@@ -91,11 +93,18 @@ const Dis = ({ history }) => {
       })
       .then(({ data }) => setDisData(data));
   }, []);
-  
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getCompanyInfo", {
+        params: { stockcode: code },
+      })
+      .then(({ data }) => setstockdata(data[0]));
+  }, []);
+
   return (
     <Body>
       <CardWrapper>
-        <Title>종목토론게시판</Title>
+        <Title>{stockdata.company_name} 토론게시판</Title>
 
         <div className="List">
           <div className="list_grid list_tit">
@@ -107,6 +116,9 @@ const Dis = ({ history }) => {
           {printList(disData,navigate)}
 
         </div>
+        <CardButton onClick={() => navigate("/writedis",{state:{code : code}})}>
+           글쓰기
+        </CardButton>
         
       </CardWrapper>
     </Body>

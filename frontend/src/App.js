@@ -21,6 +21,7 @@ import ModifyNotice from './pages/ModifyNotice';
 import ViewDis from './pages/ViewDis';
 import Discuss from './pages/Dis';
 import ModifyDis from './pages/ModifyDis';
+import Writedis from './pages/WriteDis';
 
 
 
@@ -55,6 +56,7 @@ class App extends Component {
           <Route path='/viewdis/:data' element={<ViewDis />} />
           <Route path='/discuss/:data' element={<Discuss />} />
           <Route path='/modifydis' element={<ModifyDis />} />
+          <Route path='/writedis' element={<Writedis />} />
         </Routes>
       </Body>
     );

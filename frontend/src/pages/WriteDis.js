@@ -1,10 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
+import { getTokenFromCookie } from "../components/Auth";
 import { CardWrapper } from "../components/Card";
-import { Title, SubTitle, InputText } from "./WriteNotice";
 import styled from "styled-components";
 import axios from "axios";
 import Swal from "sweetalert2";
+
+
+export const Title = styled.div`
+  padding-top: 48px;
+  padding-bottom: 64px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+`;
+
+export const SubTitle = styled.div`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 250px;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+export const InputText = styled.input`
+  margin-left: 200px;
+  type: text;
+  padding-left: 10px;
+`;
 
 export const Body = styled.div`
   display: flex;
@@ -13,22 +36,23 @@ export const Body = styled.div`
   width: 100%;
 `;
 
-const modifydis = async (title, text, t_id) => {
-  const res = await axios.post("http://localhost:4000/modifydis", {
+const UploadDis = async (id, code, title, text) => {
+  const res = await axios.post("http://localhost:4000/uploaddis", {
+    id: id,
+    code: code,  
     title: title,
     text: text,
-    t_id: t_id,
+    
   });
   if (res.data === true) {
     Swal.fire(
-      "게시판 수정에 성공하였습니다.",
-      "게시판 페이지로 이동합니다.",
+      "게시판 글 등록에 성공하였습니다.",
       "success"
     );
     return true;
   } else {
     Swal.fire(
-      "게시판 수정에 실패하였습니다.",
+      "게시판 글 등록에 실패하였습니다.",
       "제목및 내용을 입력해주세요. ",
       "error"
     );
@@ -36,32 +60,27 @@ const modifydis = async (title, text, t_id) => {
   }
 };
 
-const ModifyDis = ({ history }) => {
+const WriteDis = ({ history }) => {
   let navigate = useNavigate();
   const navigateState = useLocation().state;
-  const t_id = navigateState && navigateState.t_id;
+  const code = navigateState && navigateState.code;
   var [title, setTitle] = useState([]);
   var [text, settext] = useState([]);
-  var [code, setcode] = useState([]);
-  const [disData, setdisData] = useState([]);
+  const token = getTokenFromCookie();
 
+  const [userid, setuserid] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/getdisbytid", {
-        params: { t_id : t_id },
+      .get("http://localhost:4000/getuserdata", {
+        headers: { token: token },
       })
-      .then(({ data }) => {
-        setdisData(data);
-        setTitle(data.title);
-        settext(data.text);
-        setcode(data.code);
-      });
+      .then(({ data }) => setuserid(data[0]));
   }, []);
 
   return (
     <Body>
       <CardWrapper>
-        <Title>토론게시판 수정</Title>
+        <Title>게시판 글 등록</Title>
 
         <SubTitle>
           제목
@@ -69,7 +88,6 @@ const ModifyDis = ({ history }) => {
             <InputText
               placeholder="게시글 제목을 입력해주세요."
               style={{ height: "25px", width: "52%" }}
-              defaultValue={disData.length ? disData[0].title : ""}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
@@ -87,7 +105,6 @@ const ModifyDis = ({ history }) => {
                 paddingLeft: "10px",
                 paddingTop: "10px",
               }}
-              defaultValue={disData.length ? disData[0].text : ""}
               onChange={(e) => settext(e.target.value)}
             />
           </div>
@@ -125,14 +142,12 @@ const ModifyDis = ({ history }) => {
               boxShadow: 0,
             }}
             onClick={async (e) => {
-              if (title === undefined) title = disData[0].title;
-              if (text === undefined) text = disData[0].text;
-              if (await modifydis(title, text, t_id)) {
-                {navigate("/discuss/"+disData[0].code,{state:{code : disData[0].code}})}
+              if (await UploadDis(userid.id, code, title, text)) {
+                {navigate("/discuss/"+code,{state:{code : code}})}
               }
             }}
           >
-            수정
+            등록
           </button>
         </div>
       </CardWrapper>
@@ -140,4 +155,4 @@ const ModifyDis = ({ history }) => {
   );
 };
 
-export default ModifyDis;
+export default WriteDis;

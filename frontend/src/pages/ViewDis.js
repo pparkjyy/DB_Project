@@ -109,7 +109,7 @@ const ViewDis = ({ history }) => {
   if (info) if (info.token) admin = info.token.type == "admin";
 
   const [checkuser, setcheckuser] = useState([]);
-  const [userid, setuserid] = useState([]);
+  
   useEffect(() => {
     axios
       .get("http://localhost:4000/checkuser", {
@@ -118,6 +118,7 @@ const ViewDis = ({ history }) => {
       })
       .then(({ data }) => setcheckuser(data));
   }, []);
+  const [userid, setuserid] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:4000/getuserdata", {

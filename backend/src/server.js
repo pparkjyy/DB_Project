@@ -42,6 +42,8 @@ import modifydis from "./api/User/modifydis.js";
 import getdisbytid from "./api/User/getdisbytid.js";
 import getcommentbytid from "./api/User/getcommentbytid.js";
 import uploadcomment from "./api/User/uploadcomment.js";
+import uploaddis from "./api/User/uploaddis.js";
+import updatedisview from "./api/User/updatedisview.js";
 
 const connection = init();
 const app = express();
@@ -105,6 +107,8 @@ getdisbytid(app, connection);
 getcommentbytid(app, connection);
 uploadaboard(app, connection);
 uploadcomment(app, connection);
+uploaddis(app, connection);
+updatedisview(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
