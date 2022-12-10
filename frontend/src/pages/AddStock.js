@@ -110,6 +110,8 @@ const addstock = async (code, stock_name, stock_count, company_name, company_inf
     stock_num3 : stock_num3,
     stock_owner3 : stock_owner3,
     stock_num3 : stock_num3,
+    stock_owner4 : stock_owner4,
+    stock_num4 : stock_num4,
   });
   const { result, msg } = res.data;
   if (result === true) {

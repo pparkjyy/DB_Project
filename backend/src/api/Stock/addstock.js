@@ -27,56 +27,63 @@ export default async(app, connection) => {
       (error) => {
         if (error) throw error;
         connection.query(
-          "INSERT into COMPANY(code, company_name, stock_count, company_info) values(?,?,?,?)",
-          [code, company_name, stock_count, company_info],
+          "INSERT into stock_p(code) values(?)",
+          [code],
           (error) => {
             if (error) throw error;
             connection.query(
-              "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
-              [code, stock_owner, stock_num, (Number(stock_num)/Number(stock_count)*100).toFixed(2)],
+              "INSERT into COMPANY(code, company_name, stock_count, company_info) values(?,?,?,?)",
+              [code, company_name, stock_count, company_info],
               (error) => {
                 if (error) throw error;
-                if(num>0){
-                  connection.query(
-                    "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
-                    [code, stock_owner1, stock_num1, (Number(stock_num1)/Number(stock_count)*100).toFixed(2)],
-                    (error) => {
-                      if (error) throw error;
-                      if(num>1){
-                        connection.query(
-                          "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
-                          [code, stock_owner2, stock_num2, (Number(stock_num2)/Number(stock_count)*100).toFixed(2)],
-                          (error) => {
-                            if (error) throw error;
-                            if(num>2){
-                              connection.query(
-                                "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
-                                [code, stock_owner3, stock_num3, (Number(stock_num3)/Number(stock_count)*100).toFixed(2)],
-                                (error) => {
-                                  if (error) throw error;
-                                  if(num>3){
-                                    connection.query(
-                                      "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
-                                      [code, stock_owner4, stock_num4, (Number(stock_num4)/Number(stock_count)*100).toFixed(2)],
-                                      (error) => {
-                                        if (error) throw error;
-                                        else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                connection.query(
+                  "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
+                  [code, stock_owner, stock_num, (Number(stock_num)/Number(stock_count)*100).toFixed(2)],
+                  (error) => {
+                    if (error) throw error;
+                    if(num>0){
+                      connection.query(
+                        "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
+                        [code, stock_owner1, stock_num1, (Number(stock_num1)/Number(stock_count)*100).toFixed(2)],
+                        (error) => {
+                          if (error) throw error;
+                          if(num>1){
+                            connection.query(
+                              "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
+                              [code, stock_owner2, stock_num2, (Number(stock_num2)/Number(stock_count)*100).toFixed(2)],
+                              (error) => {
+                                if (error) throw error;
+                                if(num>2){
+                                  connection.query(
+                                    "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
+                                    [code, stock_owner3, stock_num3, (Number(stock_num3)/Number(stock_count)*100).toFixed(2)],
+                                    (error) => {
+                                      if (error) throw error;
+                                      if(num>3){
+                                        connection.query(
+                                          "INSERT into stock_O(code, stock_owner, stock_num, stock_p) values(?,?,?,?)",
+                                          [code, stock_owner4, stock_num4, (Number(stock_num4)/Number(stock_count)*100).toFixed(2)],
+                                          (error) => {
+                                            if (error) throw error;
+                                            else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                                          }
+                                        );
                                       }
-                                    );
-                                  }
-                                  else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                                      else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                                    }
+                                  );
                                 }
-                              );
-                            }
-                            else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                                else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                              }
+                            );
                           }
-                        );
-                      }
-                      else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                          else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                        }
+                      );
                     }
-                  );
-                }
-                else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                    else res.send({ result: true, msg: "종목추가에 성공하였습니다."});
+                  }
+                );
               }
             );
           }

@@ -26,12 +26,12 @@ CREATE TABLE STOCK_O(
 
 # 종목 시세 정보 table
 CREATE TABLE STOCK_P(
-	date varchar(50) NOT NULL,						# 날짜
-    n_price int NOT NULL,					# 시가
-    h_price int NOT NULL,					# 고가
-    l_price int NOT NULL,					# 저가    
-    e_price int NOT NULL,					# 종가
-    price_count int NOT NULL,				# 거래량
+	date varchar(50) NOT NULL default '2022-12-08', 	# 날짜
+    n_price int NOT NULL default 100000,					# 시가
+    h_price int NOT NULL default 100000,					# 고가
+    l_price int NOT NULL default 100000,					# 저가    
+    e_price int NOT NULL default 100000,					# 종가
+    price_count int NOT NULL default 0,				# 거래량
     Changerate double default 0,				# 변동량
     code varchar(10) NOT NULL,	# 종목 코드
 	PRIMARY KEY (code, date),
