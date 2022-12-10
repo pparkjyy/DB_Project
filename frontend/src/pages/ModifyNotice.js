@@ -92,15 +92,15 @@ const ModifyNotice = ({ history }) => {
         </SubTitle>
 
         <hr />
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", marginLeft: "105px", marginTop: "20px" }}>
           <button
             type="reset"
             style={{
               margin: "16px",
               height: "50px",
-              width: "120px",
-              backgroundColor: "#c4c4c4",
-              border: 0,
+              width: "100px",
+              backgroundColor: "white",
+              border: "1px solid green",
               borderRadius: "5px",
               boxShadow: 0,
             }}
@@ -115,8 +115,8 @@ const ModifyNotice = ({ history }) => {
             style={{
               margin: "16px",
               height: "50px",
-              width: "120px",
-              backgroundColor: "#037a3b",
+              width: "100px",
+              backgroundColor: "green",
               color: "#fff",
               border: 0,
               borderRadius: "5px",
