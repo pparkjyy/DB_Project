@@ -28,7 +28,7 @@ import {
 	Legend,
 } from 'recharts';
 import {BsStar, BsStarFill} from "react-icons/bs"
-import {GoTriangleUp} from "react-icons/go"
+import {GoTriangleUp, GoTriangleDown} from "react-icons/go"
 import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import Swal from "sweetalert2";
 
@@ -179,6 +179,7 @@ const Stockinfo = ({history}) => {
   function addComma (data){
     if(data)
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    else return 0;
   }
 
   function printShareholder (data){
@@ -263,7 +264,7 @@ const Stockinfo = ({history}) => {
         <ChartWrapper style={{width: "100%", height: "600px"}}>
         <div style={{width: "80%", margin: '20px 100px'}}>
           <div style={{borderStyle: "solid", borderWidth: "2px", display: 'flex', padding: "4px"}}>
-            <div><div style={{fontSize:"48px"}}>{addComma(stockInfo.n_price)}</div><div style={{fontSize:"24px"}}>전일대비 <GoTriangleUp/>{addComma(stockInfo.n_price-stockInfo.e_price)} {((stockInfo.n_price-stockInfo.e_price)/stockInfo.e_price*100).toFixed(2)}%</div></div>
+            <div><div style={{fontSize:"48px"}}>{addComma(stockInfo.n_price)}</div><div style={{fontSize:"24px"}}>전일대비 <a style={{color: (stockInfo.n_price-stockInfo.e_price)>0?"red":(stockInfo.n_price-stockInfo.e_price)<0?"blue":"black"}}>{(stockInfo.n_price-stockInfo.e_price)>0?<GoTriangleUp/>:(stockInfo.n_price-stockInfo.e_price)<0?<GoTriangleDown/>:null}{addComma(Math.abs(Number(stockInfo.n_price)-Number(stockInfo.e_price)))} {(stockInfo.n_price-stockInfo.e_price)>0?"+":null}{((stockInfo.n_price-stockInfo.e_price)/stockInfo.e_price*100).toFixed(2)}%</a></div></div>
             <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>전일 {addComma(stockInfo.e_price)}</div><div style={{padding :"12px"}}>시가 {addComma(stockInfo.n_price)}</div></div>
             <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>고가 {addComma(stockInfo.h_price)}</div><div style={{padding :"12px"}}>저가 {addComma(stockInfo.l_price)}</div></div>
             <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>거래량 {addComma(stockInfo.price_count)}</div><div style={{padding :"12px"}}>거래대금 {addComma(stockInfo.price_count*stockInfo.n_price/1000000)} 백만</div></div>
@@ -295,7 +296,7 @@ const Stockinfo = ({history}) => {
             <ChartWrapper style={{width: "82%", height: "600px"}}>
               <div style={{width: "80%", margin: '20px 100px'}}>
                 <div style={{borderStyle: "solid", borderWidth: "2px", display: 'flex', padding: "4px"}}>
-                  <div><div style={{fontSize:"48px"}}>{addComma(stockInfo.n_price)}</div><div style={{fontSize:"24px"}}>전일대비 {addComma(stockInfo.n_price-stockInfo.e_price)} {((stockInfo.n_price-stockInfo.e_price)/stockInfo.e_price*100).toFixed(2)}%</div></div>
+                <div><div style={{fontSize:"48px"}}>{addComma(stockInfo.n_price)}</div><div style={{fontSize:"24px"}}>전일대비 <a style={{color: (stockInfo.n_price-stockInfo.e_price)>0?"red":(stockInfo.n_price-stockInfo.e_price)<0?"blue":"black"}}>{(stockInfo.n_price-stockInfo.e_price)>0?<GoTriangleUp/>:(stockInfo.n_price-stockInfo.e_price)<0?<GoTriangleDown/>:null}{addComma(Math.abs(Number(stockInfo.n_price)-Number(stockInfo.e_price)))} {(stockInfo.n_price-stockInfo.e_price)>0?"+":null}{((stockInfo.n_price-stockInfo.e_price)/stockInfo.e_price*100).toFixed(2)}%</a></div></div>
                   <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>전일 {addComma(stockInfo.e_price)}</div><div style={{padding :"12px"}}>시가 {addComma(stockInfo.n_price)}</div></div>
                   <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>고가 {addComma(stockInfo.h_price)}</div><div style={{padding :"12px"}}>저가 {addComma(stockInfo.l_price)}</div></div>
                   <div style={{padding: '0px  20px'}}><div style={{padding :"12px"}}>거래량 {addComma(stockInfo.price_count)}</div><div style={{padding :"12px"}}>거래대금 {addComma(stockInfo.price_count*stockInfo.n_price/1000000)} 백만</div></div>
