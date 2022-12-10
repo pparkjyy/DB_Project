@@ -247,8 +247,8 @@ VALUES
 
 INSERT N_BOARD(Title, writer, URL)
 VALUES
-('TSMC ‘400억불 투자’에 삼성 ‘1년에 1공장’ 맞불…설비경쟁 후끈 [위클리반도체]', '매일경제', 'https://finance.naver.com/item/news_read.naver?article_id=0005058216&office_id=009&code=005930&sm=title_entity_id.basic'),
-('삼성전자, 네이버와 AI 손잡은 이유', '비즈니스워치', 'https://finance.naver.com/item/news_read.naver?article_id=0000012252&office_id=648&code=005930&page=&sm=title_entity_id.basic'),
-('[단독] "삼성 디자인에 힘준다"...노태문 사장 "디자인경영센터장" 겸직', '머니투데이', 'https://finance.naver.com/item/news_read.naver?article_id=0004827450&office_id=008&code=005930&page=&sm=title_entity_id.basic'),
-('LG화학, 아시아 최초 ‘식물성 원료 기반’ 친환경 ABS 출시', '헤럴드경제', 'https://finance.naver.com/item/news_read.naver?article_id=0002073683&office_id=016&code=051910&page=&sm=title_entity_id.basic'),
-('배터리·소재 강자끼리 뭉쳤다’ LG화학·고려아연 주식 맞교환', '한경비즈니스', 'https://finance.naver.com/item/news_read.naver?article_id=0000063042&office_id=050&code=051910&page=&sm=title_entity_id.basic');
+('TSMC ‘400억불 투자’에 삼성 ‘1년에 1공장’ 맞불…설비경쟁 후끈 [위클리반도체]', '매일경제', 'https://www.mk.co.kr/news/business/10561778'),
+('삼성전자, 네이버와 AI 손잡은 이유', '비즈니스워치', 'http://news.bizwatch.co.kr/article/industry/2022/12/09/0004'),
+('[단독] "삼성 디자인에 힘준다"...노태문 사장 "디자인경영센터장" 겸직', '머니투데이', 'https://news.mt.co.kr/mtview.php?no=2022120917202265739'),
+('LG화학, 아시아 최초 ‘식물성 원료 기반’ 친환경 ABS 출시', '헤럴드경제', 'https://biz.heraldcorp.com/view.php?ud=20221204000087'),
+('배터리·소재 강자끼리 뭉쳤다’ LG화학·고려아연 주식 맞교환', '한경비즈니스', 'https://magazine.hankyung.com/business/article/202211266047b');
