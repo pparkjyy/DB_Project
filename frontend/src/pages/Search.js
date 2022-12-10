@@ -45,10 +45,10 @@ function PrintStock(data,navigate) {
       <Tr onClick={()=>{
         navigate("/stockinfo", { state: { code: data[i].code } });
       }}>
-        <Td2>{data[i].code}</Td2>
-        <Td2>{addComma(data[i].stock_name)}</Td2>
+        <Td2>{data[i].stock_name}</Td2>
+        <Td2>{addComma(data[i].n_price)}</Td2>
         <Td2>{addComma(data[i].price_count)}</Td2>
-        <Td2>{(data[i].e_price-data[i].n_price).toFixed(2)}%</Td2>
+        <Td2>{addComma(data[i].e_price-data[i].n_price)}</Td2>
         <Td2>{((data[i].n_price-data[i].e_price)/data[i].e_price*100).toFixed(2)}%</Td2>
         <Td2>{(data[i].Changerate).toFixed(5)}</Td2>
       </Tr>
@@ -64,7 +64,6 @@ const Search = ({ history }) => {
   const search = navigateState && navigateState.search;
   const result = navigateState && navigateState.result;
   let navigate = useNavigate();
-  
   return (
     <Body style={{}}>
       <CardWrapper>
@@ -74,7 +73,7 @@ const Search = ({ history }) => {
             <TitleTr>
               <Td>종목명</Td>
               <Td>현재가격</Td>
-              <Td>구매가격</Td>
+              <Td>거래량</Td>
               <Td>전일대비</Td>
               <Td>전일대비비율</Td>
               <Td>현재변동률</Td>
