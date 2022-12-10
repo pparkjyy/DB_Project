@@ -85,6 +85,8 @@ const Stockinfo = ({history}) => {
   var [userInfo, setUserInfo] = useState([]);
   var [isFavorite, setIsFavorite] = useState();
   var [stocknum, setStocknum] = useState();
+  var [disInfo, setDisInfo] = useState();
+
 
   useEffect((e) => {
     axios
@@ -136,7 +138,15 @@ const Stockinfo = ({history}) => {
       .then(({ data }) => setStocknum(data));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getDisInfo", {
+        params: { stockcode: stockcode },
+      })
+      .then(({ data }) => setDisInfo(data));
+  }, []);
 
+console.log(disInfo);
   function addComma (data){
     if(data)
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -152,6 +162,18 @@ const Stockinfo = ({history}) => {
         <Td>{data[i].stock_p}</Td>
       </Tr>
       )
+    }
+    return array;
+  }
+
+  function printDisInfo(data){
+    let array = [];
+    if(data){
+      for(let i=0; i<data.length; i++){
+        array.push(
+          <div style={{margin: "8px"}}>{data[i].title} [{data[i].num}]</div>
+        )
+      }
     }
     return array;
   }
@@ -293,13 +315,18 @@ const Stockinfo = ({history}) => {
         </CardWrapper>
         </div>
         
-        <div onClick={()=>{navigate("/discuss/"+stockInfo.code,
-          {state:{code : stockInfo.code}})}}>
-        <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실-- 여기는 아직 미완성</CardHeader>
-        <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
-        이 종목 지금 사는게 좋을까요 ? [1] -- 여기는 아직 미완성
-        </CardWrapper>
+        
+        <div style={{display: "flex"}}>
+        <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실</CardHeader>
+        <div style={{padding: "60px 0px 0px 20px", cursor: 'pointer'}}
+        onClick={()=>{navigate("/discuss/"+stockInfo.code, {state:{code : stockInfo.code}})}}>
+            더보기 >
         </div>
+        </div>
+        <CardWrapper style={{margin: "8px 100px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '80%', fontSize:"18px"}}>
+          {printDisInfo(disInfo)}
+        </CardWrapper>
+        
 
       </CardWrapper>
       
