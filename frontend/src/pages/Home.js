@@ -261,7 +261,7 @@ const Home = ({ history }) => {
     let array = [];
     for(let i = 0; i < list.length; i++){
       array.push(
-        <div style={{display: "flex", cursor: "pointer"}}onClick={()=>{window.location.replace(list[i].URL)}}>
+        <div style={{display: "flex", cursor: "pointer"}}onClick={()=>{window.open(list[i].URL)}}>
           <NewsTitle>{list[i].Title}</NewsTitle><NewsOffice>{list[i].writer}</NewsOffice>
         </div> 
       )
