@@ -60,7 +60,7 @@ function printList(list, navigate) {
   let array = [];
   for (let i = 0; i < list.length; i++) {
     array.push(
-      <div className="list_grid list_data" 
+      <div className="notice_list_grid list_data" 
         style={{cursor: 'pointer', marginTop:'4px'}}
         onClick={()=>{
 
@@ -105,11 +105,11 @@ const Notice = ({ history }) => {
         <Title>공지사항</Title>
 
         <div className="List">
-          <div className="list_grid list_tit">
+          <div className="notice_list_grid list_tit">
             <div className="acenter"> 번호 </div>
             <div> 제목 </div>
             <div className="acenter"> 조회수 </div>
-            <div className="acenter"> 작성시간 </div>
+            <div className="acenter"> 작성일자 </div>
           </div>
           {printList(noticeList, navigate)}
 
