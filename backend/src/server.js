@@ -55,7 +55,10 @@ import getnews from "./api/Admin/getnews.js";
 import modifystock from "./api/Stock/modifystock.js";
 import getMemberList from "./api/User/getMemberList.js";
 import { setBan } from "./api/Admin/banControl.js";
-
+import getAgeStock20 from "./api/Stock/getAgeStock20.js";
+import getAgeStock30 from "./api/Stock/getAgeStock30.js";
+import getAgeStock40 from "./api/Stock/getAgeStock40.js";
+import getAgeStock50 from "./api/Stock/getAgeStock50.js";
 
 const connection = init();
 const app = express();
@@ -132,7 +135,10 @@ getnews(app, connection);
 modifystock(app, connection);
 getMemberList(app, connection);
 setBan(app, connection);
-
+getAgeStock20(app, connection);
+getAgeStock30(app, connection);
+getAgeStock40(app, connection);
+getAgeStock50(app, connection);
 
 app.listen(app.get("port"), () => {
   console.log("Port : " + app.get("port"));
