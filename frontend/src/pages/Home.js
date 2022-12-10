@@ -24,6 +24,7 @@ const Body = styled.div`
   align-items: "center";
   justify-content: "center";
   width: 100%;
+  height: 200vh
 `;
 const Title = styled.div`
   padding-top: 48px;
@@ -136,6 +137,7 @@ const Home = ({ history }) => {
   const info = getInfoFromCookie();
   const navigate = useNavigate();
   const token = getTokenFromCookie();
+  const [age, setAge] = useState('20');
 
   var [news, setnews] = useState([]);
   useEffect(() => {
@@ -181,7 +183,42 @@ const Home = ({ history }) => {
       .then(({ data }) => setRecentStock(data));
   }, []);
 
-  console.log(recentStock);
+  const [ageStock20, setAgeStock20] = useState([]);
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getAgeStock20", {
+        params: { age: age },
+      })
+      .then(({ data }) => setAgeStock20(data));
+  }, []);
+
+  const [ageStock30, setAgeStock30] = useState([]);
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getAgeStock30", {
+        params: { age: age },
+      })
+      .then(({ data }) => setAgeStock30(data));
+  }, []);
+
+  const [ageStock40, setAgeStock40] = useState([]);
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getAgeStock40", {
+        params: { age: age },
+      })
+      .then(({ data }) => setAgeStock40(data));
+  }, []);
+
+  const [ageStock50, setAgeStock50] = useState([]);
+  useEffect((e) => {
+    axios
+      .get("http://localhost:4000/getAgeStock50", {
+        params: { age: age },
+      })
+      .then(({ data }) => setAgeStock50(data));
+  }, []);
+
   function printRanking(Data){
     let array = [];
     for(let i = 0; i< Data.length; i++){
@@ -317,6 +354,23 @@ const Home = ({ history }) => {
         <Ranking>
           <RankTitle>시가총액 상위</RankTitle><hr style={{ borderTop: '0.7px #c8c8c8' }}/>
           {printRanking(marketCap)}
+        </Ranking>
+        <Ranking style={{width: "800px", marginLeft: '164px'}}>
+          <RankTitle>연령별 보유량 상위</RankTitle>
+          <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+          <div style={{display: "flex"}}>
+            <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <RankTitle style={{fontSize: "24px", cursor:"pointer"}} onClick={()=>{setAge("20");console.log("20")}}>20대</RankTitle>
+            <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <RankTitle style={{fontSize: "24px", cursor:"pointer"}} onClick={()=>{setAge("30");console.log("30")}}>30대</RankTitle>
+            <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <RankTitle style={{fontSize: "24px", cursor:"pointer"}} onClick={()=>{setAge("40");console.log("40")}}>40대</RankTitle>
+            <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+            <RankTitle style={{fontSize: "24px", cursor:"pointer"}} onClick={()=>{setAge("50");console.log("50")}}>50대</RankTitle>
+            <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+          </div>
+          <hr style={{ borderTop: '0.7px #c8c8c8' }}/>
+          {(age=='20')?printRanking(ageStock20):(age=='30')?printRanking(ageStock30):(age=='40')?printRanking(ageStock40):(age=='50')?printRanking(ageStock50):null}
         </Ranking>
       </CardWrapper>
     </Body>
