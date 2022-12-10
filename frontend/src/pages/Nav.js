@@ -184,7 +184,7 @@ const Nav = ({ history }) => {
         {admin ?
           <TitleWrapper
               style={{
-                width: "500px",
+                width: "620px",
                 marginLeft: "-22px"
               }}
           >
@@ -225,6 +225,25 @@ const Nav = ({ history }) => {
               >
                 <input type="radio" id="pay" name="navButton" />
                     <label for="pay">종목추가</label>
+              </CardBody>      
+              <CardBody className="select"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  info ? (
+                    <div>{navigate("/membermanagement")}</div>
+                  ) : (
+                    <div>
+                      {Swal.fire(
+                        "관리자 로그인이 필요합니다.",
+                        "관리자 로그인 창으로 이동합니다."
+                      )}
+                      {navigate("/adminlogin")}
+                    </div>
+                  );
+                }}
+              >
+                <input type="radio" id="manage" name="navButton" />
+                    <label for="manage">회원관리</label>
               </CardBody>      
           </TitleWrapper>
           :
