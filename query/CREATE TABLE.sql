@@ -145,6 +145,13 @@ CREATE TABLE D_BOARD(
     FOREIGN KEY (ID) REFERENCES USER(ID),
     FOREIGN KEY (t_id) REFERENCES U_BOARD(t_id)
 );
+
+# 뉴스 게시판 table
+CREATE TABLE N_BOARD(
+	Title varchar(100) NOT NULL,	# 뉴스 제목
+    writer varchar(10) NOT NULL,	# 뉴스 작성자
+    URL varchar(200) NOT NULL,	# 뉴스 URL
+);
     
 
 
