@@ -22,7 +22,7 @@ import ViewDis from './pages/ViewDis';
 import Discuss from './pages/Dis';
 import ModifyDis from './pages/ModifyDis';
 import Writedis from './pages/WriteDis';
-
+import ModifyStock from './pages/ModifyStock';
 
 
 const Body = styled.div`
@@ -57,6 +57,7 @@ class App extends Component {
           <Route path='/discuss/:data' element={<Discuss />} />
           <Route path='/modifydis' element={<ModifyDis />} />
           <Route path='/writedis' element={<Writedis />} />
+          <Route path='/modifystock' element={<ModifyStock />} />
         </Routes>
       </Body>
     );

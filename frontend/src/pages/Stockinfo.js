@@ -255,7 +255,8 @@ const Stockinfo = ({history}) => {
         :
         <div style={{display: "flex"}}>
           <CardHeader style={{padding: "52px 0px 0px 108px", fontSize: "32px", fontWeight: "800"}}>{stockInfo.stock_name}</CardHeader>
-          <CardHeader style={{padding: "72px 692px 0px 12px"}}>{stockInfo.code}</CardHeader>
+          <CardHeader style={{padding: "72px 740px 0px 12px"}}>{stockInfo.code}</CardHeader>
+          {admin?<CardButton style={{margin: "60px 60px 0px 0px", width: "100px"}} onClick={()=>{navigate('/modifystock',{ state: { code: stockInfo.code } })}}>정보변경</CardButton>:null}
         </div>
         }
         {order?(
