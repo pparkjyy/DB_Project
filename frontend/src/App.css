@@ -43,12 +43,26 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+.Comment{
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 40%;
+}
+.comment_tit {
+  margin-left: 100px;
+  margin-right: 100px;
+  border-bottom: solid 1px #ababab;
+  color : #ababab;
+}
 
 .list_tit {
   border-bottom: solid 1px #ababab;
   color : #ababab;
 }
-
+.comment_grid{
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
 .list_grid {
   display: grid;
   grid-template-columns: 15% 60% 10% 15%;
@@ -63,8 +77,20 @@
   line-height: 40px;
 }
 
+.comment_data {
+  margin-left: 80px;
+  margin-right: 80px;
+  padding: 20px;
+}
+
 .acenter {
   text-align: center;
+}
+.aleft {
+  text-align: left;
+}
+.aright {
+  text-align: right;
 }
 
 .text-link {
