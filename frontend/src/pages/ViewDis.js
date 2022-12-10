@@ -82,9 +82,15 @@ const ViewDis = ({ history }) => {
           </div>
         ) : null}
         {checkuser ? (
-          <CardButton>
-            수정하기
-          </CardButton>
+          <CardButton
+          onClick={() =>
+            navigate("/modifydis", {
+              state: { t_id : t_id },
+            })
+          }
+        >
+          수정하기
+        </CardButton>
         ) : null}
 
         <CardButton onClick={() => navigate(-1)}>목록</CardButton>
