@@ -52,7 +52,7 @@ const Body = styled.div`
   align-items: "center";
   justify-content: "center";
   width: 100%;
-  height:200vh;
+  height:300vh;
 `;
 
 const setFav = async (id, code, isFavorite, fav) => {
@@ -177,8 +177,7 @@ const Stockinfo = ({history}) => {
 
   function addComma (data){
     if(data)
-      return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    else return '0';
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   function printShareholder (data){
