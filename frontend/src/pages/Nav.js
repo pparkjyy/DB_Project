@@ -185,25 +185,7 @@ const Nav = ({ history }) => {
                     <label for="myshop">홈</label>
               </CardBody>
 
-              <CardBody className="select"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  info ? (
-                    <div>{navigate("/")}</div>
-                  ) : (
-                    <div>
-                      {Swal.fire(
-                        "로그인이 필요합니다.",
-                        "로그인 창으로 이동합니다."
-                      )}
-                      {navigate("/login")}
-                    </div>
-                  );
-                }}
-              >
-                <input type="radio" id="dis" name="navButton" />
-                    <label for="dis">종목토론</label>
-              </CardBody>
+              
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -250,25 +232,6 @@ const Nav = ({ history }) => {
                     <label for="myshop">홈</label>
               </CardBody>
 
-              <CardBody className="select"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  info ? (
-                    <div>{navigate("/dis")}</div>
-                  ) : (
-                    <div>
-                      {Swal.fire(
-                        "로그인이 필요합니다.",
-                        "로그인 창으로 이동합니다."
-                      )}
-                      {navigate("/login")}
-                    </div>
-                  );
-                }}
-              >
-                <input type="radio" id="dis" name="navButton" />
-                    <label for="dis">종목토론</label>
-              </CardBody>
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
