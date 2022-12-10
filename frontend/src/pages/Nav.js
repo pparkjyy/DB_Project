@@ -125,7 +125,11 @@ const Nav = ({ history }) => {
             <CardButton2
               style={{ width: "50px", height: "35px", marginTop: "8px" }}
               type="button"
-              onClick={(e) => setSearchWord(e.target.value)}
+              onClick={async (e) => {
+                setSearchWord(e.target.value);
+                const result = await searchStock(searchWord);
+                navigate("/search", { state: { search: searchWord, result: result } });
+              }}
             >
               <FiSearch/>
             </CardButton2>
