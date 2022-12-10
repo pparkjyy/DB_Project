@@ -150,7 +150,7 @@ CREATE TABLE D_BOARD(
 CREATE TABLE N_BOARD(
 	Title varchar(100) NOT NULL,	# 뉴스 제목
     writer varchar(10) NOT NULL,	# 뉴스 작성자
-    URL varchar(200) NOT NULL,	# 뉴스 URL
+    URL varchar(200) NOT NULL	# 뉴스 URL
 );
     
 
