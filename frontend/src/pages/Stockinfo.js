@@ -186,8 +186,8 @@ const Stockinfo = ({history}) => {
       array.push(
       <Tr>
         <Td>{data[i].stock_owner}</Td>
-        <Td>{addComma(data[i].stock_num)}</Td>
-        <Td>{data[i].stock_p}</Td>
+        <Td className="acenter">{addComma(data[i].stock_num)}</Td>
+        <Td className="acenter">{data[i].stock_p}%</Td>
       </Tr>
       )
     }
@@ -355,8 +355,8 @@ const Stockinfo = ({history}) => {
         <table style={{ width: '100%', borderCollapse: 'collapse', margin: 'auto' }}>
           <TitleTr>
             <Td>주요주주</Td>
-            <Td>소유주식수(주)</Td>
-            <Td>지분율</Td>
+            <Td className="acenter">소유주식수(주)</Td>
+            <Td className="acenter">지분율</Td>
           </TitleTr>
           {printShareholder(shareholderInfo)}
         </table>
