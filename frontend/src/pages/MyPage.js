@@ -275,6 +275,7 @@ const MyPage = ({ history }) => {
             <div 
               style={{
                 marginLeft: "15px",
+                cursor: "pointer"
               }}
             >
             {printboard(userboard)}
@@ -297,6 +298,7 @@ const MyPage = ({ history }) => {
             <div 
               style={{
                 marginLeft: "15px",
+                cursor: "pointer"
               }}
             >
               {printcomment(usercomment)}
