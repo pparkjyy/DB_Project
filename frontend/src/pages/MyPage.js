@@ -114,7 +114,7 @@ const MyPage = ({ history }) => {
     let array=[];
     for(let i = 0; i < list.length; i++){
       array.push(
-        <p>{list[i].title}</p>
+        <p onClick={()=>navigate("/viewdis/"+list[i].t_id,{state:{t_id : list[i].t_id}})}>{list[i].title}</p>
       )
     }
     return array
@@ -123,7 +123,7 @@ const MyPage = ({ history }) => {
     let array=[];
     for(let i = 0; i < list.length; i++){
       array.push(
-        <p>{list[i].text}</p>
+        <p onClick={()=>navigate("/viewdis/"+list[i].t_id,{state:{t_id : list[i].t_id}})}>{list[i].text}</p>
       )
     }
     return array

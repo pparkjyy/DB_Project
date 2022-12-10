@@ -46,7 +46,7 @@ const ModifyNotice = ({ history }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/getaboardbypostnum", {
+      .get("http://localhost:4000/getaboardpostnum", {
         params: { postnum: postnum },
       })
       .then(({ data }) => {
