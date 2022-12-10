@@ -11,7 +11,6 @@ export default (app, connection) => {
       "UPDATE A_BOARD SET title=?, text=?, date = ? WHERE postnum = ?",
       [title, text, date, postnum],
       (error, data) => {
-        console.log(title, text, date, postnum);
         if (error) res.send(false);
         else res.send(true);
       }
