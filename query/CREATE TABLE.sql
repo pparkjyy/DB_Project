@@ -138,7 +138,7 @@ CREATE TABLE U_BOARD(
 
 # 종목 토론 게시판 댓글 table
 CREATE TABLE D_BOARD(
-	ID varchar(16) NOT NULL PRIMARY KEY,		# 댓글 작성자 ID
+	ID varchar(16) NOT NULL,		# 댓글 작성자 ID
     t_id int NOT NULL,							# 글 ID
     text varchar(500) NOT NULL,					# 댓글 내용
     time datetime NOT NULL,							# 댓글 작성 시간

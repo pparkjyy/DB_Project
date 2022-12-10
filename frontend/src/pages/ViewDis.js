@@ -5,6 +5,9 @@ import "../App.css";
 import styled from "styled-components";
 import axios from "axios";
 import { getInfoFromCookie,getTokenFromCookie } from "../components/Auth";
+import { Title, SubTitle, InputText } from "./WriteNotice";
+import Swal from "sweetalert2";
+
 export const Body = styled.div`
   display: flex;
   width: 100%;
@@ -33,6 +36,47 @@ export const CardButton = styled.button`
     transform: translate(0, -5px);
   }
 `;
+const Uploadcomment = async (id,t_id, text) => {
+  const res = await axios.post("http://localhost:4000/uploadcomment", {
+    id : id,
+    t_id : t_id,
+    text : text,
+    
+  });
+  if (res.data === true) {
+    Swal.fire(
+      "댓글 등록에 성공하였습니다.",
+      "success"
+    );
+    return true;
+  } else {
+    Swal.fire(
+      "댓글 등록에 실패하였습니다.",
+      "내용을 입력해주세요. ",
+      "error"
+    );
+    return false;
+  }
+};
+
+function printcomment(data) {
+  let array = [];
+  if(data){
+    for (let i = 0; i < data.length; i++) {
+      array.push(
+        <div className="comment_grid comment_data" 
+          style={{cursor: 'pointer', marginTop:'4px'}}>
+          <div className="acenter"> {data[i].ID} </div>
+          <div className="acenter"> {data[i].text} </div>
+          <div className="acenter"> {data[i].time.slice(10, 19).replace("T", " ")} </div>
+          
+        </div>
+      )
+    }
+  }
+  return array;
+}
+
 
 
 const ViewDis = ({ history }) => {
@@ -40,7 +84,16 @@ const ViewDis = ({ history }) => {
   const navigateState = useLocation().state;
   const t_id = navigateState && navigateState.t_id;
   const [disData, setdisData] = useState([]);
+  const [comment, setcomment] = useState([]);
+  const [ncomment, setncomment] = useState([]);
   
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getcommentbytid", {
+        params: { t_id: t_id },
+      })
+      .then(({ data }) => setcomment(data));
+  }, []);
 
   useEffect(() => {
     axios
@@ -56,6 +109,7 @@ const ViewDis = ({ history }) => {
   if (info) if (info.token) admin = info.token.type == "admin";
 
   const [checkuser, setcheckuser] = useState([]);
+  const [userid, setuserid] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:4000/checkuser", {
@@ -64,6 +118,14 @@ const ViewDis = ({ history }) => {
       })
       .then(({ data }) => setcheckuser(data));
   }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/getuserdata", {
+        headers: { token: token },
+      })
+      .then(({ data }) => setuserid(data[0]));
+  }, []);
+  
 
   return (
     <Body>
@@ -79,6 +141,54 @@ const ViewDis = ({ history }) => {
             <div>
               <div className="content">{disData[0].text}</div>
             </div>
+            
+            <div className="Comment">
+              <h2>댓글</h2>
+              <div className="comment_grid comment_tit">
+                <div className="acenter"> 아이디 </div>
+                <div className="acenter"> 내용 </div>
+                <div className="acenter"> 작성시간 </div>
+              </div>
+              {printcomment(comment)}
+
+            </div>
+            <SubTitle style={{marginTop: "30%",marginLeft: "-10%"}}>
+              댓글쓰기
+              <div style={{ marginTop: "-28px" }}>
+                <textarea
+                  placeholder="댓글 내용을 입력해주세요."
+                  style={{
+                    height: "50px",
+                    width: "52%",
+                    marginLeft: "200px",
+                    paddingLeft: "10px",
+                  }}
+                  onChange={(e) => setncomment(e.target.value)}
+                />
+              </div>
+        </SubTitle>
+        <div style={{ textAlign: "right",marginTop:"-90px" }}>
+          <button
+            type="submit"
+            style={{
+              margin: "16px",
+              height: "50px",
+              width: "120px",
+              backgroundColor: "#037a3b",
+              color: "#fff",
+              border: 0,
+              borderRadius: "5px",
+              boxShadow: 0,
+            }}
+            onClick={async (e) => {
+              if (await Uploadcomment(userid.id, t_id,ncomment)) {
+                window.location.replace("/viewdis/"+t_id,{state:{t_id : t_id}})
+              }
+            }}
+          >
+            등록
+          </button>
+        </div>
           </div>
         ) : null}
         {checkuser ? (
