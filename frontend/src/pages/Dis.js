@@ -66,11 +66,10 @@ function printList(data,navigate) {
           onClick={()=>{
             updatedisView(data[i].num,data[i].t_id);
             navigate("/viewdis/"+data[i].t_id,{state:{t_id : data[i].t_id}})}}>
+          <div className="aleft"> {data[i].title} </div>
           <div className="acenter"> {data[i].ID} </div>
-          <div className="acenter"> {data[i].title} </div>
           <div className="acenter"> {data[i].num}</div>
           <div className="acenter"> {data[i].time.slice(0, 10).replace("T", " ")} </div>
-          
         </div>
       )
     }
@@ -105,21 +104,18 @@ const Dis = ({ history }) => {
     <Body>
       <CardWrapper>
         <Title>{stockdata.company_name} 토론게시판</Title>
-
         <div className="List">
           <div className="list_grid list_tit">
-            <div className="acenter"> 번호 </div>
-            <div className="acenter"> 제목 </div>
+            <div className="aleft"> 제목 </div>
+            <div className="acenter"> 작성자 </div>
             <div className="acenter"> 조회수 </div>
-            <div className="acenter"> 작성시간 </div>
+            <div className="acenter"> 작성일자 </div>
           </div>
           {printList(disData,navigate)}
-
         </div>
         <CardButton onClick={() => navigate("/writedis",{state:{code : code}})}>
            글쓰기
         </CardButton>
-        
       </CardWrapper>
     </Body>
   );

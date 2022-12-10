@@ -28,7 +28,7 @@ import {
 	Legend,
 } from 'recharts';
 import {BsStar, BsStarFill} from "react-icons/bs"
-import { getTokenFromCookie } from "../components/Auth";
+import { getInfoFromCookie, getTokenFromCookie } from "../components/Auth";
 import Swal from "sweetalert2";
 
 const Tr = styled.tr`
@@ -72,21 +72,50 @@ const setFav = async (id, code, isFavorite, fav) => {
   else return true;
 };
 
+const stockOrder = async (id, code, num, price, sell) => {
+  console.log(id, code, num, price, sell);
+  const res = await axios.post("http://localhost:4000/stockOrder", {
+    id: id,
+    code: code,
+    num: num,
+    price: price,
+    sell: sell,
+  });
+  console.log(res);
+  const { result, msg } = res.data;
+  if (result === true) {
+    Swal.fire(msg, " ", "success").then((result) => {
+      if (result.isConfirmed) window.location.reload();
+    });
+  }
+  else{
+    Swal.fire(msg, " ", "error").then((result) => {
+      if (result.isConfirmed) window.location.reload();
+    });
+  }
+};
+
 const Stockinfo = ({history}) => {
   const navigate = useNavigate();
   const navigateState = useLocation().state;
+  const info = getInfoFromCookie();
   const token = getTokenFromCookie();
   const stockcode = navigateState && navigateState.code;
   var [stockInfo, setStockInfo] = useState([]);
   var [companyInfo, setCompanyInfo] = useState([]);
   var [shareholderInfo, setShareholderInfo] = useState([]);
   var [order, setOrder] = useState(true);
-  var [sell, setSell] = useState(false);
+  var [sell, setSell] = useState(true);
   var [userInfo, setUserInfo] = useState([]);
   var [isFavorite, setIsFavorite] = useState();
   var [stocknum, setStocknum] = useState();
   var [disInfo, setDisInfo] = useState();
+  var [orderNum, setOrderNum] = useState(0);
 
+  let admin = false;
+  if (info)
+    if (info.token)
+      admin = (info.token.type == 'admin')
 
   useEffect((e) => {
     axios
@@ -146,7 +175,6 @@ const Stockinfo = ({history}) => {
       .then(({ data }) => setDisInfo(data));
   }, []);
 
-console.log(disInfo);
   function addComma (data){
     if(data)
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -158,8 +186,8 @@ console.log(disInfo);
       array.push(
       <Tr>
         <Td>{data[i].stock_owner}</Td>
-        <Td>{addComma(data[i].stock_num)}</Td>
-        <Td>{data[i].stock_p}</Td>
+        <Td className="acenter">{addComma(data[i].stock_num)}</Td>
+        <Td className="acenter">{data[i].stock_p}%</Td>
       </Tr>
       )
     }
@@ -192,10 +220,11 @@ console.log(disInfo);
       });
     }, [history]);
 
-  // console.log(stocknum)
+  console.log(token)
   return (
     <Body style={{}}>
       <CardWrapper>
+      {token&&!admin?(
         <div style={{display: "flex"}}>
         {(isFavorite==true?(
         <BsStarFill style={{padding: "60px 0px 0px 100px", fontSize: "32px", fontWeight: "800", color: "green"}}
@@ -221,7 +250,13 @@ console.log(disInfo);
         <CardHeader style={{padding: "52px 0px 0px 8px", fontSize: "32px", fontWeight: "800"}}>{stockInfo.stock_name}</CardHeader>
         <CardHeader style={{padding: "72px 692px 0px 12px"}}>{stockInfo.code}</CardHeader>
         <CardHeader style={{padding: "64px 0px 0px 0px", fontSize: "24px", fontWeight: "600", cursor: "pointer"}} onClick={()=>{setOrder(!order)}}>주문하기 > </CardHeader>
+        </div>)
+        :
+        <div style={{display: "flex"}}>
+          <CardHeader style={{padding: "52px 0px 0px 108px", fontSize: "32px", fontWeight: "800"}}>{stockInfo.stock_name}</CardHeader>
+          <CardHeader style={{padding: "72px 692px 0px 12px"}}>{stockInfo.code}</CardHeader>
         </div>
+        }
         {order?(
         <ChartWrapper style={{width: "100%", height: "600px"}}>
         <div style={{width: "80%", margin: '20px 100px'}}>
@@ -284,12 +319,25 @@ console.log(disInfo);
               </ResponsiveContainer>
             </ChartWrapper>
           </ChartWrapper>
-          <CardWrapper style={{margin: "8px 60px 0px 0px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '20%', fontSize:"18px"}}>
-            보유수량 : {stocknum?stocknum.stock_num:0}주 
-            <CardHeader style={{padding: "0px 0px 0px 0px", fontSize: "24px", fontWeight: "600", display: "flex"}}>
-              <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} onClick={()=>{setSell(!sell);}}>매도</CardButton>
-              <CardButton style={{width: "100px", margin: "0px 20px 0px 0px"}} >매수</CardButton>
+          <CardWrapper style={{margin: "8px 60px 0px 0px", padding: "20px", borderStyle: "solid", borderWidth: "2px", borderRadius: '12px', borderColor: 'green', width: '20%', fontSize:"18px", height: "320px"}}>
+            <div>보유수량</div>
+            <div style={{paddingTop: "8px", fontSize: "24px", fontWeight: "600"}}>{stocknum?stocknum.stock_num:0}주 </div>
+            <CardHeader style={{paddingTop: "20px", fontSize: "24px", fontWeight: "600", display: "flex"}}>
+              <CardButton style={{width: "100px", margin: "0px 20px 0px 0px", color: !sell?"green":"white", backgroundColor:!sell?"#ddd":"green"}} onClick={()=>{setSell(true);}}>매도</CardButton>
+              <CardButton style={{width: "100px", margin: "0px 20px 0px 0px", color: sell?"green":"white", backgroundColor:sell?"#ddd":"green"}} onClick={()=>{setSell(false);}}>매수</CardButton>
             </CardHeader>
+            <div style={{paddingTop: "8px"}}>수량(1단위)</div>
+            <CardInput placeholder="0" type="number" onChange={(e) => setOrderNum(e.target.value)} style={{paddingTop: "20px", fontSize: "20px"}}></CardInput>
+            <CardButton style={{width: "220px", margin: "24px 20px 0px 0px"}}
+            onClick={async(e)=>{
+              stockOrder(
+                userInfo.id,
+                stockcode,
+                orderNum,
+                stockInfo.n_price,
+                sell
+              )
+            }}>주문하기</CardButton>
           </CardWrapper>
         </ChartWrapper>
         )}
@@ -307,14 +355,13 @@ console.log(disInfo);
         <table style={{ width: '100%', borderCollapse: 'collapse', margin: 'auto' }}>
           <TitleTr>
             <Td>주요주주</Td>
-            <Td>소유주식수(주)</Td>
-            <Td>지분율</Td>
+            <Td className="acenter">소유주식수(주)</Td>
+            <Td className="acenter">지분율</Td>
           </TitleTr>
           {printShareholder(shareholderInfo)}
         </table>
         </CardWrapper>
         </div>
-        
         
         <div style={{display: "flex"}}>
         <CardHeader style={{padding: "52px 0px 0px 100px", fontSize: "24px", fontWeight: "600"}}>종목토론실</CardHeader>

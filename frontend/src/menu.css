@@ -99,7 +99,7 @@
 }
 
 .select input[type=radio]:checked+label{
-  color: #033a7a;
+  color: green;
   font-weight: bold;
   font-size: 15px;
 }

@@ -19,6 +19,8 @@ import "../menu.css";
 import { getInfoFromCookie, logout } from "../components/Auth";
 import { FaHashtag } from "react-icons/fa"
 import { searchStock } from "../components/searchStock";
+import { FiSearch } from "react-icons/fi"
+import { searchPost } from "../components/searchPost";
 import Swal from "sweetalert2";
 
 const Body = styled.div`
@@ -103,13 +105,14 @@ const Nav = ({ history }) => {
                 navigate("/");
               }}
             >
-              <div className="title">stockmarket</div>
+              <div className="title" style={{marginLeft: "50px"}}>stockmarket</div>
               <div className="select" style={{marginTop: '-35px', height: '31px', width: '115px'}}><input type="radio" id="logo" name="navButton" />
                     <label for="logo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
             </CardHeading>
             <CardFieldset
               style={{
                 paddingLeft: "20px",
+                paddingTop: "10px",
                 width: "400px",
               }}
             >
@@ -120,6 +123,13 @@ const Nav = ({ history }) => {
                 onKeyPress={onKeyPress}
               />
             </CardFieldset>
+            <CardButton2
+              style={{ width: "50px", height: "35px", marginTop: "8px" }}
+              type="button"
+              onClick={(e) => setSearchWord(e.target.value)}
+            >
+              <FiSearch/>
+            </CardButton2>
             {info ? (
               <TitleWrapper
                 style={{
@@ -171,8 +181,8 @@ const Nav = ({ history }) => {
         {admin ?
           <TitleWrapper
               style={{
-                width: "700px",
-                marginLeft: "-62px"
+                width: "500px",
+                marginLeft: "-22px"
               }}
           >
             <CardBody className="select"
@@ -185,7 +195,6 @@ const Nav = ({ history }) => {
                     <label for="myshop">홈</label>
               </CardBody>
 
-              
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -218,8 +227,8 @@ const Nav = ({ history }) => {
           :
           <TitleWrapper
               style={{
-                width: "700px",
-                marginLeft: "-82px"
+                width: "400px",
+                marginLeft: "6px"
               }}
           >
             <CardBody className="select"
@@ -231,7 +240,6 @@ const Nav = ({ history }) => {
                 <input type="radio" id="myshop" name="navButton" />
                     <label for="myshop">홈</label>
               </CardBody>
-
               <CardBody className="select"
                 style={{ cursor: "pointer" }}
                 onClick={() => {

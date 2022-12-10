@@ -68,7 +68,7 @@ export const CardInput = styled.input`
   border-left: 0;
   transition: border-bottom-color 0.25s ease-in;
   &:focus {
-    border-bottom-color: #033a7a;
+    border-bottom-color: green;
     outline: 0;
   }
 `;
