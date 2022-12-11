@@ -77,10 +77,6 @@ const AdminLogin = ({}) => {
           </CardFieldset>
 
           <CardFieldset>
-            <CardLink to="/adminregister">관리자 회원가입</CardLink>
-          </CardFieldset>
-
-          <CardFieldset>
             <CardLink to="/login">관리자가 아닙니다.</CardLink>
           </CardFieldset>
         </CardBody>

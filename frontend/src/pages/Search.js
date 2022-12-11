@@ -2,6 +2,7 @@ import { CardWrapper, CardHeading } from "../components/Card";
 import styled from "styled-components";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { updateRecentStock } from "../components/clickStock";
 
 export const Title = styled.div`
   padding-top: 48px;
@@ -44,6 +45,7 @@ function PrintStock(data,navigate) {
   for (let i = 0; i < data.length; i++) {
     array.push(
       <Tr onClick={()=>{
+        updateRecentStock(data[i].code);
         navigate("/stockinfo", { state: { code: data[i].code } });
       }}>
         <Td2>{data[i].stock_name}</Td2>
