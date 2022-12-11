@@ -103,11 +103,13 @@ const MyPage = ({ history }) => {
   function addComma (data){
     if(data)
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    else return 0;
   }
 
   function fixdata (data){
     if(data)
     return data.toFixed(2);
+    else return 0;
   }
 
   function printboard(list){

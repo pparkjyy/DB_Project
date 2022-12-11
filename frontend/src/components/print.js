@@ -37,6 +37,13 @@ export const Print = ({ list }) => {
     function addComma (data){
       if(data)
       return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      else return 0;
+    }
+
+    function fixdata (data){
+      if(data)
+      return data.toFixed(2);
+      else return 0;
     }
 
     function printUstock(list){
@@ -50,9 +57,9 @@ export const Print = ({ list }) => {
             <Td2>{list[i].종목명}</Td2>
             <Td2>{addComma(list[i].현재가격)}</Td2>
             <Td2>{addComma(list[i].구매가격)}</Td2>
-            <Td2>{(list[i].평가손익).toFixed(2)}%</Td2>
+            <Td2>{fixdata(list[i].평가손익)}%</Td2>
             <Td2>{addComma(list[i].전일대비)}</Td2>
-            <Td2>{(list[i].전일대비비율).toFixed(2)}%</Td2>
+            <Td2>{fixdata(list[i].전일대비비율)}%</Td2>
           </Tr>
         )
       }

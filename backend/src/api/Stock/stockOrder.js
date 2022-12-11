@@ -50,6 +50,7 @@ export default async (app, connection) => {
               [id, code],
               (error) => {
                 if (error) console.log(error);
+                if(Number(data[0].num)-Number(num)){
                 connection.query(
                   "INSERT into STOCK_U(id, code, stock_num, stock_price) values(?,?,?,?);",
                   [id, code, Number(data[0].num)-Number(num), data[0].price],
@@ -58,6 +59,8 @@ export default async (app, connection) => {
                     res.send({ result: true, msg: "판매 완료" });
                   }
                 );
+                }
+                else res.send({ result: true, msg: "판매 완료" });
               }
             )
           )
